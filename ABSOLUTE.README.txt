@@ -1,0 +1,25 @@
+# TAB = 4 
+
+if you want to compile the kernel, follow the steps below:
+
+# WINDOWS USERS: the follow steps are not suitable for you,
+#	we will provide you some prebuilt binaries
+
+1.check prerequisites:
+  (1) GNU binutils: make ld as
+  (2) C and C++ compiler: gcc g++
+  (3) grub: you need grub installed on your host OS,
+            or you can also use prebuilt grub2 loader(g2ldr)
+  (4) genisoimage: make iso image(a replacement of mkisofs)
+  (5) qemu/bochs: test kernel on virtual machine
+
+2.instructions
+  (1) make boot
+      make grub2 boot loader(g2ldr)
+  
+  (2) make image
+      make the iso image
+      
+  (3) make run
+      test the kernel in virtual machine(qemu)
+  

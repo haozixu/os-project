@@ -1,0 +1,85 @@
+
+Discarded input sections
+
+ .comment       0x0000000000000000       0x1e boot.2.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 boot.2.o
+ .eh_frame      0x0000000000000000       0x40 boot.2.o
+
+内存配置
+
+名称           来源             长度             属性
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+                0xffffff8000000000                KERNEL_PAGE_OFFSET = 0xffffff8000000000
+                0x0000000000100000                KERNEL_PHYSICAL_BASE = 0x100000
+                0xffffff8000100000                KERNEL_BASE = (KERNEL_PAGE_OFFSET + KERNEL_PHYSICAL_BASE)
+                0x0000000000100000                . = KERNEL_PHYSICAL_BASE
+
+.boot           0x0000000000100000      0x818 load address 0x0000000000000000
+ *(.boot*)
+ .boot          0x0000000000100000       0xe5 boot.o
+                0x0000000000100040                _start
+ *fill*         0x00000000001000e5        0xb 
+ .boot.text     0x00000000001000f0      0x310 boot.2.o
+                0x00000000001000f0                c_start
+ .boot.stack    0x0000000000100400      0x400 boot.2.o
+                0x0000000000100400                temp_stack
+ .boot.data     0x0000000000100800       0x18 boot.2.o
+                0x0000000000101000                . = ALIGN (0x1000)
+                0xffffff8000101000                . = (. + KERNEL_PAGE_OFFSET)
+                0xffffff8000101000                _text = .
+
+.text           0xffffff8000101000        0x0 load address 0x0000000000001000
+ *(.text*)
+ .text          0xffffff8000101000        0x0 boot.o
+ .text          0xffffff8000101000        0x0 boot.2.o
+                0xffffff8000101000                . = ALIGN (0x8)
+                0xffffff8000101000                _etext = .
+                0xffffff8000101000                . = ALIGN (0x1000)
+                0xffffff8000101000                _data = .
+
+.data           0xffffff8000101000        0x0 load address 0x0000000000001000
+ *(.data)
+ .data          0xffffff8000101000        0x0 boot.o
+ .data          0xffffff8000101000        0x0 boot.2.o
+                0xffffff8000101000                . = ALIGN (0x10)
+                0xffffff8000101000                _edata = .
+                0xffffff8000101000                _bss = .
+
+.bss            0xffffff8000101000        0x0 load address 0x0000000000001000
+ *(.bss)
+ .bss           0xffffff8000101000        0x0 boot.o
+ .bss           0xffffff8000101000        0x0 boot.2.o
+                0xffffff8000101000                . = ALIGN (0x8)
+                0xffffff8000101000                _ebss = .
+                0xffffff8000101000                _rodata = .
+
+.rodata
+ *(.rodata*)
+                0xffffff8000101000                _erodata = .
+                0xffffff8000101000                . = ALIGN (0x1000)
+                0xffffff8000101000                __kernel_end = .
+
+.init           0xffffff8000101000        0x0 load address 0x0000000000001000
+ *(.ctor)
+                0xffffff8000101000                __initcall_start = .
+ *(.initcall0)
+ *(.initcall1)
+ *(.initcall2)
+ *(.initcall3)
+ *(.initcall4)
+                0xffffff8000101000                __initcall_end = .
+ *(.init.text)
+                0xffffff8000101000                . = ALIGN (0x8)
+ *(.init.data)
+                0xffffff8000101000                . = ALIGN (0x1000)
+                0x0000000000101000                __multiboot_load_end = (. - KERNEL_PAGE_OFFSET)
+
+/DISCARD/
+ *.*()
+LOAD boot.o
+LOAD boot.2.o
+OUTPUT(kernel.bin binary)
