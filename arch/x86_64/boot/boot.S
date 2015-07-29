@@ -3,17 +3,15 @@
 #define ASM_FILE
 #include <multiboot2.h>
 
-.section ".boot", "ax" 
+.section ".boot.head", "ax" 
 
 .global _start
 
-.extern temp_stack
 .extern c_start
 
 .extern __multiboot_load_end
 .extern KERNEL_BASE
 # defined in build/kernel.lds 
-
 
 multiboot_header: # see multiboot2 spec
   .long MULTIBOOT2_HEADER_MAGIC                 # magic
@@ -63,8 +61,7 @@ _start:
 	movw %ds, %ax
 	movw %ax, %es     # make sure they're the same		
 
-	movl $temp_stack, %esp
-	addl $1024, %esp
+	movl $temp_stack_top, %esp
 	
 	movl (%ebx), %ecx # ecx: the total size of bootinfo
 	shrl $2, %ecx     # ecx /= 4
@@ -135,6 +132,7 @@ message:
   .asciz "[halt]:Your machine do not support x86_64. Please consider changing your machine."
 #endif /* DO_ARCH_CHECK */
 
+/*
 #	subroutines
 #   @print
 #	%esi -- the address of the string
@@ -152,6 +150,7 @@ print_with_color:
 2:
 	movl %edi, print_pos
 	ret
+*/
 
 #   @clear_4k_page
 #   %esi -- the page address(ALIGNED!)
@@ -172,9 +171,9 @@ clear_4k_page:
 	jnz 1b
 	ret
 
+/*
 print_pos:
-  .long 0xb8000
-
+ .long 0xb8000
 
 hex_val_table32:
   .ascii "0x"
@@ -183,4 +182,9 @@ gdt64:
   .quad 0                  # dummy descriptor
   .quad 0x00209a0000000000 # code 64
   .quad 0x0020920000000000 # data 64
+*/
+
+.section ".boot.stack", "aw"
+  .fill 0x400, 1, 0
+temp_stack_top:
 

@@ -9,7 +9,10 @@ KERNEL_BASE = KERNEL_PAGE_OFFSET + KERNEL_PHYSICAL_BASE;
 SECTIONS {
 	. = KERNEL_PHYSICAL_BASE;
 	.boot : AT( ADDR(.boot) - KERNEL_PHYSICAL_BASE) {
-		*(.boot*)
+		*(.boot.head)
+		*(.boot.text)
+		*(.boot.data)
+		*(.boot.stack)
 	}
 	. = ALIGN(4K);
 

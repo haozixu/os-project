@@ -6,6 +6,7 @@
 
 #include <boot/multiboot2.h>
 #include <compiler.h>
+#include <stdarg.h>
 #include <stdint.h>
 
 #define __boot __section(".boot.text")
@@ -22,11 +23,22 @@ static __boot void itoa(char *buf, int base, int32_t d);
 static __bootdata char msg[] = "hello! %x\n";
 static __bootdata char null_str[] = "(NULL)";
 
-__section(".boot.stack") char temp_stack[1024] = {};
-
-void c_start(void)
+void __noreturn c_start(void)
 {
 	printf(msg, 0xdeadbeef);
+
+	/*
+	char *p;
+	char buf[20];
+
+	putchar('a', 0x0e);
+
+	itoa(buf, 'x', 0xdeadbeef);
+
+	for (p = buf;*p;p++) {
+		putchar(*p, 0x0e);
+	}
+	*/
 
 loop:
 	goto loop;
@@ -77,20 +89,21 @@ static void itoa(char *buf, int base, int32_t d)
 
 static void printf(const char *fmt, ...)
 {
-	char **arg = (char **) &fmt;
+	va_list ap;
 	int c;
 	char buf[16];
 
-	++arg;
+	va_start(ap, fmt);
 
 	while ((c = *fmt++) != 0) {
 		if (c != '%')
 			putchar(c, 0x0f);
 		else {
 			char *p, *p2;
-			// int pad0 = 0, pad = 0;
+			//int pad0 = 0, pad = 0;
 
 			c = *fmt++;
+			
 			/*
 			if (c == '0') {
 				pad0 = 1;
@@ -108,30 +121,32 @@ static void printf(const char *fmt, ...)
 			case 'd':
 			case 'u':
 			case 'x':
-				itoa(buf, c, *((int *) arg++));
+				itoa(buf, c, va_arg(ap, int));
 				p = buf;
 				goto string;
 				break;
 
 			case 's':
-				p = *arg++;
+				p = va_arg(ap, char*);
 				if (!p)
 					p = null_str;
 
 			string:
-				for (p2 = p; *p2; p2++);
+				//for (p2 = p; *p2; p2++);
 				//for (; p2 < p + pad; p2++)
 				//	putchar(pad0 ? '0' : ' ', 0x0e);
-				while (*p++)
-					putchar(*p, 0x0e);
+				while (*p)
+					putchar(*p++, 0x0e);
 				break;
 
 			default:
-				putchar(*((int *) arg++), 0x0f);
+				putchar(va_arg(ap, int), 0x0f);
 				break;
 			}
 		}
 	}
+
+	va_end(ap);
 }
 
 

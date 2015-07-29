@@ -28,7 +28,7 @@ kernel_depend:
 
 kernel: $(OUTPUT)/kernel.bin
 
-$(OUTPUT)/kernel.bin: /dev/random
+$(OUTPUT)/kernel.bin: build/kernel.a build/boot.o build/boot.2.o
 	cd build; make all
 
 boot:
