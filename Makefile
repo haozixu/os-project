@@ -11,11 +11,16 @@ OUTPUT_TARGET = $(OUTPUT)/kernel.bin $(OUTPUT)/g2ldr
 CC = gcc -std=c99
 CXX = g++ -std=c++11
 
-.PHONY: run debug image kernel_depend kernel boot bootloader clean
+.PHONY: all run debug image kernel_depend kernel boot bootloader clean
 
 image: $(OUTPUT_TARGET)
 	genisoimage -R -no-emul-boot -boot-info-table -boot-load-size 4 \
 	-b g2ldr -o cdimage.iso $(OUTPUT) 
+
+all: *
+	make boot
+	make kernel
+	make image
 
 run: cdimage.iso
 	qemu-system-x86_64 -cdrom cdimage.iso -boot d
