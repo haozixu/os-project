@@ -23,7 +23,8 @@ all: *
 	make image
 
 run: cdimage.iso
-	qemu-system-x86_64 -cdrom cdimage.iso -boot d
+	qemu-system-x86_64 -cdrom cdimage.iso -boot d \
+	-m 4G -cpu Haswell
 
 debug: cdimage.iso
 	bochs -q -f build/config.bxrc

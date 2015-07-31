@@ -14,6 +14,8 @@
 #define likely(x) __builtin_expect(!!(x), 1)
 #define unlikely(x) __builtin_expect(!!(x), 0)
 
+#define is_constant(x) __builtin_constant_p(x)
+
 #define __always_inline __attribute__((always_inline)) inline
 #define __force_inline __attribute__((always_inline)) inline
 #define __noinline __attribute__((noinline))
