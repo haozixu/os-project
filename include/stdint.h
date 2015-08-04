@@ -1,7 +1,7 @@
 /*
-*	stdint.h
-*	
-*	standard integer types
+ *	include/stdint.h
+ *
+ *	standard integer types
  */
 #pragma once
 

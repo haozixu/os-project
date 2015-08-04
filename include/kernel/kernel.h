@@ -1,5 +1,5 @@
 /*
- *	kernel/kernel.h
+ *	include/kernel/kernel.h
  *
  *	...
  */

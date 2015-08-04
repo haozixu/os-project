@@ -3,14 +3,13 @@
 #define ASM_FILE
 #include <multiboot2.h>
 
-.section ".boot.head", "ax" 
+.section ".multiboot.head", "ax" 
 
 .global _start
 
 .extern c_start
 
 .extern __multiboot_load_end
-.extern KERNEL_BASE
 # defined in build/kernel.lds 
 
 multiboot_header: # see multiboot2 spec
@@ -66,7 +65,7 @@ _start:
 	movw %ds, %ax
 	movw %ax, %es		# make sure they're the same		
 
-	movl $temp_stack_top, %esp
+	movl $0xa000, %esp	# set stack pointer
 	
 	movl (%ebx), %ecx	# ecx: the total size of bootinfo
 	shrl $2, %ecx		# ecx /= 4
@@ -79,9 +78,12 @@ _start:
 						# clear CR0.EM Coprocessor Emulation
 	orl $2, %eax		# set CR0.MP Coprocessor Monitoring
 	movl %eax, %cr0
+
 	movl %cr4, %eax
 	orl $0x600, %eax	# set CR4.OSFXSR & CR4.OSXMMEXCPT
 	movl %eax, %cr4
+
+	finit
 
 #ifdef DO_ARCH_CHECK
 	pushfl
@@ -118,8 +120,4 @@ die:
 message:
   .asciz "[halt]:Your machine do not support x86_64. Please consider changing your machine."
 #endif
-
-.section ".boot.stack", "aw"
-  .fill 0x400, 1, 0
-temp_stack_top:
 

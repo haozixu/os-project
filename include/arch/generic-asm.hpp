@@ -1,7 +1,7 @@
 /*
- * include/arch/generic-asm.hpp
+ *	include/arch/generic-asm.hpp
  *
- * miscellaneous asm stuff
+ *	miscellaneous asm stuff
  */
 #pragma once
 

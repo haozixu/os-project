@@ -5,6 +5,7 @@ ffffff8000101000 T _bss
 ffffff8000101000 T _data
 ffffff8000101000 T _ebss
 ffffff8000101000 T _edata
+ffffff8000101000 T _end
 0000000000100038 t entry_tag_end
 0000000000100028 t entry_tag_start
 ffffff8000101000 T _erodata
@@ -34,5 +35,4 @@ ffffff8000000000 A KERNEL_PAGE_OFFSET
 000000000010009d t putchar
 ffffff8000101000 T _rodata
 0000000000100040 T _start
-0000000000100808 t temp_stack_top
 ffffff8000101000 T _text

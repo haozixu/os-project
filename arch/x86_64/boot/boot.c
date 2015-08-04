@@ -8,6 +8,11 @@
 #include <compiler.h>
 #include <stdarg.h>
 
+#include <paging.h>
+#include <msr-index.h>
+#include <asm/system.h>
+#include <asm/msr.h>
+
 #define __boot __section(".boot.text")
 #define __bootdata __section(".boot.data")
 #define __fastcall __attribute__((fastcall))
@@ -117,6 +122,23 @@ void __noreturn c_start(void)
 			break;
 		}
 	}
+	
+	/*
+	asm volatile(
+		"movl $0xc0000080, %%ecx \n\t"
+		"rdmsr \n\t"
+		"orl $0x901, %%eax \n\t"
+		"wrmsr \n\t"
+
+		"movl $0x2000, %%eax \n\t"
+		"movl %%eax, %%cr3 \n\t"
+
+		"movl %%cr0, %%eax \n\t"
+		"orl $0x80000000, %%eax \n\t"
+		"movl %%eax, %%cr0 \n\t"
+	);
+	*/
+
 halt:
 	asm("hlt");
 	goto halt;

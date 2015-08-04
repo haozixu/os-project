@@ -1,7 +1,7 @@
 /*
- * 	init.h
+ * 	include/kernel/init.h
  *
- * 	should this file become a part of compiler.h or standalone kernel/init.h ?
+ * 	should this file become a part of compiler.h?
  */
 #pragma once
 
@@ -14,7 +14,7 @@ typedef void (*constructor_t)(void);
 
 #define __initcall __attribute__((section(".init.text"), constructor))
 
-#define __register_initcall(level, f) \
+#define register_initcall(level, f) \
 		static initcall_t __initcall_##f \
 		__attribute__((used, section(".initcall" level)) = f
 

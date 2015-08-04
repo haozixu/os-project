@@ -1,7 +1,7 @@
 /*
  *	kernel/config.h
  *	
- *	MUST INCLUDE!
+ *	kernel configuration
  */
 #pragma once
 
@@ -9,8 +9,9 @@
 
 #include <arch/arch.h>
 
-//#define __ARCH__ __x86_64__
+#define CONFIG_SMP
+#define CONFIG_CUI
+//#define CONFIG_GUI
+#define CONFIG_FAST_LIB_ROUTINE
+//#define CONFIG_KERNEL_MAP_ALL_MEM
 
-#define SMP
-#define DEFAULT_CUI
-#define FAST_LIB_ROUTINE

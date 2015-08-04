@@ -2,55 +2,21 @@ OUTPUT_FORMAT("elf64-x86-64", "elf64-x86-64", "elf64-x86-64")
 OUTPUT_ARCH(i386:x86-64)
 ENTRY(_start)
 
-KERNEL_PAGE_OFFSET = 0xffffff8000000000;
-KERNEL_PHYSICAL_BASE = 0x100000;
-KERNEL_BASE = KERNEL_PAGE_OFFSET + KERNEL_PHYSICAL_BASE;
+KERNEL_PAGE_OFFSET = 0xffffff0000000000;
+PHYS_KERNEL_BASE = 0x100000;
+KERNEL_BASE = KERNEL_PAGE_OFFSET + PHYS_KERNEL_BASE;
 
 SECTIONS {
 	. = KERNEL_PHYSICAL_BASE;
 	.boot : AT( ADDR(.boot) - KERNEL_PHYSICAL_BASE) {
-		*(.boot.head)
+		*(.multiboot.head)
 		*(.boot.text)
 		*(.boot.data)
-		*(.boot.stack)
 	}
 	. = ALIGN(4K);
 
 	. += KERNEL_PAGE_OFFSET;
 	
-	_text = .;
-	.text : AT( ADDR(.text) - KERNEL_BASE) {
-		*(.text*)
-	}
-	. = ALIGN(8);
-	_etext = .;
-
-	. = ALIGN(4K);
-
-	_data = .;
-	.data : AT( ADDR(.data) - KERNEL_BASE) {
-		*(.data)
-	}
-	. = ALIGN(16);
-	_edata = .;
-
-	_bss = .;	
-	.bss : AT( ADDR(.bss) - KERNEL_BASE) {
-		*(.bss)
-	}
-	. = ALIGN(8);
-	_ebss = .;
-
-	_rodata = .;
-	.rodata : AT( ADDR(.rodata) - KERNEL_BASE) {
-		*(.rodata*)
-	}
-	_erodata = .;
-
-	. = ALIGN(4K);
-	
-	__kernel_end = .;
-
 	.init : AT( ADDR(.init) - KERNEL_BASE) {
 		*(.ctor)
 
@@ -78,6 +44,41 @@ SECTIONS {
 	*/
 
 	. = ALIGN(4K);
+	
+	_text = .;
+	.text : AT( ADDR(.text) - KERNEL_BASE) {
+		*(.text*)
+	}
+	. = ALIGN(8);
+	_etext = .;
+
+	. = ALIGN(4K);
+	
+	_rodata = .;
+	.rodata : AT( ADDR(.rodata) - KERNEL_BASE) {
+		*(.rodata*)
+	}
+	_erodata = .;
+
+	_data = .;
+	.data : AT( ADDR(.data) - KERNEL_BASE) {
+		*(.data)
+	}
+	. = ALIGN(16);
+	_edata = .;
+
+	_bss = .;	
+	.bss : AT( ADDR(.bss) - KERNEL_BASE) {
+		*(.bss)
+	}
+	. = ALIGN(8);
+	_ebss = .;
+
+	. = ALIGN(4K);
+	
+	_end = .;
+	
+	__kernel_end = .;
 	
 	__multiboot_load_end = . - KERNEL_PAGE_OFFSET;
 

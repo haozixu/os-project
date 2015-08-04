@@ -1,6 +1,7 @@
 /*
- *	kernel/types.h
+ *	include/kernel/types.h
  *	
+ *	...
  */
 #pragma once
 

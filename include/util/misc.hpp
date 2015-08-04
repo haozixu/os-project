@@ -1,5 +1,5 @@
 /*
- *	misc.hpp
+ *	include/util/misc.hpp
  *
  *	...
  */
@@ -10,9 +10,9 @@
 
 #ifdef USE_MACRO // may be found in kernel/config.h
 
-#	define max(a, b) ((a) > (b) ? (a) : (b))
-#	define min(a, b) ((a) < (b) ? (a) : (b))
-#	define array_length(arr) (sizeof(arr) / sizeof(arr[0]))
+#define max(a, b) ((a) > (b) ? (a) : (b))
+#define min(a, b) ((a) < (b) ? (a) : (b))
+#define array_length(arr) (sizeof(arr) / sizeof(arr[0]))
 
 #else // not defined USE_MACRO
 

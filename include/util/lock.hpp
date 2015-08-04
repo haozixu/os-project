@@ -1,5 +1,5 @@
 /*
- *	lock.hpp
+ *	include/util/lock.hpp
  *	
  *	lock interface (not necessary to include)
  */

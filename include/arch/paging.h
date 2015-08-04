@@ -1,0 +1,38 @@
+/*
+ *	include/arch/paging.h
+ *
+ *	paging related stuff
+ */
+#pragma once
+
+#include <arch/arch.h>
+
+#ifdef __x86_64__
+
+#include <../arch/x86_64/include/paging.h>
+
+#define PAGE_OFFSET 0xffffff0000000000
+/*
+ * actually, KERNEL_BASE = PHYS_KERNEL_BASE + PAGE_OFFSET
+ * so equally PAGE_OFFSET = KERNEL_PAGE - PHYS_KERNEL_BASE
+ * MAKE SURE THE RELATIONSHIP IS CORRECT!
+ */
+
+#define PHYS_PML4T_BASE 0x2000
+#define PHYS_PDPT_USER_BASE 0x3000
+#define PHYS_PDPT_KERNEL_BASE 0x4000
+#define PHYS_PDPT_RESERVED_BASE 0x5000
+#define PHYS_PDT_USER_BASE 0x6000 // length 8K
+#define PHYS_PDT_SYSTEM_BASE 0x20000
+#define PHYS_PT_BASE 0x1000000
+
+#define PML4T_BASE (PHYS_PML4T_BASE + PAGE_OFFSET)
+#define PDPT_USER_BASE (PHYS_PDPT_USER_BASE + PAGE_OFFSET)
+#define PDPT_KERNEL_BASE (PHYS_PDPT_KERNEL_BASE + PAGE_OFFSET)
+#define PDPT_RESERVED_BASE (PHYS_PDPT_RESERVED_BASE + PAGE_OFFSET)
+#define PDT_USER_BASE (PHYS_PDT_USER_BASE + PAGE_OFFSET)
+#define PDT_SYSTEM_BASE (PHYS_PDT_SYSTEM_BASE + PAGE_OFFSET)
+#define PT_BASE (PHYS_PT_BASE + PAGE_OFFSET)
+
+#endif
+

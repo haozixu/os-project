@@ -1,7 +1,7 @@
 /*
- * multiboot2.h
+ *	multiboot2.h
  *
- *
+ *	multiboot2(v1.6) specification
  */
 #ifndef MULTIBOOT_HEADER
 #define MULTIBOOT_HEADER 1

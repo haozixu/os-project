@@ -5,7 +5,7 @@ BOOT_OBJS = head.o boot.o
 CC = gcc
 OBJCOPY = objcopy
 
-CFLAGS = -m32 -Os -ffreestanding -I../../include
+CFLAGS = -m32 -Os -ffreestanding -I../../include -Iinclude
 ASMFLAGS = -I../../include/boot
 
 .PHONY: boot clean
