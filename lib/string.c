@@ -1,7 +1,7 @@
 /*
- * string.c
+ *	string.c
  *
- * "stupid string routines"
+ *	"stupid string routines"
  */
 #include <stddef.h>
 

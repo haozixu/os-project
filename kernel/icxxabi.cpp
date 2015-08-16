@@ -1,5 +1,5 @@
 /*
- *	icxxabi.cpp
+ *	kernel/icxxabi.cpp
  *
  *	the stuff about C++ ABI(Itanium), things about global constructing
  *	can be found in init.cpp

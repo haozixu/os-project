@@ -2,7 +2,7 @@
 
 OUTPUT = cdrom
 
-BOOT_OBJS = head.o boot.o
+BOOT_OBJS = boot.o
 KERNEL_OBJS = kernel.a
 
 LD = ld

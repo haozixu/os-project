@@ -9,9 +9,16 @@
 
 #include <arch/arch.h>
 
-#define CONFIG_SMP
-#define CONFIG_CUI
-//#define CONFIG_GUI
-#define CONFIG_FAST_LIB_ROUTINE
-//#define CONFIG_KERNEL_MAP_ALL_MEM
+#define YES 1
+#define NO 0
+#define PARTIAL 2
+
+#define CONFIG_SMP YES
+#define CONFIG_GUI YES
+#define CONFIG_DEBUG PARTIAL
+#define CONFIG_DEBUG_SERIAL YES
+#define CONFIG_FAST_LIB_ROUTINE YES
+#define CONFIG_KERNEL_MAP_ALL_MEM NO
+#define CONFIG_KERNEL_FONT YE
+#define CONFIG_USE_MACRO NO
 

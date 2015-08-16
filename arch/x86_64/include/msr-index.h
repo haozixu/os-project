@@ -119,4 +119,5 @@
 #define IA32_VMX_CR4_FIXED0             0x488 
 #define IA32_VMX_CR4_FIXED1             0x489 
 #define IA32_VMX_VMCS_ENUM              0x48A 
-#define IA32_VMX_PROCBASED_CTLS2        0x48B 
+#define IA32_VMX_PROCBASED_CTLS2        0x48B
+

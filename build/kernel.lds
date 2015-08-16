@@ -7,11 +7,9 @@ PHYS_KERNEL_BASE = 0x100000;
 KERNEL_BASE = KERNEL_PAGE_OFFSET + PHYS_KERNEL_BASE;
 
 SECTIONS {
-	. = KERNEL_PHYSICAL_BASE;
-	.boot : AT( ADDR(.boot) - KERNEL_PHYSICAL_BASE) {
-		*(.multiboot.head)
-		*(.boot.text)
-		*(.boot.data)
+	. = PHYS_KERNEL_BASE;
+	.boot : AT( ADDR(.boot) - PHYS_KERNEL_BASE) {
+		*(.boot)
 	}
 	. = ALIGN(4K);
 

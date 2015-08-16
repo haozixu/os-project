@@ -1,7 +1,7 @@
 /*
  *	include/util/lock.hpp
  *	
- *	lock interface (not necessary to include)
+ *	lock interface
  */
 #pragma once
 
@@ -48,46 +48,47 @@ class locker {
 	}
 };
 
-class fifo_spinlock: __lockable {
+class fifo_spinlock: public __lockable {
+  private:
   	utility::atomic<int> val;
   	
   	union lock_value {
   		int v;
   		struct {
   			short owner, next;
-		} u;
+		};
 		
 		lock_value(int i) { v = i; }
 	};
 	  
   public:
-  	inline void reset() { val = 0;}
+  	void reset() { val = 0;}
   	
   	fifo_spinlock { reset(); }
 	
-	inline bool is_locked() const noexcept
+	bool is_locked() const noexcept
 	{
 		lock_value&& tmp = val.load();
-		return tmp.u.owner != tmp.u.next;
+		return tmp.owner != tmp.next;
 	}
 	
-  	inline void lock() override noexcept
+  	void lock() override noexcept
 	{
 		lock_value inc = val.fetch_add(1 << BITS_PER_WORD); // ++next
-		while (likely(inc.u.owner != inc.u.next)) {
+		while (likely(inc.owner != inc.next)) {
 			relax_cpu();
-			inc.u.owner = static_cast<short>(val); // owner
+			inc.owner = static_cast<short>(val); // owner
 		}
 	}
 	
-	inline void unlock() override noexcept
+	void unlock() override noexcept
 	{
 		++val; // ++owner
 	}
 	
-	inline void try_lock() override noexcept
+	void try_lock() override noexcept
 	{
-		if(is_locked())
+		if (this->is_locked())
 			return false;
 		val += (1 << BITS_PER_WORD);
 		return true;

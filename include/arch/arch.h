@@ -7,7 +7,7 @@
 
 /*
 #if ARCH == x86_64
-#define __x86_64
+#define __x86_64__
 #else
 #endif
 */

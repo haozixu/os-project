@@ -34,7 +34,7 @@ kernel_depend:
 
 kernel: $(OUTPUT)/kernel.bin
 
-$(OUTPUT)/kernel.bin: build/kernel.a build/head.o build/boot.o
+$(OUTPUT)/kernel.bin: build/kernel.a build/boot.o
 	cd build; make all
 
 boot:
