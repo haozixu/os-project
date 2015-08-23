@@ -12,7 +12,7 @@ extern initcall_t __initcall_start, __initcall_end;
 
 inline void __do_global_ctors(void)
 {
-	size_t nptrs = __CTOR_LIST__[0];
+	size_t nptrs = reinterpret_cast<size_t>(__CTOR_LIST__[0]);
 
 	for (size_t i = nptrs; i >= 1; --i)
 		__CTOR_LIST__[i] ();

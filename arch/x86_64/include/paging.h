@@ -14,7 +14,7 @@ typedef struct pml4e {
 		uint64_t val;
 		struct {
 			unsigned p: 1, rw: 1, us: 1, pwt: 1, pcd: 1, a: 1, zero: 6;
-			unsigned pdpt_base: 36, reserved: 15, xd: 1; 
+			unsigned long pdpt_base: 36, reserved: 15, xd: 1; 
 		}__packed;
 	};
 }__packed pml4e_t;
@@ -25,7 +25,7 @@ typedef struct pdpte {
 		uint64_t val;
 		struct {
 			unsigned p: 1, rw: 1, us: 1, pwt: 1, pcd: 1, a: 1, zero: 6;
-			unsigned pdt_base: 36, reserved: 15, xd: 1; 
+			unsigned long pdt_base: 36, reserved: 15, xd: 1; 
 		}__packed;
 	};
 }__packed pdpte_t;
@@ -38,11 +38,11 @@ typedef struct pde {
 			union {
 				// 2M page
 				struct {
-					unsigned g: 1, zero0: 3, pat: 1, zero0: 8, page_frame: 27;
+					unsigned g: 1, zero0: 3, pat: 1, zero1: 8, page_frame: 27;
 				}__packed;
 				// non 2M page
 				struct {
-					unsigned zero1: 4, pt_base: 36;
+					unsigned long zero2: 4, pt_base: 36;
 				}__packed;
 			};
 			unsigned reserved: 15, xd: 1;
@@ -55,7 +55,7 @@ typedef struct pte {
 		uint64_t val;
 		struct {
 			unsigned p: 1, rw: 1, us: 1, pwt: 1, pcd: 1, a: 1, d: 1, pat: 1;
-			unsigned g: 1, zero: 3, page_frame: 36, reserved: 16, xd: 1;
+			unsigned long g: 1, zero: 3, page_frame: 36, reserved: 16, xd: 1;
 		}__packed;
 	};
 }__packed pte_t;

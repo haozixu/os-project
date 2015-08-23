@@ -41,6 +41,10 @@ SECTIONS {
 	}
 	*/
 
+	.rela : AT( ADDR(.rela) - KERNEL_BASE) {
+		*(.rela*)
+	}
+
 	. = ALIGN(4K);
 	
 	_text = .;

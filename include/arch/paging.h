@@ -9,7 +9,7 @@
 
 #ifdef __x86_64__
 
-#include <../arch/x86_64/include/paging.h>
+#include <paging.h>
 
 #define PAGE_OFFSET 0xffffff0000000000
 /*

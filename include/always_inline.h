@@ -5,4 +5,4 @@
  */
 #pragma once
 
-#define inline __attribute__((always_inline) inline
+#define inline __attribute__((always_inline)) inline

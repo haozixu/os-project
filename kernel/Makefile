@@ -1,15 +1,36 @@
 # kernel makefile
 
 CXX = g++ -std=c++11
+CXXFLAGS = -ffreestanding -nostdlib -fno-strict-aliasing -I../include
 
-CXXFLAGS = -m64 -O2 -ffreestanding -fno-exception -fno-rtti -fno-strict-aliasing -mno-red-zone -mcmodel=kernel -nostdlib -DARCH=x86_64
+# configurations
+ARCH = x86_64
+OPTIMIZE_LEVEL = SIZE
+HAVE_EXT_FEATURE = NO
 
-.PHONY: all
+ifeq ($(ARCH),x86_64)
+	CXXFLAGS += -m64 -I../arch/x86_64/include -DARCH=x86_64 -mcmodel=large -mno-red-zone
+endif
+
+ifeq ($(OPTIMIZE_LEVEL),SIZE)
+	CXXFLAGS += -Os
+endif
+
+ifeq ($(HAVE_EXT_FEATURE),NO)
+	CXXFLAGS += -fno-exceptions -fno-rtti
+endif
+
+KERNEL_SRC = $(wildcard *.cpp) $(wildcard debug/*.cpp)
+KERNEL_OBJS = $(patsubst %.cpp,%.o,$(KERNEL_SRC))
+
+.PHONY: all clean
 
 all: kernel.a
+	cp $^ ../build/
 
-%.o: %.cpp
-	$(CXX) $(CXXFLAGS) -c $<
+kernel.a: $(KERNEL_OBJS)
+	ar rcs $@ $(KERNEL_OBJS)
 
-kernel.a: *.o
-	ar rcs $@ $^
+clean:
+	rm -f kernel.a $(KERNEL_OBJS)
+

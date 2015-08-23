@@ -7,7 +7,7 @@
 
 #include <stdint.h>
 #include <compiler.h>
-#include <kernel/paging.h>
+#include <arch/paging.h>
 
 struct __bios_data_area {
 	// note: see www.bioscentral.com/misc/bda.htm
@@ -41,3 +41,4 @@ struct __bios_data_area {
 }__packed; // 256 bytes
 
 const __bios_data_area* const bios_data_area = reinterpret_cast<decltype(bios_data_area)>(0x400 + PAGE_OFFSET);
+

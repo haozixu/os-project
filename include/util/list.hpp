@@ -13,10 +13,7 @@ struct list {
 	list* next;
 	list* prev;
 
-	list()
-	{
-		next = prev = this;
-	}
+	list() : next(this), prev(this) {}
 
 	enum init_value {
 		NO_INIT
@@ -186,7 +183,7 @@ inline void list::foreach(Function f)
 template<typename T, size_t offset>
 inline T& list::container()
 {
-	char* tmp = const_cast<char*>(reinterpret_cast<const char*>(this));
+	char* tmp = const_cast<char*>(reinterpret_cast<const char*>(&next));
 	tmp -= offset;
 	return static_cast<T&>(*reinterpret_cast<T*>(tmp));
 }

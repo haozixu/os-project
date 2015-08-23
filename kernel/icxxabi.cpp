@@ -23,7 +23,7 @@ extern "C" {
 
 	int __cxa_atexit(void (*f)(void *), void *object, void *)
 	{  // register a destructor function
-		if (__atexit_function_count >= MAX_ATEXIT_FUNCTION_COUNT
+		if (__atexit_function_count >= MAX_ATEXIT_FUNCTION_COUNT)
 			return -1;
 
 		__atexit_functions[__atexit_function_count++] =

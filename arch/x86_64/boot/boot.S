@@ -5,10 +5,10 @@
 
 .section ".boot", "ax"
 
-.global start
-.type start, @function
+.global _start
+.type _start, @function
 
-#.extern k_start
+.extern __kernel_pre_start
 # .extern _ZN6kernel5startEv
 #.extern phys_pdt_system_base
 
@@ -42,7 +42,7 @@ entry_tag_start:
     .short MULTIBOOT_HEADER_TAG_ENTRY_ADDRESS
     .short MULTIBOOT_HEADER_TAG_OPTIONAL
     .long entry_tag_end - entry_tag_start
-    .long start
+    .long _start
     .long 0
 entry_tag_end:
 
@@ -76,7 +76,7 @@ gdt_ptr:
 
 .align 64
 
-start:
+_start:
 #ifdef DO_BOOTLOADER_CHECK
     cmpl $0x36d76289, %eax
     je 1f
@@ -185,6 +185,8 @@ start64:
     addq %rax, %rsp         # adjust rsp
 
     popq %rsi
+
+	jmp __kernel_pre_start
 
     cli
     hlt

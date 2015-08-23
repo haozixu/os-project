@@ -1,2 +1,4 @@
 */.directory
-update-github.sh
+*.o
+cdrom/*
+cdimage.iso

@@ -12,8 +12,8 @@
 
 class serial_port {
   public:
-  	const uint16_t COM1 = 0x3f8;
-	const uint16_t COM2 = 0x2f8;
+  	static const uint16_t COM1 = 0x3f8;
+	static const uint16_t COM2 = 0x2f8;
   	/* ctor: @port: I/O port number
 	 * COM1: 0x3f8
 	 * COM2: 0x2f8
@@ -30,7 +30,7 @@ class serial_port {
 		outb(port + 1, 0x00);    //                  (high byte)
 		outb(port + 3, 0x03);    // 8 bits, no parity, one stop bit
 		outb(port + 2, 0xC7);    // Enable FIFO, clear them, with 14-byte threshold
-		outb(port + 4, 0x0B);    // IRQs enabled, RTS/DSR set
+		// outb(port + 4, 0x0B);    // IRQs enabled, RTS/DSR set
 		// note: should we have IRQs enabled?
 	}
 	
@@ -60,14 +60,14 @@ class serial_port {
 		return inb(port_addr + 5) & 0x20;
 	}
 	
-	void write(char data)
+	void write(const char data)
 	{
 		while (!transimit_is_empty())
 			pause(); // polling
-		outb(port_addr, data)
+		outb(port_addr, data);
 	}
 	
-	void write(char* data)
+	void write(const char* data)
 	{
 		char c;
 		unsigned i = 0;
@@ -83,7 +83,7 @@ class serial_port {
 	 */
 	static uint16_t get_com_port_address(unsigned n) // n: 1 .. 4
 	{
-		if (port > 4)
+		if (n > 4)
 			return 0;
 		return bios_data_area->com_port_addr[n];
 	}
