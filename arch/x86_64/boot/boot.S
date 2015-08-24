@@ -180,9 +180,14 @@ _start:
 
 start64:
     lgdt (gdt_ptr)
+
+	movw $16, %ax
+	movw %ax, %ds
+	movw %ax, %es
+	movw %ax, %ss
     
-    movabs $PAGE_OFFSET, %rax
-    addq %rax, %rsp         # adjust rsp
+    movabs $PAGE_OFFSET, %rdx
+    addq %rdx, %rsp         # adjust rsp
 
     popq %rsi
 

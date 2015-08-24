@@ -1,11 +1,14 @@
 #include <boot/multiboot2.h>
 #include <kernel/kernel.h>
 #include <kernel/icxxabi.h>
+#include <kernel/init.h>
 #include <kernel/log.hpp>
 
 extern "C" void __kernel_pre_start()
 {
 	kernel::debug::log("Hello World!");
+
+	__do_global_ctors();
 hang:
 	goto hang;
 }

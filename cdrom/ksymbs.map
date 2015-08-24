@@ -4,9 +4,9 @@ ffffff0000102040 B __atexit_function_count
 ffffff0000102080 B __atexit_functions
 0000000000008000 a BOOT_PAGE_PDT_BASE
 ffffff0000102010 B _bss
-ffffff0000101045 T __cxa_atexit
-ffffff0000101080 T __cxa_finalize
-ffffff0000101105 T __cxa_pure_virtual
+ffffff000010104f T __cxa_atexit
+ffffff000010108a T __cxa_finalize
+ffffff000010110f T __cxa_pure_virtual
 ffffff000010200d R _data
 ffffff0000102188 B _ebss
 ffffff0000102010 B _edata
@@ -14,19 +14,19 @@ ffffff0000103000 B _end
 0000000000100038 t entry_tag_end
 0000000000100028 t entry_tag_start
 ffffff000010200d R _erodata
-ffffff00001011a8 R _etext
+ffffff00001011b0 R _etext
 0000000000100050 t framebuffer_tag_end
 0000000000100038 t framebuffer_tag_start
 0000000000100058 t gdt0
 0000000000001000 a GDT_BASE
 000000000010007a t gdt_ptr
-ffffff0000101172 t _GLOBAL__sub_I__ZN6kernel5debug4com1E
+ffffff000010117c t _GLOBAL__sub_I__ZN6kernel5debug4com1E
 ffffff0000101000 T __initcall_end
 ffffff0000101000 T __initcall_start
 ffffff0000100000 A KERNEL_BASE
 ffffff0000103000 B __kernel_end
 ffffff0000000000 A KERNEL_PAGE_OFFSET
-ffffff000010101d T __kernel_pre_start
+ffffff0000101027 T __kernel_pre_start
 0000000000000500 a MBI_ADDR
 0000000000100000 t multiboot_header
 0000000000100058 t multiboot_header_end
@@ -39,9 +39,9 @@ ffffff0000102000 R _rodata
 ffffff0000101000 t start64
 0000000000100070 t temp_gdt_ptr
 ffffff0000101000 T _text
-ffffff000010115c W serial_port::write(char)
-ffffff0000101037 T kernel::exit(int)
-ffffff000010115a T kernel::debug::log_format()
-ffffff0000101106 T kernel::debug::log(char const*)
+ffffff0000101166 W serial_port::write(char)
+ffffff0000101041 T kernel::exit(int)
+ffffff0000101164 T kernel::debug::log_format()
+ffffff0000101110 T kernel::debug::log(char const*)
 ffffff0000102180 B kernel::debug::com1
-ffffff0000101036 T kernel::start()
+ffffff0000101040 T kernel::start()

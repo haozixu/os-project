@@ -11,7 +11,7 @@ OUTPUT_TARGET = $(OUTPUT)/kernel.bin $(OUTPUT)/g2ldr
 CC = gcc -std=c99
 CXX = g++ -std=c++11
 
-.PHONY: all run debug image kernel boot bootloader clean
+.PHONY: all run debug image kernel boot bootloader clean clean_all
 
 image: $(OUTPUT_TARGET)
 	genisoimage -R -no-emul-boot -boot-info-table -boot-load-size 4 \
@@ -49,5 +49,9 @@ $(OUTPUT)/g2ldr: build/prebuilt-binaries/g2ldr
 #	-o $(OUTPUT)/g2ldr -O i386-pc-eltorito biosdisk iso9660 multiboot2 normal	
 
 clean:
-	rm -f cdimage.iso build/kernel.a build/boot.o $(OUTPUT_TARGET)
-	
+	rm -f cdimage.iso $(OUTPUT_TARGET)
+		
+clean_all:
+	make clean
+	cd build; make clean
+	cd kernel; make clean
