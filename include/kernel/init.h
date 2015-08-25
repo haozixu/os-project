@@ -5,8 +5,7 @@
  */
 #pragma once
 
-typedef int (*initcall_t)(void);
-typedef void (*constructor_t)(void);
+//typedef int (*initcall_t)(void);
 
 #define __init __attribute__((section(".init.text"))
 #define __initdata __attribute__((section(".init.data")
@@ -18,23 +17,14 @@ typedef void (*constructor_t)(void);
 		static initcall_t __initcall_##f \
 		__attribute__((used, section(".initcall" level)) = f
 
-//extern constructor_t __CTOR_LIST__[];
-extern initcall_t __initcall_start, __initcall_end;
+//extern initcall_t __initcall_start, __initcall_end;
 
-static inline void __do_global_ctors(void)
-{
-/*
-	size_t nptrs = reinterpret_cast<size_t>(__CTOR_LIST__[0]);
-
-	for (size_t i = nptrs; i >= 1; --i)
-		__CTOR_LIST__[i] ();
-*/
-}
 
 static inline void do_initcalls(void)
 {
-	for (initcall_t call = __initcall_start; \
-			call != __initcall_end; ++call) {
-		(*call) ();
-	}
+//
+//	for (initcall_t call = __initcall_start; \
+//			call != __initcall_end; ++call) {
+//		(*call) ();
+//	}
 }

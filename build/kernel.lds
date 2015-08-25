@@ -16,16 +16,16 @@ SECTIONS {
 	. += KERNEL_PAGE_OFFSET;
 	
 	.init : AT( ADDR(.init) - KERNEL_BASE) {
-		*(.ctor)
-
+		__init_array_start = .;
+		*(.init_array)
+		__init_array_end = .;
+		
 		__initcall_start = .;
-
 		*(.initcall0)
 		*(.initcall1)
 		*(.initcall2)
 		*(.initcall3)
-		*(.initcall4)
-		
+		*(.initcall4)		
 		__initcall_end = .;
 
 		*(.init.text)
@@ -33,16 +33,6 @@ SECTIONS {
 		. = ALIGN(8);
 
 		*(.init.data)
-	}
-
-	/*
-	.ctor : AT( ADDR(.ctor) - KERNEL_BASE) {
-		*(.ctor)
-	}
-	*/
-
-	.rela : AT( ADDR(.rela) - KERNEL_BASE) {
-		*(.rela*)
 	}
 
 	. = ALIGN(4K);

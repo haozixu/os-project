@@ -14,14 +14,14 @@ class serial_port {
   public:
   	static const uint16_t COM1 = 0x3f8;
 	static const uint16_t COM2 = 0x2f8;
-  	/* ctor: @port: I/O port number
+  	/* init: @port: I/O port number
 	 * COM1: 0x3f8
 	 * COM2: 0x2f8
 	 * COM3 & COM4's port number are not sure.(maybe 0x3e8 & 0x2e8)
 	 * Use static member function serial_port::get_com_port_address(int n) 
 	 * to get the exact port address.
 	 */ 
-  	serial_port(uint16_t port)
+  	void init(uint16_t port)
 	{
 		port_addr = port;
 		outb(port + 1, 0x00);    // Disable all interrupts
@@ -35,6 +35,7 @@ class serial_port {
 	}
 	
 	serial_port() {}
+	serial_port(uint16_t port) { init(port); }
 	
 	uint16_t port() const
 	{

@@ -10,7 +10,6 @@
 
 .extern __kernel_pre_start
 # .extern _ZN6kernel5startEv
-#.extern phys_pdt_system_base
 
 .extern __multiboot_load_end
 # defined in build/kernel.lds
@@ -188,10 +187,26 @@ start64:
     
     movabs $PAGE_OFFSET, %rdx
     addq %rdx, %rsp         # adjust rsp
+    
+    movabs $__init_array_start, %rax
+    movabs $__init_array_end, %rbx
+3:
+    cmpq %rax, %rbx
+    je 4f
+    pushq %rax
+    pushq %rbx
+    callq (%rax)            # do constructor work (call functions in .init_array)
+    popq %rbx
+    popq %rax
+    addq $8, %rax
+    jmp 3b
+4:   
 
+    movabs $PAGE_OFFSET, %rdi
     popq %rsi
+    addq %rdi, %rsi
+    addq $MBI_ADDR, %rdi
 
 	jmp __kernel_pre_start
 
-    cli
     hlt

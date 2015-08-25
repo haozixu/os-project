@@ -2,29 +2,31 @@
 #include <kernel/kernel.h>
 #include <kernel/icxxabi.h>
 #include <kernel/init.h>
+#include <kernel/main.hpp>
+#include <kernel/debug.hpp>
 #include <kernel/log.hpp>
 
-extern "C" void __kernel_pre_start()
+extern "C" void __kernel_pre_start(void* mbi_addr, unsigned long extra_data)
 {
+	// do some work
 	kernel::debug::log("Hello World!");
+	kernel::start();
+}
 
-	__do_global_ctors();
+
+void kernel::start()
+{
+//	arch::init();
+#if CONFIG_DEBUG != NO
+//	debug::partial_init();
+#endif
+
 hang:
 	goto hang;
 }
 
-namespace kernel {
-
-	void __noreturn start()
-	{
-	//	arch::init();
-	#if CONFIG_DEBUG != NO
-	//	debug::partial_init();
-	#endif
-	}
-
-	void __noreturn exit(int status)
-	{
-		__cxa_finalize(nullptr);
-	}
+void kernel::exit(int status)
+{
+	__cxa_finalize(nullptr);
 }
+

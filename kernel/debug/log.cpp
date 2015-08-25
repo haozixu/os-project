@@ -10,14 +10,18 @@
 #endif	
 	
 namespace kernel {
-	namespace debug {
-		serial_port com1(serial_port::COM1);
+namespace debug {
 		
-		void log(const char* str)
-		{
-			com1.write(str);
-		}
+serial_port com1(serial_port::COM1);
+serial_port com2(serial_port::COM2);
 		
-		void log_format() {}
-	}
+void log(const char* str)
+{
+	com1.write(str);
+}
+		
+void log_format() {}
+
+
+}
 }
