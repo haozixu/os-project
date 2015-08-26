@@ -1,10 +1,10 @@
 /*
  *	string.c
  *
- *	"stupid string routines"
+ *	"stupid string routines" (generic)
  */
 #include <stddef.h>
-
+#include <ctype.h>
 
 #ifndef __HAVE_ARCH_STRNCASECMP
 /**

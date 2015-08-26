@@ -51,8 +51,12 @@ class serial_port {
 	// will be blocked until the data is recieved
 	char read() const
 	{
-		while (!recieved())
-			pause(); // polling
+		while (!recieved()) {
+			pause();
+			pause();
+			pause();
+			pause();
+		}
 		return inb(port_addr);
 	}
 	
@@ -63,8 +67,12 @@ class serial_port {
 	
 	void write(const char data)
 	{
-		while (!transimit_is_empty())
-			pause(); // polling
+		while (!transimit_is_empty()) {
+			pause();
+			pause();
+			pause();
+			pause();
+		}
 		outb(port_addr, data);
 	}
 	

@@ -9,7 +9,7 @@
 extern "C" void __kernel_pre_start(void* mbi_addr, unsigned long extra_data)
 {
 	// do some work
-	kernel::debug::log("Hello World!");
+	kernel::debug::log_format("Hello World! 0x%llx, 0x%08x\n", mbi_addr, extra_data);
 	kernel::start();
 }
 

@@ -4,10 +4,10 @@
  *	debug logging
  */
 #include <arch/arch.h>
+#include <lib/ksprintf.h>
+#include <stdarg.h>
 
-#ifdef __x86_64__
 #include <serial.hpp>
-#endif	
 	
 namespace kernel {
 namespace debug {
@@ -20,8 +20,16 @@ void log(const char* str)
 	com1.write(str);
 }
 		
-void log_format() {}
-
+void log_format(const char* fmt, ...)
+{
+	char buf[248];
+	va_list args;
+	
+	va_start(args, fmt);
+	kvsprintf(buf, fmt, args);
+	com1.write(buf);
+	va_end(args);
+}
 
 }
 }
