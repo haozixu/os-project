@@ -8,13 +8,15 @@
 #include <serial.hpp>
 
 namespace kernel {
-	namespace debug {
-		extern serial_port com1;
+namespace debug {
 		
-		void init() {}
-		void partial_init()
-		{
-			com1.init(serial_port::COM1);
-		}
-	}
+extern serial_port com1;
+		
+void init() {}
+void partial_init()
+{
+	com1.init(serial_port::COM1);
+}
+
+}
 }

@@ -11,21 +11,25 @@ OUTPUT_TARGET = $(OUTPUT)/kernel.bin $(OUTPUT)/g2ldr
 CC = gcc -std=c99
 CXX = g++ -std=c++11
 
-.PHONY: all run debug image kernel boot bootloader clean clean_all
-
-image: $(OUTPUT_TARGET)
-	genisoimage -R -no-emul-boot -boot-info-table -boot-load-size 4 \
-	-b g2ldr -o cdimage.iso $(OUTPUT) 
+.PHONY: all rebuild run debug image kernel boot bootloader clean clean_all
 
 all: *.*
 	make bootloader
 	make boot
 	make kernel
 	make image
+	
+rebuild:
+	make clean_all
+	make all
+	
+image: $(OUTPUT_TARGET)
+	genisoimage -R -no-emul-boot -boot-info-table -boot-load-size 4 \
+	-b g2ldr -o cdimage.iso $(OUTPUT) 
 
 run: cdimage.iso
 	qemu-system-x86_64 -cdrom cdimage.iso -boot d \
-	-m 4G -cpu Haswell -serial stdio
+	-m 4G -smp 4,sockets=1,cores=2 -cpu Haswell -serial stdio
 
 debug: cdimage.iso
 	bochs -q -f build/config.bxrc

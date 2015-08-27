@@ -52,10 +52,7 @@ class serial_port {
 	char read() const
 	{
 		while (!recieved()) {
-			pause();
-			pause();
-			pause();
-			pause();
+			io_pause();
 		}
 		return inb(port_addr);
 	}
@@ -68,10 +65,7 @@ class serial_port {
 	void write(const char data)
 	{
 		while (!transimit_is_empty()) {
-			pause();
-			pause();
-			pause();
-			pause();
+			io_pause();
 		}
 		outb(port_addr, data);
 	}
@@ -82,8 +76,8 @@ class serial_port {
 		unsigned i = 0;
 		while (c = data[i++]) {
 			write(c);
-			if (c == '\n')
-				write('\r');
+		//	if (c == '\n')
+		//		write('\r');
 		}
 	}
 	

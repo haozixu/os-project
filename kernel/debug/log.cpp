@@ -27,6 +27,7 @@ void log_format(const char* fmt, ...)
 	
 	va_start(args, fmt);
 	kvsprintf(buf, fmt, args);
+	com1.write("[LOG] ");
 	com1.write(buf);
 	va_end(args);
 }

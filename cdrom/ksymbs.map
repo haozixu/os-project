@@ -1,26 +1,26 @@
 0000000000100028 t address_tag_end
 0000000000100010 t address_tag_start
-ffffff0000103100 B __atexit_function_count
-ffffff0000103140 B __atexit_functions
+ffffff00001031c0 B __atexit_function_count
+ffffff0000103200 B __atexit_functions
 0000000000008000 a BOOT_PAGE_PDT_BASE
-ffffff00001030f0 B _bss
-ffffff00001020b0 T __cxa_atexit
-ffffff0000102100 T __cxa_finalize
-ffffff00001021b0 T __cxa_pure_virtual
-ffffff00001030e1 R _data
-ffffff0000103248 B _ebss
-ffffff00001030f0 B _edata
+ffffff0000103130 B _bss
+ffffff0000102110 T __cxa_atexit
+ffffff0000102160 T __cxa_finalize
+ffffff0000102210 T __cxa_pure_virtual
+ffffff0000103129 R _data
+ffffff0000103308 B _ebss
+ffffff0000103130 B _edata
 ffffff0000104000 B _end
 0000000000100038 t entry_tag_end
 0000000000100028 t entry_tag_start
-ffffff00001030e1 R _erodata
-ffffff0000102b90 R _etext
+ffffff0000103129 R _erodata
+ffffff0000102c50 R _etext
 0000000000100050 t framebuffer_tag_end
 0000000000100038 t framebuffer_tag_start
 0000000000100058 t gdt0
 0000000000001000 a GDT_BASE
 000000000010007a t gdt_ptr
-ffffff0000102380 t _GLOBAL__sub_I__ZN6kernel5debug4com1E
+ffffff00001023d0 t _GLOBAL__sub_I__ZN6kernel5debug4com1E
 ffffff0000101008 T __init_array_end
 ffffff0000101000 T __init_array_start
 ffffff0000101008 T __initcall_end
@@ -29,12 +29,12 @@ ffffff0000100000 A KERNEL_BASE
 ffffff0000104000 B __kernel_end
 ffffff0000000000 A KERNEL_PAGE_OFFSET
 ffffff0000102060 T __kernel_pre_start
-ffffff00001029ea T kitoa
-ffffff0000102b17 T klltoa
-ffffff000010287a T ksprintf
-ffffff0000102935 T kuitoa
-ffffff0000102a59 T kulltoa
-ffffff00001023fd T kvsprintf
+ffffff0000102aa5 T kitoa
+ffffff0000102bd2 T klltoa
+ffffff0000102935 T ksprintf
+ffffff00001029f0 T kuitoa
+ffffff0000102b14 T kulltoa
+ffffff000010244d T kvsprintf
 0000000000000500 a MBI_ADDR
 0000000000100000 t multiboot_header
 0000000000100058 t multiboot_header_end
@@ -47,9 +47,16 @@ ffffff0000103000 R _rodata
 ffffff0000102000 t start64
 0000000000100070 t temp_gdt_ptr
 ffffff0000102000 T _text
-ffffff00001020a0 T kernel::exit(int)
-ffffff0000102240 T kernel::debug::log_format(char const*, ...)
-ffffff00001021c0 T kernel::debug::log(char const*)
-ffffff0000103242 B kernel::debug::com1
-ffffff0000103240 B kernel::debug::com2
-ffffff0000102090 T kernel::start()
+ffffff0000103170 B arch::cpu_vendor
+ffffff0000103188 B arch::pdt_system_base
+ffffff0000103180 B arch::max_cpuid_function
+ffffff000010317c B arch::max_cpuid_ext_function
+ffffff0000103190 B arch::nr_cpus
+ffffff00001020e0 T arch::pre_init(unsigned long)
+ffffff0000103140 B arch::cpu_brand
+ffffff00001020d0 T kernel::exit(int)
+ffffff0000102280 T kernel::debug::log_format(char const*, ...)
+ffffff0000102220 T kernel::debug::log(char const*)
+ffffff0000103302 B kernel::debug::com1
+ffffff0000103300 B kernel::debug::com2
+ffffff00001020c0 T kernel::start()

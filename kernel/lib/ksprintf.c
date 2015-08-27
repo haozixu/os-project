@@ -11,37 +11,41 @@ int kvsprintf(char *buf, const char *fmt, va_list args)
 {
 	char c, *p, *p0, *q, nbuf[32];
 	
-	for (p = buf; c = *fmt; fmt++) {
+	p = buf;
+	
+	while (c = *fmt++) {
 		if (c != '%') {
 			*p++ = c;
-		} else {
-			char pad0, pad;
+			continue;
+		} 
+		char pad0, pad;
+
+		c = *fmt++;
 			
+		if (c == '0') {
+			pad0 = 1;
 			c = *fmt++;
+		}
 			
-			if (c == '0') {
-				pad0 = 1;
-				c = *fmt++;
-			}
-			
-			if (c >= '0' && c <= '9') {
-				pad = c - '0';
-				c = *fmt++;
-			}
-			
-			switch (c) {
+		if (c >= '0' && c <= '9') {
+			pad = c - '0';
+			c = *fmt++;
+		}
+
+		switch (c) {
 			case 'd':
-				kitoa(va_arg(args, int), nbuf, 10);
+				kitoa(va_arg(args, long), nbuf, 10);
 				goto number;
 				break;
 			case 'u':
-				kuitoa(va_arg(args, int), nbuf, 10);
+				kuitoa(va_arg(args, long), nbuf, 10);
 				goto number;
 				break;
 			case 'x':
-				kuitoa(va_arg(args, int), nbuf, 16);
+				kuitoa(va_arg(args, long), nbuf, 16);
 				goto number;
 				break;
+			
 			case 'l':
 				if (*fmt++ == 'l') {
 					switch (*fmt++) {
@@ -62,6 +66,9 @@ int kvsprintf(char *buf, const char *fmt, va_list args)
 				}
 			invalid_llong:
 				break;
+			case 'c':
+				*p++ = (char)va_arg(args, long);
+				break;
 			case 's':
 				p0 = va_arg(args, char*);
 				if (!p0)
@@ -79,10 +86,10 @@ int kvsprintf(char *buf, const char *fmt, va_list args)
 				break;
 			default:
 				break;
-			}
-		}	
+		}			
 	}
 	
+	*p = '\0';	
 	return p - buf;
 }
 

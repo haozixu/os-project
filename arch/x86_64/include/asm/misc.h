@@ -18,6 +18,14 @@ static inline void hlt(void)
 	asm volatile("hlt");
 }
 
+static inline void io_pause(void)
+{
+	pause();
+	pause();
+	pause();
+	pause();
+}
+
 #undef inline
 
 #endif

@@ -9,7 +9,6 @@
 .type _start, @function
 
 .extern __kernel_pre_start
-# .extern _ZN6kernel5startEv
 
 .extern __multiboot_load_end
 # defined in build/kernel.lds

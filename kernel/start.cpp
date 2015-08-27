@@ -5,11 +5,13 @@
 #include <kernel/main.hpp>
 #include <kernel/debug.hpp>
 #include <kernel/log.hpp>
+#include <kernel/arch-init.hpp>
 
-extern "C" void __kernel_pre_start(void* mbi_addr, unsigned long extra_data)
+extern "C" void __kernel_pre_start(void* mbi_addr, unsigned long arch_data)
 {
-	// do some work
-	kernel::debug::log_format("Hello World! 0x%llx, 0x%08x\n", mbi_addr, extra_data);
+	kernel::debug::log("[LOG] kernel starting.\n");
+	kernel::debug::log_format("Multiboot information found at 0x%llx. arch_data = 0x%llx\n", mbi_addr, arch_data);
+	arch::pre_init(arch_data);
 	kernel::start();
 }
 
@@ -17,9 +19,6 @@ extern "C" void __kernel_pre_start(void* mbi_addr, unsigned long extra_data)
 void kernel::start()
 {
 //	arch::init();
-#if CONFIG_DEBUG != NO
-//	debug::partial_init();
-#endif
 
 hang:
 	goto hang;

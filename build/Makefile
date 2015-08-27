@@ -20,7 +20,7 @@ kernel.bin: $(BOOT_OBJ) $(KERNEL_OBJ)
 	$(OBJCOPY) -I elf64-x86-64 -O binary kernel.elf kernel.bin
 
 kernel.a:
-	cd ../kernel; make all
+	cd ../kernel; make clean; make all
 
 clean:
 	rm -f kernel.bin ksymbs.map $(BOOT_OBJ) $(KERNEL_OBJ)
