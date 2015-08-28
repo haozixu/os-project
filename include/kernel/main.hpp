@@ -6,6 +6,6 @@
 #pragma once
 
 namespace kernel {
-	void start();
+	void main();
 	void exit(int);
 }

@@ -12,11 +12,11 @@ extern "C" void __kernel_pre_start(void* mbi_addr, unsigned long arch_data)
 	kernel::debug::log("[LOG] kernel starting.\n");
 	kernel::debug::log_format("Multiboot information found at 0x%llx. arch_data = 0x%llx\n", mbi_addr, arch_data);
 	arch::pre_init(arch_data);
-	kernel::start();
+	kernel::main();
 }
 
 
-void kernel::start()
+void kernel::main()
 {
 //	arch::init();
 

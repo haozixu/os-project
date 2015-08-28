@@ -59,3 +59,4 @@ clean_all:
 	make clean
 	cd build; make clean
 	cd kernel; make clean
+	cd arch/$(ARCH); make clean 

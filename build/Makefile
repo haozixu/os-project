@@ -1,9 +1,10 @@
 # build/Makefile
+ARCH = x86_64
 
 OUTPUT = cdrom
 
 BOOT_OBJ = boot.o
-KERNEL_OBJ = kernel.a
+KERNEL_OBJS = kernel.a arch.a
 
 LD = ld
 NM = nm
@@ -14,13 +15,16 @@ OBJCOPY = objcopy
 all: kernel.bin ksymbs.map
 	cp $^ ../$(OUTPUT)/
 
-kernel.bin: $(BOOT_OBJ) $(KERNEL_OBJ)
-	$(LD) -o kernel.elf -T kernel.lds --oformat elf64-x86-64 $(BOOT_OBJ) $(KERNEL_OBJ)
+kernel.bin: $(BOOT_OBJ) $(KERNEL_OBJS)
+	$(LD) -o kernel.elf -T kernel.lds -nostdlib --oformat elf64-x86-64 $(BOOT_OBJ) $(KERNEL_OBJS)
 	$(NM) --demangle=auto --target elf64-x86-64 kernel.elf > ksymbs.map
 	$(OBJCOPY) -I elf64-x86-64 -O binary kernel.elf kernel.bin
 
 kernel.a:
-	cd ../kernel; make clean; make all
+	cd ../kernel; make all
+	
+arch.a:
+	cd ../arch/$(ARCH); make all
 
 clean:
-	rm -f kernel.bin ksymbs.map $(BOOT_OBJ) $(KERNEL_OBJ)
+	rm -f kernel.bin ksymbs.map $(BOOT_OBJ) $(KERNEL_OBJS)

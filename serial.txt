@@ -1,2 +1,0 @@
-nr_cpu: 0001 rsp: 0xffffff000000cfe8
-Hello World! 0xffffff0000000500, 0x0000d000

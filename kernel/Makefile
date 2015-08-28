@@ -1,9 +1,9 @@
 # kernel makefile
 
 CXX = g++ -std=c++11
-CXXFLAGS = -ffreestanding -nostdlib -fno-strict-aliasing -I../include
+CXXFLAGS = -ffreestanding -fno-strict-aliasing -I../include
 CC = gcc -std=gnu99
-CFLAGS = -ffreestanding -nostdlib -fno-strict-aliasing -I../include
+CFLAGS = -ffreestanding -fno-strict-aliasing -I../include
 
 # configurations
 ARCH = x86_64
@@ -47,7 +47,7 @@ all: kernel.a
 	cp $^ ../build/
 
 kernel.a: $(KERNEL_OBJS)
-	ar rcs $@ $(KERNEL_OBJS)
+	ar rcs $@ $^
 
 clean:
 	rm -f kernel.a $(KERNEL_OBJS)

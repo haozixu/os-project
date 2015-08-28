@@ -1,11 +1,12 @@
 /*
- * As you see, it's strange enough.
+ *	arch/x86_64/init.cpp
+ *
+ *	architectural initilization
  */
-#ifdef __USE_ARCH_INIT_IMPL
 
 #include <kernel/arch-init.hpp>
 #include <stdint.h>
-#include <paging.h>
+#include <asm/paging.h>
 
 namespace arch {
 
@@ -30,4 +31,3 @@ void pre_init(unsigned long arch_data)
 }
 
 }
-#endif
