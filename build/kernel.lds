@@ -29,10 +29,12 @@ SECTIONS {
 		__initcall_end = .;
 
 		*(.init.text)
-
 		. = ALIGN(8);
-
 		*(.init.data)
+		
+		__percpu_section_start = .;
+		*(.percpu*)
+		__percpu_section_end = .;
 	}
 
 	. = ALIGN(4K);

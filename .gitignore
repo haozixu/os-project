@@ -1,4 +1,7 @@
 */.directory
 *.o
+*.a
+*.elf
 cdrom/*
 cdimage.iso
+serial.txt

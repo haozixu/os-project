@@ -17,7 +17,7 @@ all: kernel.bin ksymbs.map
 
 kernel.bin: $(BOOT_OBJ) $(KERNEL_OBJS)
 	$(LD) -o kernel.elf -T kernel.lds -nostdlib --oformat elf64-x86-64 $(BOOT_OBJ) $(KERNEL_OBJS)
-	$(NM) --demangle=auto --target elf64-x86-64 kernel.elf > ksymbs.map
+	$(NM) --demangle=auto --target elf64-x86-64 kernel.elf | sort > ksymbs.map
 	$(OBJCOPY) -I elf64-x86-64 -O binary kernel.elf kernel.bin
 
 kernel.a:

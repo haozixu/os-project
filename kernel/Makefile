@@ -17,11 +17,11 @@ endif
 
 ifeq ($(OPTIMIZE_LEVEL),LEVEL2)
 	CXXFLAGS += -O2
-	CFLAGS += -O0
+	CFLAGS += -O2
 else
 ifeq ($(OPTIMIZE_LEVEL),SIZE)
 	CXXFLAGS += -Os
-	CFLAGS += -O0
+	CFLAGS += -Os
 endif
 endif
 

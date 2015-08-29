@@ -1,5 +1,5 @@
 /*
- *	include/kernel/arch-init.hpp
+ *	include/arch/init.hpp
  *
  *	......
  */

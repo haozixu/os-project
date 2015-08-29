@@ -9,9 +9,6 @@
 
 #define __init __attribute__((section(".init.text"))
 #define __initdata __attribute__((section(".init.data")
-#define __ctor __attribute__((constructor))
-
-#define __initcall __attribute__((section(".init.text"), constructor))
 
 #define register_initcall(level, f) \
 		static initcall_t __initcall_##f \
