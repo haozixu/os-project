@@ -3,7 +3,7 @@
 CXX = g++ -std=c++11
 CXXFLAGS = -ffreestanding -fno-strict-aliasing -I../include
 CC = gcc -std=gnu99
-CFLAGS = -ffreestanding -fno-strict-aliasing -I../include
+CFLAGS = -Os -ffreestanding -fno-strict-aliasing -I../include
 
 # configurations
 ARCH = x86_64
@@ -17,11 +17,9 @@ endif
 
 ifeq ($(OPTIMIZE_LEVEL),LEVEL2)
 	CXXFLAGS += -O2
-	CFLAGS += -O2
 else
 ifeq ($(OPTIMIZE_LEVEL),SIZE)
 	CXXFLAGS += -Os
-	CFLAGS += -Os
 endif
 endif
 

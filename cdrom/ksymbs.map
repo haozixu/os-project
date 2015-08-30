@@ -28,37 +28,39 @@ ffffff0000101008 T __percpu_section_start
 ffffff0000102000 t start64
 ffffff0000102000 T _text
 ffffff0000102060 T __kernel_pre_start
-ffffff0000102180 T kernel::exit(int)
-ffffff0000102190 T kernel::main()
-ffffff00001021a0 T __cxa_atexit
-ffffff00001021f0 T __cxa_finalize
-ffffff00001022a0 T __cxa_pure_virtual
-ffffff00001022b0 T kernel::debug::log(char const*)
-ffffff0000102310 T kernel::debug::log_format(char const*, ...)
-ffffff0000102460 t _GLOBAL__sub_I__ZN6kernel5debug4com1E
-ffffff00001024e0 T kvsprintf
-ffffff00001028a0 T ksprintf
-ffffff0000102940 T kuitoa
-ffffff00001029b0 T kitoa
-ffffff0000102ab0 T kulltoa
-ffffff0000102b20 T klltoa
-ffffff0000102c20 T arch::pre_init(unsigned long)
-ffffff0000102c70 R _etext
+ffffff00001020c0 T kernel::exit(int)
+ffffff00001020d0 T kernel::main()
+ffffff00001020e0 T __cxa_atexit
+ffffff0000102130 T __cxa_finalize
+ffffff00001021e0 T __cxa_pure_virtual
+ffffff00001021f0 T multiboot2::parse(unsigned long)
+ffffff0000102310 T kernel::debug::log(char const*)
+ffffff0000102370 T kernel::debug::log_format(char const*, ...)
+ffffff00001024c0 t _GLOBAL__sub_I__ZN6kernel5debug4com1E
+ffffff000010253d T kvsprintf
+ffffff00001027e9 T ksprintf
+ffffff000010287f T kuitoa
+ffffff00001028d4 T kitoa
+ffffff00001028ff T kulltoa
+ffffff0000102954 T klltoa
+ffffff0000102990 T arch::pre_init(unsigned long)
+ffffff00001029e0 R _etext
 ffffff0000103000 R _rodata
-ffffff00001031b9 R _data
-ffffff00001031b9 R _erodata
-ffffff00001031c0 B __atexit_function_count
-ffffff00001031c0 B _bss
-ffffff00001031c0 B _edata
-ffffff0000103200 B __atexit_functions
-ffffff0000103300 B kernel::debug::com2
-ffffff0000103302 B kernel::debug::com1
-ffffff0000103320 B arch::cpu_brand
-ffffff0000103350 B arch::cpu_vendor
-ffffff000010335c B arch::max_cpuid_ext_func_number
-ffffff0000103360 B arch::max_cpuid_func_number
-ffffff0000103368 B arch::pdt_system_base
-ffffff0000103370 B arch::nr_cpus
-ffffff0000103378 B _ebss
+ffffff0000103127 R _data
+ffffff0000103127 R _erodata
+ffffff0000103130 B _bss
+ffffff0000103130 B _edata
+ffffff0000103140 B __atexit_function_count
+ffffff0000103180 B __atexit_functions
+ffffff0000103280 b kernel::memory::mmap_control_block
+ffffff0000103290 B kernel::debug::com2
+ffffff0000103292 B kernel::debug::com1
+ffffff00001032a0 B arch::cpu_brand
+ffffff00001032d0 B arch::cpu_vendor
+ffffff00001032dc B arch::max_cpuid_ext_func_number
+ffffff00001032e0 B arch::max_cpuid_func_number
+ffffff00001032e8 B arch::pdt_system_base
+ffffff00001032f0 B arch::nr_cpus
+ffffff00001032f8 B _ebss
 ffffff0000104000 B _end
 ffffff0000104000 B __kernel_end

@@ -1,6 +1,8 @@
-# the experimental OS project
+# MNHLOFT-Kernel (aka 'the experimental OS project')
 
-### to compile the os, follow these steps:
+### **Open source, purify the world.**
+
+### to compile the kernel/os, follow these steps:
 
 ## check prerequisites:
 + you are using GNU/Linux
@@ -11,20 +13,18 @@
 > note: the grub bootloader is also needed, its binary can be found in build/prebuilt-binaries/
 
 ## instructions
-### 1. compile the kernel
-> make all
+### 1. compile the kernel and generate a bootable CD image
+> *make all*
 
-### 2. generate the OS image
-> make image
+note: genisoimage is required, if you want to rebuild it, type *make rebuild*
 
-genisoimage is required
-### 3. test/debug the OS
+### 2. test/debug the OS
 #### test
-> make run
+> *make run*
 
-qemu-system-x86_64 is required
+note: qemu-system-x86_64 is required
 
-> make debug
+> *make debug* 
 
-bochs debugger is required
+note: bochs debugger is required
 
