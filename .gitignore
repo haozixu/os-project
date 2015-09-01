@@ -1,7 +1,8 @@
-*/.directory
 *.o
 *.a
 *.elf
+*.bin
 cdrom/*
 cdimage.iso
 serial.txt
+*/.directory

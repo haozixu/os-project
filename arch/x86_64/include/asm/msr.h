@@ -16,7 +16,7 @@ static inline uint64_t rdmsr(unsigned index)
 	return val;
 }
 
-static inline void wrmsr(unsigned index, uint64_t val);
+static inline void wrmsr(unsigned index, uint64_t val)
 {
 	asm volatile("wrmsr"::"A"(val),"c"(index));
 }

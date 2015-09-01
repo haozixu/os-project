@@ -34,4 +34,19 @@ static constexpr size_t array_length(T (&)[N])
 	return N;
 }
 
+unsigned long operator"" KiB(unsigned long x)
+{
+	return x * 1024; // 0x400
+}
+
+unsigned long operator"" MiB(unsigned long x)
+{
+	return x * 1048576; // 0x100000
+}
+
+unsigned long operator"" GiB(unsigned long x)
+{
+	return x * 0x40000000; // 1073741824
+}
+
 #endif // CONFIG_USE_MACRO

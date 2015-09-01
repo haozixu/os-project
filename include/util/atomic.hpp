@@ -241,11 +241,11 @@ struct atomic_base {
     }
 
     int_type operator--() volatile noexcept {
-        return atomic_sub_fetch(&_M_i, 1, memory_order_seq_cst);
+        return __atomic_sub_fetch(&_M_i, 1, memory_order_seq_cst);
     }
 
     int_type operator+=(int_type i) noexcept {
-        return atomic_add_fetch(&_M_i, i, memory_order_seq_cst);
+        return __atomic_add_fetch(&_M_i, i, memory_order_seq_cst);
     }
 
     int_type operator+=(int_type i) volatile noexcept {
@@ -293,25 +293,6 @@ struct atomic_base {
     }
 
     void store(int_type i,
-/*
- * 	init.h
- *
- * 	should this file become a part of compiler.h or standalone kernel/init.h ?
- */
-#pragma once
-
-typedef int (*initcall_t)(void);
-typedef void (*constructor_t)(void);
-
-#define __init __attribute__((section(".init.text"))
-#define __initdata __attribute__((section(".init.data")
-#define __ctor __attribute__((constructor))
-
-#define __initcall __attribute__((section(".init.text"), constructor))
-
-#define register_initcall(level, f) \
-		static initcall_t __initcall_##f \
-		__attribute__((used, section(".initcall" level)) = f
                memory_order m = memory_order_seq_cst) noexcept {
         memory_order b = m & __memory_order_mask;
         ;

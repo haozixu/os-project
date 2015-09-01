@@ -11,7 +11,7 @@
 static inline void lfence(void)
 {
 	asm volatile("lfence":::"memory");
-{
+}
 
 static inline void sfence(void)
 {

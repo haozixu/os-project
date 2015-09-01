@@ -5,13 +5,6 @@
  */
 #pragma once
 
-#include <compiler.h>
-#include <atomic.hpp>
-#include <bitwidth.h>
-
-#define relax_cpu() __asm__ __volatile__("pause")
-// should be remove from here later
-
 namespace utility {
 
 struct __lockable {
@@ -41,6 +34,7 @@ class locker {
 	}
 	
 	locker(const Lock&) noexcept = delete;
+	locker(const locker&) noexcept = delete;
 	
 	~locker()
 	{

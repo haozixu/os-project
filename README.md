@@ -2,13 +2,13 @@
 
 ### **Open source, purify the world.**
 
-### to compile the kernel/os, follow these steps:
+### to compile the kernel/OS, follow these steps:
 
 ## check prerequisites:
 + you are using GNU/Linux
 + C and C++ compiler: gcc g++
-+ genisoimage: make OS iso image(a replacement of mkisofs)
-+ qemu/bochs: test OS on virtual machine
++ genisoimage: make kernel/OS iso image(a replacement of mkisofs)
++ qemu/bochs: test kernel/OS on virtual machine
 
 > note: the grub bootloader is also needed, its binary can be found in build/prebuilt-binaries/
 

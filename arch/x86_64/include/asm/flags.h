@@ -7,7 +7,7 @@
 #define _ASM_FLAGS_H
 
 #include <stdint.h>
-#include <always-inline.h>
+#include <always_inline.h>
 
 static inline void cli(void)
 {
@@ -24,10 +24,11 @@ static inline void cld(void)
 	asm volatile("cld":::"cc");
 }
 
-static inline void std(void)
-{
-	asm volatile("std":::"cc");
-}
+// do not use !
+//static inline void std(void)
+//{
+//	asm volatile("std":::"cc");
+//}
 
 static inline void pushfl(void)
 {

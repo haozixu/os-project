@@ -67,7 +67,7 @@ temp_gdt_ptr:
     .quad GDT_BASE
 
 gdt_ptr:
-    .short (3 * 8 - 1)
+    .short (256 * 8 - 1)
     .quad (GDT_BASE + PAGE_OFFSET)
 
 .code32

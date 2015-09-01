@@ -5,17 +5,15 @@
  */
 #pragma once
 
-//typedef int (*initcall_t)(void);
+#define __init __attribute__((section(".init.text")))
+#define __initdata __attribute__((section(".init.data")))
 
-#define __init __attribute__((section(".init.text"))
-#define __initdata __attribute__((section(".init.data")
-
-#define register_initcall(level, f) \
-		static initcall_t __initcall_##f \
-		__attribute__((used, section(".initcall" level)) = f
-
+//typedef int (*initcall_t)();
 //extern initcall_t __initcall_start, __initcall_end;
 
+//#define register_initcall(level, f) \
+		static initcall_t __initcall_##f \
+		__attribute__((used, section(".initcall" level)) = f
 
 static inline void do_initcalls(void)
 {

@@ -5,23 +5,17 @@
  */
 
 #include <arch/init.hpp>
-#include <stdint.h>
-#include <asm/paging.h>
+#include <kernel/init.h>
+
+#include <global.hpp>
+//#include <asm/system.h>
+//#include <asm/paging.h>
+//#include <asm/flags.h>
+//#include <asm/msr.h>
 
 namespace arch {
 
-// ??? will be removed from here later
-struct {
-	uint8_t nr_processors; // threads
-	uint32_t max_cpuid_func_number;
-	uint32_t max_cpuid_ext_func_number;
-	char vendor_id[12];
-	char brand[48];
-} cpu_info;
-
-unsigned long pdt_system_base;
-
-void pre_init(unsigned long arch_data)
+void __init pre_init(unsigned long arch_data)
 {
 	// store it!
 	pdt_system_base = arch_data;
@@ -34,6 +28,7 @@ void pre_init(unsigned long arch_data)
 		"movl %%ecx, 8(%%rsi) \n\t"
 		:"=a"(cpu_info.max_cpuid_func_number)
 		:"S"(cpu_info.vendor_id)
+		:"ecx", "edx", "ebx"
 	);
 	// get logical processor count
 	asm volatile(
@@ -41,13 +36,17 @@ void pre_init(unsigned long arch_data)
 		"cpuid \n\t"
 		"shrl $16, %%ebx \n\t"
 		"andl $0xff, %%ebx \n\t"
-		:"=b"(cpu_info.nr_processors)::"eax"
+		:"=b"(cpu_info.nr_processors)
+		: /* no input */
+		:"eax", "ecx", "edx"
 	);
 	// get the largest cpuid extended function number
 	asm volatile(
 		"movl $0x80000000, %%eax \n\t"
 		"cpuid \n\t"
 		:"=a"(cpu_info.max_cpuid_ext_func_number)
+		: /* no input */
+		:"ecx", "edx", "ebx"
 	);
 	// get cpu brand
 	asm volatile(
@@ -71,15 +70,15 @@ void pre_init(unsigned long arch_data)
 		"movl %%edx, 44(%%rsi) \n\t"
 		: /* no output */
 		:"S"(cpu_info.brand)
-		:"eax", "ebx", "ecx", "edx"
+		:"eax", "ecx", "edx", "ebx"
 	);
 }
 
-void init()
+void __init init()
 {
-	//init_gdt();
-	//init_idt();
+	gdt.init();
 	//init_paging();
+	//init_idt();
 }
 
 }
