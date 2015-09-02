@@ -20,9 +20,9 @@
 struct msr {
 	uint32_t index;
 
-	msr(uint32_t i):index(i) {}
+	msr(uint32_t i) : index(i) {}
 
-	void operator =(uint64_t val)
+	void operator=(uint64_t val)
 	{
 		wrmsr(index, val);
 	}
@@ -37,7 +37,7 @@ struct msr {
 		return val();
 	}
 
-	void operator |=(uint64_t val)
+	void operator|=(uint64_t val)
 	{
 		uint64_t tmp;
 		tmp = rdmsr(index);
@@ -45,7 +45,7 @@ struct msr {
 		wrmsr(index, tmp);
 	}
 
-	void operator &=(uint64_t val)
+	void operator&=(uint64_t val)
 	{
 		uint64_t tmp;
 		tmp = rdmsr(index);
@@ -55,7 +55,7 @@ struct msr {
 };
 
 struct {
-	msr operator [](uint32_t index)
+	msr operator[](uint32_t index)
 	{
 		return msr(index); // "a temporary object"
 	}

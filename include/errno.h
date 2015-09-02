@@ -1,13 +1,15 @@
 /*
  *	include/errno.h
  *
- *	well, maybe using error code to handle exceptions isn't
+ *	maybe using error code to handle exceptions doesn't
  *	sounds like a good idea, but c++ exceptions & stack unwinding
- *	are not considered so far.
+ *	are not considered so far.(Apple says they're not safe?)
  */
 #pragma once
 
 extern int errno;
+
+// well, some note looked strange...... don't ask me where did I get it.
 
 #define EPERM 1 /* Operation not permitted. */
 #define ENOENT 2 /* No such file or directory. */

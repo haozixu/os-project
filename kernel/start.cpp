@@ -11,10 +11,10 @@
 
 using namespace kernel;
 
-extern "C" void __kernel_pre_start(unsigned long mbi_addr, unsigned long arch_data)
+extern "C" void __kernel_start(unsigned long mbi_addr, unsigned long arch_data)
 {
 	debug::log("[LOG] kernel starting.\n");
-	debug::log_format("multiboot information found at 0x%llx, size %u bytes.\n", 
+	debug::log_format("multiboot information found at %p, size %u bytes.\n", 
 		               mbi_addr, *(uint32_t*)(mbi_addr));
 	// architectural pre initialization
 	arch::pre_init(arch_data);

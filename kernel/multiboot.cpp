@@ -35,7 +35,7 @@ void multiboot2::parse(unsigned long mbi_addr)
 						
 						for (;	(char*)(mmap) < (char*)(tag) + tag->size;
 								mmap = (decltype(mmap))((unsigned long)(mmap) + reinterpret_cast<multiboot_tag_mmap*>(tag)->entry_size)) {
-									kernel::debug::log_format("mmap entry: addr = 0x%08llx, length = 0x%08llx, type = %u\n",
+									kernel::debug::log_format("mmap entry: addr = %p, length = %p, type = %u\n",
 										mmap->addr, mmap->len, mmap->type);
 								}
 					}

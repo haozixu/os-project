@@ -7,14 +7,19 @@ CXXFLAGS = -m64 -O2 -mcmodel=large -ffreestanding -fno-strict-aliasing -Iinclude
 CXXFLAGS += -fno-exceptions -fno-rtti
 
 ARCH_CXX_SRC = $(wildcard *.cpp)
+ARCH_ASM_SRC = $(wildcard lib/*.S)
 
 ARCH_OBJS =  $(patsubst %.cpp,%.o,$(ARCH_CXX_SRC))
+ARCH_OBJS += $(patsubst %.S,%.o,$(ARCH_ASM_SRC))
 BOOT_OBJS = boot.o
 
 .PHONY: all boot clean
 
 %o: %.cpp
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+%o: %.S
+	$(CC) $(ASMFLAGS) -c -o $@ $<
 
 boot.o: boot/boot.S
 	$(CC) $(ASMFLAGS) -c $<

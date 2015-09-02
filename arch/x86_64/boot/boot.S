@@ -206,6 +206,6 @@ start64:
     addq %rdi, %rsi
     addq $MBI_ADDR, %rdi
 
-	jmp __kernel_pre_start
+	jmp __kernel_start
 
     hlt

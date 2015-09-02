@@ -34,17 +34,17 @@ static constexpr size_t array_length(T (&)[N])
 	return N;
 }
 
-unsigned long operator"" KiB(unsigned long x)
+unsigned long long operator"" _KiB(unsigned long long x)
 {
 	return x * 1024; // 0x400
 }
 
-unsigned long operator"" MiB(unsigned long x)
+unsigned long long operator"" _MiB(unsigned long long x)
 {
 	return x * 1048576; // 0x100000
 }
 
-unsigned long operator"" GiB(unsigned long x)
+unsigned long long operator"" _GiB(unsigned long long x)
 {
 	return x * 0x40000000; // 1073741824
 }

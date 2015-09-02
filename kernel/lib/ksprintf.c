@@ -18,12 +18,12 @@ int kvsprintf(char *buf, const char *fmt, va_list args)
 			*p++ = c;
 			continue;
 		} 
-		char pad0, pad;
+		int pad_with_0, pad;
 
 		c = *fmt++;
 			
 		if (c == '0') {
-			pad0 = 1;
+			pad_with_0 = 1; // true
 			c = *fmt++;
 		}
 			
@@ -45,26 +45,30 @@ int kvsprintf(char *buf, const char *fmt, va_list args)
 				kuitoa(va_arg(args, long), nbuf, 16);
 				goto number;
 				break;
-			
+			case 'p':
+				kulltoa(va_arg(args, long), nbuf, 16);
+				*p++ = '0';
+				*p++ = 'x';
+				pad_with_0 = 1, pad = 8;
+				goto number;
+				break;			
 			case 'l':
-				if (*fmt++ == 'l') {
-					switch (*fmt++) {
-					case 'd':
-						klltoa(va_arg(args, long long), nbuf, 10);
-						break;
-					case 'u':
-						kulltoa(va_arg(args, long long), nbuf, 10);
-						break;
-					case 'x':
-						kulltoa(va_arg(args, long long), nbuf, 16);
-						break;
-					default:
-						goto invalid_llong;
-						break;	
-					}
+				switch (*fmt++) {
+				case 'd':
+					klltoa(va_arg(args, long long), nbuf, 10);
 					goto number;
+					break;
+				case 'u':
+					kulltoa(va_arg(args, long long), nbuf, 10);
+					goto number;
+					break;
+				case 'x':
+					kulltoa(va_arg(args, long long), nbuf, 16);
+					goto number;
+					break;
+				default:
+					break;	
 				}
-			invalid_llong:
 				break;
 			case 'c':
 				*p++ = (char)va_arg(args, long);
@@ -80,13 +84,15 @@ int kvsprintf(char *buf, const char *fmt, va_list args)
 			string:
 				for (q = p0; *q; q++);
 				for (; q < p0 + pad; q++)
-					*p++ = pad0 ? '0' : ' ';
+					*p++ = pad_with_0 ? '0' : ' ';
 				while (*p0)
 					*p++ = *p0++;
 				break;
 			default:
 				break;
-		}			
+		}
+		
+		pad_with_0 = 0, pad = 0;			
 	}
 	
 	*p = '\0';	
