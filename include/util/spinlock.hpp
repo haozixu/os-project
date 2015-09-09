@@ -40,7 +40,7 @@ class fifo_spinlock final : public utility::__lockable {
 	{
 		lock_value inc = val.fetch_add(1 << BITS_PER_WORD); // ++next
 		while (inc.owner != inc.next) {
-			arch::relax_cpu();
+			system::relax_cpu();
 			inc.owner = static_cast<short>(val); // owner
 		}
 	}

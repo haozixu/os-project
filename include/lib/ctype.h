@@ -1,7 +1,7 @@
 /*
- *	include/ctype.h
+ *	include/lib/ctype.h
  *
- *	...
+ *	this file is a part of kernel c library
  */
 #pragma once
 

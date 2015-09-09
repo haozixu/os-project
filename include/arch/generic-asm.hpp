@@ -13,18 +13,18 @@
 #include <asm/flags.h>
 #include <asm/misc.h>
 
-namespace arch {
+namespace system {
 	inline void relax_cpu()
 	{
 		pause();
 	}
 	
-	inline void enable_interrupt()
+	inline void enable_irq()
 	{
 		sti();
 	}
 	
-	inline void disable_interrupt()
+	inline void disable_irq()
 	{
 		cli();
 	}

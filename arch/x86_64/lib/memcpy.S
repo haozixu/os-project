@@ -4,9 +4,12 @@
  *	c library routine
  */
 
-/* note: SSE2 unaligned version */
+/* memcpy SSE2 unaligned version */
 
 #include "asm-syntax.h"
+
+.global memcpy
+.global _memcpy
 
 	.text
 memcpy:
@@ -158,3 +161,6 @@ L(between_5_8):
 	movl	%eax, -4(%rdi,%rdx)
 	jmp	L(return)
 	
+	.size	memcpy, .-memcpy
+	.size	_memcpy, .-_memcpy
+

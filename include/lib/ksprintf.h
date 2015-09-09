@@ -1,7 +1,7 @@
 /*
  *	include/lib/ksprintf.h
  *
- * 	kernel library
+ * 	this file is a part of kernel c library
  */
 #pragma once
 

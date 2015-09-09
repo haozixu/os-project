@@ -1,5 +1,5 @@
 /*
- *	include/bitwidth.h
+ *	arch/x86_64/include/bitwidth.h
  *
  *	...
  */

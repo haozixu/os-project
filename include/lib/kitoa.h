@@ -1,7 +1,7 @@
 /*
  *	include/lib/kitoa.h
  *
- *	kernel library
+ *	this file is a part of kernel c library
  */
 #pragma once
 

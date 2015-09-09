@@ -1,5 +1,5 @@
 /*
- *	arch/x86_63/include/global.hpp
+ *	arch/x86_64/include/global.hpp
  *
  *	architectural global data
  */

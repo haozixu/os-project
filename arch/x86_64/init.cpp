@@ -8,10 +8,13 @@
 #include <kernel/init.h>
 
 #include <global.hpp>
-//#include <asm/system.h>
-//#include <asm/paging.h>
-//#include <asm/flags.h>
-//#include <asm/msr.h>
+
+#include <kernel/log.hpp>
+#include <util/misc.hpp> // for string literal operator
+#include <lib/kassert.h>
+#include <lib/string.h> // for memcpy
+
+static void __init init_percpu_section();
 
 namespace arch {
 
@@ -40,6 +43,10 @@ void __init pre_init(unsigned long arch_data)
 		: /* no input */
 		:"eax", "ecx", "edx"
 	);
+	
+//	KASSERT(cpu_info.nr_processors <= 8,
+//		 "this version of kernel does not support cpu with more than 8 threads.\n");
+	
 	// get the largest cpuid extended function number
 	asm volatile(
 		"movl $0x80000000, %%eax \n\t"
@@ -69,16 +76,39 @@ void __init pre_init(unsigned long arch_data)
 		"movl %%ecx, 40(%%rsi) \n\t"
 		"movl %%edx, 44(%%rsi) \n\t"
 		: /* no output */
-		:"S"(cpu_info.brand)
+		:"S"(cpu_info.model_name)
 		:"eax", "ecx", "edx", "ebx"
 	);
 }
 
 void __init init()
 {
-	gdt.init();
+	init_percpu_section();
 	//init_paging();
+	gdt.init();
 	//init_idt();
+	//init_apic();
+	//init_processors();
+	////copy_ap_startup_code();
 }
 
+}
+
+// static for internal linkage
+extern "C" unsigned long __percpu_section_start, __percpu_section_end;
+
+static void __init init_percpu_section()
+{
+	unsigned length = __percpu_section_end - __percpu_section_start; // percpu section length
+	unsigned nr_prcsr = arch::cpu_info.nr_processors;
+	
+	KASSERT(length < 12_KiB, "percpu section exceeds 12KiB limit!\n");
+	
+	unsigned long address = 32_KiB + 4_KiB * nr_prcsr;
+	
+	for (auto i = 0; i < nr_prcsr; ++i) {
+		memcpy(reinterpret_cast<void*>(address), reinterpret_cast<const void*>(__percpu_section_start), length);
+		address += 16_KiB;
+	}
+	
 }

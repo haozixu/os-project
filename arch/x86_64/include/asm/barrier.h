@@ -1,7 +1,7 @@
 /*
- * arch/x86_64/include/asm/barrier.h
+ * 	arch/x86_64/include/asm/barrier.h
  *
- * memory barrier
+ * 	memory barrier
  */
 #ifndef _ASM_BARRIER_H
 #define _ASM_BARRIER_H

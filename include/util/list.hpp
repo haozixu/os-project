@@ -40,7 +40,7 @@ struct list {
 	void foreach(Function f);
 	
 	template<typename T, size_t offset>
-	T& container(); // note: unsafe
+	T& get_container(); // note: unsafe
 
 	static void init(list*);
 };
@@ -179,14 +179,16 @@ inline void list::foreach(Function f)
 	} while (i != list_iterator(this));
 }
 
-// e.g. list.container<container_type, offsetof(container_type, list_member)>();
+// e.g. list.get_container<container_type, offsetof(container_type, list_member)>();
 template<typename T, size_t offset>
-inline T& list::container()
+inline T& list::get_container()
 {
 	char* tmp = const_cast<char*>(reinterpret_cast<const char*>(&next));
 	tmp -= offset;
 	return static_cast<T&>(*reinterpret_cast<T*>(tmp));
 }
 
+// list.container macro
+#define container(container_type, list_member) get_container<container_type, offsetof(container_type, list_member)>
 }
 

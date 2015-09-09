@@ -1,5 +1,5 @@
 /*
- *	include/kernel/icxxabi.h
+ *	include/kernel/icxxabi.hpp
  *
  *	see kernel/icxxabi.cpp
  */

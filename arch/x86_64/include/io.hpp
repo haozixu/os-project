@@ -8,6 +8,18 @@
 #include <stdint.h>
 #include <asm/io.h>
 
+/*
+ * this need a lot of optimization.
+ *
+ * g++ -O2 can handle this and generate 
+ * pretty good code as expected.
+ *
+ * example code:
+ *		uint8_t val = ports_byte[0xcf9] & ~6;
+ *		ports_byte[0xcf9] = val | 2;
+ *		ports_byte[0xcf9] = val | 6;
+ */ 
+ 
 template<typename T>
 struct port {
 	uint16_t port_addr;

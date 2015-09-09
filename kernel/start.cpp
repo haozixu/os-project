@@ -1,6 +1,6 @@
 #include <kernel/kernel.h>
-#include <kernel/icxxabi.h>
 #include <kernel/init.h>
+#include <kernel/icxxabi.hpp>
 #include <kernel/main.hpp>
 #include <kernel/debug.hpp>
 #include <kernel/log.hpp>
@@ -28,9 +28,7 @@ extern "C" void __kernel_start(unsigned long mbi_addr, unsigned long arch_data)
 void kernel::main()
 {
 	arch::init();
-
-hang:
-	goto hang;
+	debug::PANIC("restart.\n");
 }
 
 void kernel::exit(int status)

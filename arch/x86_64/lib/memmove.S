@@ -4,8 +4,11 @@
  *	c library routine
  */
 
-	.text
 .extern memcpy
+.global memmove
+.global _memmove
+
+	.text
 	.p2align 4
 memmove:
 _memmove:

@@ -1,5 +1,5 @@
 /*
- * 	arch/x86_64/include/paging.h
+ * 	arch/x86_64/include/asm/paging.h
  *
  * 	IA-32e paging stuff
  */

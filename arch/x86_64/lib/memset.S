@@ -6,6 +6,9 @@
 
 #include "asm-syntax.h"
 
+.global memset
+.global _memset
+
 	.text
 memset:
 _memset:
@@ -80,4 +83,7 @@ L(between8_16bytes):
 	movq	%rcx, (%rdi)
 	movq	%rcx, -8(%rdi,%rdx)
 	ret
+
+	.size	memset, .-memset
+	.size	_memset, .-_memset
 

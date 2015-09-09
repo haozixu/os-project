@@ -97,7 +97,7 @@ namespace arch {
 		
 		void init()
 		{
-			// do nothing
+			// do nothing because the work is already done
 		}
 	  private:
 	    const unsigned long base = 0xffffff0000001000;

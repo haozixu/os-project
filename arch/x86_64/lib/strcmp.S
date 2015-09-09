@@ -4,8 +4,14 @@
  *	c library routine
  */
 
+/* strcmp SSE2 unaligned version */
+
 #include "asm-syntax.h"
 
+.global strcmp
+.global _strcmp
+
+	.text
 strcmp:
 _strcmp:
 	movl	%edi, %eax
@@ -195,4 +201,7 @@ L(cross_page):
 L(different):
 	subl	%ecx, %eax
 	ret
-	
+
+	.size	strcmp, .-strcmp
+	.size	_strcmp, .-_strcmp
+
