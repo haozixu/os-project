@@ -6,9 +6,9 @@
 #include <boot/multiboot2.h>
 #include <boot/multiboot.hpp>
 
-#include <kernel/log.hpp>
+#include <kernel/logging.hpp>
 
-#include <memory/mmap.hpp>
+#include <memory/memmap.hpp>
 
 void multiboot2::parse(unsigned long mbi_addr)
 {
@@ -27,15 +27,16 @@ void multiboot2::parse(unsigned long mbi_addr)
 						multiboot_memory_map_t* mmap = mmap_tag->entries;
 						
 						// store mmap information
-						kernel::memory::mmap_control_block.nr_entries = (mmap_tag->size - 16) / mmap_tag->entry_size;
-						kernel::memory::mmap_control_block.map = mmap;
+						kernel::memory::mmap_info.nr_entries = (mmap_tag->size - 16) / mmap_tag->entry_size;
+						kernel::memory::mmap_info.original_map = mmap;
 						
-						kernel::debug::log_format("bootloader provided memory map(e820) with %u entries:\n",
-								kernel::memory::mmap_control_block.nr_entries);
+						kernel::debug::log_format("bootloader provided memory map(e820) with %u entries at %p\n",
+								kernel::memory::mmap_info.nr_entries,
+								kernel::memory::mmap_info.original_map);
 						
 						for (;	(char*)(mmap) < (char*)(tag) + tag->size;
 								mmap = (decltype(mmap))((unsigned long)(mmap) + reinterpret_cast<multiboot_tag_mmap*>(tag)->entry_size)) {
-									kernel::debug::log_format("mmap entry: addr = %p, length = %p, type = %u\n",
+									kernel::debug::log_format("mmap entry: addr = %016lx, length = %08x, type = %u\n",
 										mmap->addr, mmap->len, mmap->type);
 								}
 					}

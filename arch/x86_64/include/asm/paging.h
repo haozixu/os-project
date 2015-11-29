@@ -60,6 +60,8 @@ typedef struct pte {
 	};
 }__packed pte_t;
 
+typedef unsigned long address_t;
+
 // flags
 #define PG_P      (1 << 0)  // Present
 #define PG_RW     (1 << 1)  // Read/Write

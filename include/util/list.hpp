@@ -26,11 +26,11 @@ struct list {
 	bool is_singular() const;
 
 	void insert(list&);
-	void insert_front(list&);
+	void insert_tail(list&);
 	void remove();
 	void replace(list&);
 	void move(list&);
-	void move_front(list&);
+	void move_tail(list&);
 	
 	typedef struct list_iterator iterator;
 	iterator begin();
@@ -125,12 +125,12 @@ inline bool list::is_singular() const
 
 inline void list::insert(list& newl)
 {
-	__list_insert(&newl, this, this->next);
+	__list_insert(&newl, this->prev, this);
 }
 
-inline void list::insert_front(list& newl)
+inline void list::insert_tail(list& newl)
 {
-	__list_insert(&newl, this->prev, this);
+	__list_insert(&newl, this, this->next);
 }
 
 inline void list::remove()
@@ -154,10 +154,10 @@ inline void list::move(list& _list)
 	_list.insert(*this);
 }
 
-inline void list::move_front(list& _list)
+inline void list::move_tail(list& _list)
 {
 	__list_remove(this->prev, this->next);
-	_list.insert_front(*this);
+	_list.insert_tail(*this);
 }
 
 inline typename list::iterator list::begin()
@@ -189,6 +189,6 @@ inline T& list::get_container()
 }
 
 // list.container macro
-#define container(container_type, list_member) get_container<container_type, offsetof(container_type, list_member)>
+#define container(container_type, list_member) get_container<container_type, offsetof(container_type, list_member)>()
 }
 

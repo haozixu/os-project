@@ -9,10 +9,12 @@
 
 #include <global.hpp>
 
-#include <kernel/log.hpp>
+#include <kernel/logging.hpp>
 #include <util/misc.hpp> // for string literal operator
 #include <lib/kassert.h>
 #include <lib/string.h> // for memcpy
+
+#include <e820map.hpp>
 
 static void __init init_percpu_section();
 
@@ -85,6 +87,7 @@ void __init init()
 {
 	init_percpu_section();
 	//init_paging();
+	kernel::memory::e820map.setup();
 	gdt.init();
 	//init_idt();
 	//init_apic();
@@ -94,11 +97,10 @@ void __init init()
 
 }
 
-// static for internal linkage
-extern "C" unsigned long __percpu_section_start, __percpu_section_end;
+extern "C" char *__percpu_section_start, *__percpu_section_end;
 
 static void __init init_percpu_section()
-{
+{	
 	unsigned length = __percpu_section_end - __percpu_section_start; // percpu section length
 	unsigned nr_prcsr = arch::cpu_info.nr_processors;
 	
@@ -107,7 +109,7 @@ static void __init init_percpu_section()
 	unsigned long address = 32_KiB + 4_KiB * nr_prcsr;
 	
 	for (auto i = 0; i < nr_prcsr; ++i) {
-		memcpy(reinterpret_cast<void*>(address), reinterpret_cast<const void*>(__percpu_section_start), length);
+		memcpy(reinterpret_cast<void*>(address), __percpu_section_start, length);
 		address += 16_KiB;
 	}
 	

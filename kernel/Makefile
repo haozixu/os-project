@@ -27,7 +27,7 @@ ifeq ($(HAVE_EXT_FEATURE),NO)
 	CXXFLAGS += -fno-exceptions -fno-rtti
 endif
 
-KERNEL_CXX_SRC = $(wildcard *.cpp) $(wildcard debug/*.cpp)
+KERNEL_CXX_SRC = $(wildcard *.cpp) $(wildcard debug/*.cpp) $(wildcard lib/*.cpp)
 KERNEL_C_SRC = $(wildcard lib/*.c)
 
 KERNEL_OBJS = $(patsubst %.cpp,%.o,$(KERNEL_CXX_SRC))

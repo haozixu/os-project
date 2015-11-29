@@ -3,11 +3,13 @@
 #include <kernel/icxxabi.hpp>
 #include <kernel/main.hpp>
 #include <kernel/debug.hpp>
-#include <kernel/log.hpp>
+#include <kernel/logging.hpp>
 
 #include <arch/init.hpp>
 
 #include <boot/multiboot.hpp>
+
+#include <memory/memmap.hpp>
 
 using namespace kernel;
 
@@ -20,7 +22,6 @@ extern "C" void __kernel_start(unsigned long mbi_addr, unsigned long arch_data)
 	arch::pre_init(arch_data);
 	// parse multiboot information
 	multiboot2::parse(mbi_addr);
-	// init_percpu_section();
 	kernel::main();
 }
 

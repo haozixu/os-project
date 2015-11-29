@@ -21,13 +21,13 @@ BOOT_OBJS = boot.o
 %o: %.S
 	$(CC) $(ASMFLAGS) -c -o $@ $<
 
+all: arch.a
+	cp $^ ../../build/
+
 boot.o: boot/boot.S
 	$(CC) $(ASMFLAGS) -c $<
 
 boot: $(BOOT_OBJS)
-	cp $^ ../../build/
-
-all: arch.a
 	cp $^ ../../build/
 	
 arch.a: $(ARCH_OBJS)

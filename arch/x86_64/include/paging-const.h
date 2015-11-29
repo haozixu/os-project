@@ -1,15 +1,9 @@
 /*
- *	include/arch/paging.h
+ *	arch/x86_64/include/paging-const.h
  *
- *	paging related stuff
+ *	arch paging related stuff
  */
 #pragma once
-
-#include <arch/arch.h>
-
-#ifdef __x86_64__
-
-#include <asm/paging.h>
 
 #define PAGE_OFFSET 0xffffff0000000000
 /*
@@ -17,7 +11,6 @@
  * so equally PAGE_OFFSET = KERNEL_PAGE - PHYS_KERNEL_BASE
  * MAKE SURE THE RELATIONSHIP IS CORRECT!
  */
-
 #define PHYS_PML4T_BASE 0x2000
 #define PHYS_PDPT_USER_BASE 0x3000
 #define PHYS_PDPT_KERNEL_BASE 0x4000
@@ -32,5 +25,8 @@
 #define PDT_USER_BASE (PHYS_PDT_USER_BASE + PAGE_OFFSET)
 //#define PT_BASE (PHYS_PT_BASE + PAGE_OFFSET)
 
-#endif
+#define PML4E_SHIFT 39
+#define PDPTE_SHIFT 30
+#define PDE_SHIFT 21
+#define PTE_SHIFT 12
 

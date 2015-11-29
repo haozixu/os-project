@@ -25,57 +25,62 @@ ffffff0000101010 T __init_array_end
 ffffff0000101010 T __initcall_end
 ffffff0000101010 T __initcall_start
 ffffff00001010b0 T arch::init()
-ffffff0000101180 T __percpu_section_end
-ffffff0000101180 T __percpu_section_start
+ffffff0000101190 T kernel::memory::e820map_struct::copy_from_and_sanitize(multiboot_mmap_entry*, unsigned int&)
+ffffff00001017e0 T kernel::memory::e820map_struct::setup()
+ffffff0000101880 t kernel::memory::e820map_struct::copy_from_and_sanitize(multiboot_mmap_entry*, unsigned int&)::change_point
+ffffff00001019c0 t kernel::memory::e820map_struct::copy_from_and_sanitize(multiboot_mmap_entry*, unsigned int&)::change_point_list
+ffffff0000101c00 T __percpu_section_end
+ffffff0000101c00 T __percpu_section_start
 ffffff0000102000 t start64
 ffffff0000102000 T _text
 ffffff0000102060 T __kernel_start
 ffffff00001020d0 T kernel::exit(int)
 ffffff00001020e0 T kernel::main()
-ffffff0000102130 T __cxa_atexit
-ffffff0000102180 T __cxa_finalize
-ffffff0000102230 T __cxa_pure_virtual
-ffffff0000102240 T multiboot2::parse(unsigned long)
-ffffff0000102360 T system::restart()
-ffffff0000102370 T kernel::debug::log(char const*)
-ffffff00001023d0 T kernel::debug::log_format(char const*, ...)
-ffffff0000102520 T kernel::debug::panic(char const*, char const*, unsigned int, char const*, ...)
+ffffff0000102120 T __cxa_atexit
+ffffff0000102170 T __cxa_finalize
+ffffff0000102220 T __cxa_pure_virtual
+ffffff0000102230 T multiboot2::parse(unsigned long)
+ffffff0000102350 T system::restart()
+ffffff0000102360 T kernel::debug::log(char const*)
+ffffff00001023c0 T kernel::debug::log_format(char const*, ...)
+ffffff0000102510 T kernel::debug::panic(char const*, unsigned int, char const*, ...)
 ffffff00001026a0 t _GLOBAL__sub_I__ZN6system7restartEv
 ffffff00001026e0 T kvsprintf
-ffffff00001029e7 T ksprintf
-ffffff0000102a7d T kuitoa
-ffffff0000102ad2 T kitoa
-ffffff0000102afd T kulltoa
-ffffff0000102b52 T klltoa
-ffffff0000102b80 T arch::restart()
-ffffff0000102ba0 T operator"" _KiB(unsigned long long)
-ffffff0000102bb0 T operator"" _MiB(unsigned long long)
-ffffff0000102bc0 T operator"" _GiB(unsigned long long)
-ffffff0000102bd0 W utility::fifo_spinlock::unlock()
-ffffff0000102be0 W utility::fifo_spinlock::try_lock()
-ffffff0000102c10 W utility::fifo_spinlock::lock()
-ffffff0000102c40 t _GLOBAL__sub_I__ZN4arch14arch_data_lockE
-ffffff0000102c70 T memcpy
-ffffff0000102c70 T _memcpy
-ffffff0000102e88 R _etext
+ffffff0000102a02 T ksprintf
+ffffff0000102a98 T kuitoa
+ffffff0000102aed T kitoa
+ffffff0000102b18 T kulltoa
+ffffff0000102b6d T klltoa
+ffffff0000102ba0 T arch::restart()
+ffffff0000102bc0 T operator"" _KiB(unsigned long long)
+ffffff0000102bd0 T operator"" _MiB(unsigned long long)
+ffffff0000102be0 T operator"" _GiB(unsigned long long)
+ffffff0000102bf0 W utility::fifo_spinlock::unlock()
+ffffff0000102c00 W utility::fifo_spinlock::try_lock()
+ffffff0000102c30 W utility::fifo_spinlock::lock()
+ffffff0000102c60 t _GLOBAL__sub_I__ZN4arch14arch_data_lockE
+ffffff0000102c90 T kernel::memory::e820map_struct::print(char const*) const
+ffffff0000102d30 T memcpy
+ffffff0000102d30 T _memcpy
+ffffff0000102f48 R _etext
 ffffff0000103000 R _rodata
-ffffff0000103063 r kernel::main()::__FUNCTION__
-ffffff0000103250 r init_percpu_section()::__FUNCTION__
-ffffff0000103280 V vtable for utility::fifo_spinlock
-ffffff00001032a8 R _data
-ffffff00001032a8 R _erodata
-ffffff00001032b0 B _bss
-ffffff00001032b0 B _edata
-ffffff00001032c0 B __atexit_function_count
-ffffff0000103300 B __atexit_functions
-ffffff0000103400 b kernel::memory::mmap_control_block
-ffffff0000103410 B kernel::debug::com1
-ffffff0000103412 B ports_dword
-ffffff0000103413 B ports_word
-ffffff0000103414 B ports_byte
-ffffff0000103440 B arch::pdt_system_base
-ffffff0000103480 B arch::cpu_info
-ffffff00001034d0 B arch::arch_data_lock
-ffffff00001034e0 B _ebss
+ffffff0000103240 V vtable for utility::fifo_spinlock
+ffffff0000103340 r CSWTCH.20
+ffffff0000103360 B _bss
+ffffff0000103360 B _edata
+ffffff0000103360 R _data
+ffffff0000103360 R _erodata
+ffffff0000103380 B __atexit_function_count
+ffffff00001033c0 B __atexit_functions
+ffffff00001034c0 B kernel::debug::com1
+ffffff00001034c2 B ports_dword
+ffffff00001034c3 B ports_word
+ffffff00001034c4 B ports_byte
+ffffff0000103500 B arch::pdt_system_base
+ffffff0000103540 B arch::cpu_info
+ffffff0000103590 B arch::arch_data_lock
+ffffff00001035c0 B kernel::memory::e820map
+ffffff0000103780 B kernel::memory::mmap_info
+ffffff0000103790 B _ebss
 ffffff0000104000 B _end
 ffffff0000104000 B __kernel_end

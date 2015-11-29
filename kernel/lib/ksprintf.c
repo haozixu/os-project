@@ -27,9 +27,14 @@ int kvsprintf(char *buf, const char *fmt, va_list args)
 			c = *fmt++;
 		}
 			
-		if (c >= '0' && c <= '9') {
+		if (c > '0' && c <= '9') {
 			pad = c - '0';
 			c = *fmt++;
+			
+			if (c >= '0' && c <= '9') {
+				pad = pad * 10 + c - '0';
+				c = *fmt++;
+			}
 		}
 
 		switch (c) {

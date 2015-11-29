@@ -1,7 +1,7 @@
 /*
- * kernel/debug/debug.cpp
+ * 	kernel/debug/debug.cpp
  *
- * ...
+ * 	...
  */
 #include <kernel/config.h>
 #include <kernel/debug.hpp>

@@ -1,5 +1,5 @@
 /*
- *	kernel/debug/log.cpp
+ *	kernel/debug/logging.cpp
  *
  *	debug logging
  */
@@ -36,13 +36,13 @@ void log_format(const char* fmt, ...)
 #endif
 }
 
-bool panic(const char* file, const char* function, const unsigned line, const char* fmt, ...)
+bool panic(const char* file, const unsigned line, const char* fmt, ...)
 {
 	char buf[248];
 	va_list args;
 	
 	va_start(args, fmt);
-	ksprintf(buf, "[PANIC] in file %s function %s() line %u: ", file, function, line);
+	ksprintf(buf, "[PANIC] in file %s line %u: ", file, line);
 	com1.write(buf);
 	kvsprintf(buf, fmt, args);
 	com1.write(buf);
