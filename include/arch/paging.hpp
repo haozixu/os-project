@@ -27,4 +27,8 @@ namespace arch {
 #define PDMTE_SHIFT PDPTE_SHIFT
 #define PDTE_SHIFT 	PDE_SHIFT
 
+#define PTRS_PER_PGDTE PTRS_PER_PML4T
+#define PTRS_PER_PDMTE PTRS_PER_PDPT
+#define PTRS_PER_PDTE PTRS_PER_PDT
+
 #endif

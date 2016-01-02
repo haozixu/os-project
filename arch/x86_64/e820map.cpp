@@ -7,13 +7,16 @@
 #include <kernel/init.h>
 #include <kernel/logging.hpp>
 #include <lib/sort.hpp>
+#include <lib/misc.hpp>
 
 namespace kernel {
 namespace memory {
 	
 	using kernel::debug::log_format;
-	#define L log_format
 	
+	// well, we have problems using Linux's e820_sanitize
+	// so I expect BIOSes' won't produce some strange maps
+#ifdef LINUX_STYLE_E820
 	int __init e820map_struct::copy_from_and_sanitize(mmap_entry* old_map, unsigned& nr_entries)
 	{
 		static change_member change_point_list[E820_MAX * 2] __initdata;
@@ -101,39 +104,52 @@ namespace memory {
 		
 		return 0;
 	}
-	
+#endif
 	
 	int __init e820map_struct::setup()
 	{
+		this->nr_entries = mmap_info.nr_entries;
+		
+	#ifdef LINUX_STYLE_E820
 		int err;
 		 
-		if (mmap_info.nr_entries < 2) {
+		if (this->nr_entries < 2) {
 			// if there's only one entry, just copy
 			this->map[0] = mmap_info.original_map[0];
 		} else {
-			err = copy_from_and_sanitize(mmap_info.original_map, mmap_info.nr_entries);
+			err = copy_from_and_sanitize(mmap_info.original_map, this->nr_entries);
 		}
 		
 		if (err)
 			return err;
-		
-		print();
-		
+	#else
+		this->map = mmap_info.original_map;			
+	#endif
+	
+		print();	
 		return 0;
 		
 	}
-	
+
 	void e820map_struct::print(const char* who) const
-	{
-		using kernel::debug::log_format;
+	{	
+		unsigned long avl_size = 0, resv_size = 0;
 		
 		log_format("%s provided E820 memory map with %u entries:\n", who, nr_entries);
 		for (auto i = 0; i < nr_entries; ++i) {
-			log_format("memory [%016lx - %016lx] %s\n",
+			log_format("memory [%016lx - %016lx) %s\n",
 				map[i].addr,
-				map[i].addr + map[i].len - 1,
+				map[i].addr + map[i].len,
 				type_to_string(map[i].type));
+			
+			if (map[i].type == E820_AVAILABLE)
+				avl_size += map[i].len;
+			else
+				resv_size += map[i].len;
 		}
+		
+		log_format("available memory: %u MiB reserved memory: %u KiB\n",
+			 avl_size / 1048576, resv_size / 1024);
 	}
 	
 	inline const char* e820map_struct::type_to_string(unsigned type)

@@ -30,6 +30,7 @@ void multiboot2::parse(unsigned long mbi_addr)
 						kernel::memory::mmap_info.nr_entries = (mmap_tag->size - 16) / mmap_tag->entry_size;
 						kernel::memory::mmap_info.original_map = mmap;
 						
+						/*
 						kernel::debug::log_format("bootloader provided memory map(e820) with %u entries at %p\n",
 								kernel::memory::mmap_info.nr_entries,
 								kernel::memory::mmap_info.original_map);
@@ -39,12 +40,13 @@ void multiboot2::parse(unsigned long mbi_addr)
 									kernel::debug::log_format("mmap entry: addr = %016lx, length = %08x, type = %u\n",
 										mmap->addr, mmap->len, mmap->type);
 								}
+						*/
 					}
 					break;
 				case MULTIBOOT_TAG_TYPE_FRAMEBUFFER:
 					{
 						multiboot_tag_framebuffer* tagfb = reinterpret_cast<decltype(tagfb)>(tag);
-						kernel::debug::log_format("frambebuffer physical address: 0x%x\n", tagfb->common.framebuffer_addr);
+						kernel::debug::log_format("framebuffer physical address: 0x%x\n", tagfb->common.framebuffer_addr);
 					}
 					break;
 				 default:

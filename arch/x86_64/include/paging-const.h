@@ -30,3 +30,7 @@
 #define PDE_SHIFT 21
 #define PTE_SHIFT 12
 
+#define PTRS_PER_PML4T 512
+#define PTRS_PER_PDPT 512
+#define PTRS_PER_PDT 512
+#define PTRS_PER_PT 512

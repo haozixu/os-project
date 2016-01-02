@@ -7,9 +7,3 @@
 
 #include <restart.hpp> // from arch/$(ARCH)/include/
 
-namespace system {
-	void restart()
-	{
-		arch::restart();
-	}
-}

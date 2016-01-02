@@ -7,8 +7,8 @@
 
 namespace arch {
 
-utility::spinlock arch_data_lock;
+lib::spinlock arch_data_lock;
 cpu_info_struct cpu_info;
-unsigned long pdt_system_base;
+unsigned long low_free_area;
 
 }

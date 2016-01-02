@@ -6,8 +6,9 @@
 #pragma once
 
 #include <memory/memmap.hpp>
+#include <stdint.h>
 
-#define MAX_E820_ENTRIES 18
+#define MAX_E820_ENTRIES 24
 #define E820_MAX MAX_E820_ENTRIES
 
 #define E820_AVAILABLE 	1
@@ -17,15 +18,32 @@
 
 namespace kernel {
 	namespace memory {
-		typedef mmap_entry e820entry;
+		struct e820entry {
+			mmap_entry* e;
+			
+			e820entry() = delete;
+			e820entry(mmap_entry* p) : e(p) {} 
+			uint64_t addr() { return e->addr; }
+			uint64_t start() { return e->addr; }
+			uint32_t type() { return e->type; }
+			uint64_t length() { return e->len; }
+			uint64_t end() { return e->addr + e->len; }
+		};
 		
 		struct e820map_struct {
 			unsigned nr_entries;
-			e820entry map[MAX_E820_ENTRIES];
-			
+		#ifdef LINUX_STYLE_E820
+			mmap_entry map[MAX_E820_ENTRIES];
+		#else
+			mmap_entry* map;
+		#endif	
 			int setup();
 			void print(const char* who = "bootloader") const;
-			int copy_from_and_sanitize(mmap_entry* old_map, unsigned& nr_entries);
+		//	int copy_from_and_sanitize(mmap_entry* old_map, unsigned& nr_entries);
+			e820entry operator[](unsigned idx)
+			{
+				return e820entry(map + idx);
+			}
 			
 			static inline const char* type_to_string(unsigned type);
 		};

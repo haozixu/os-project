@@ -10,11 +10,12 @@
 #include <global.hpp>
 
 #include <kernel/logging.hpp>
-#include <util/misc.hpp> // for string literal operator
+#include <lib/misc.hpp> // for string literal operator
 #include <lib/kassert.h>
 #include <lib/string.h> // for memcpy
 
 #include <e820map.hpp>
+#include <early_memalloc.hpp>
 
 static void __init init_percpu_section();
 
@@ -23,7 +24,8 @@ namespace arch {
 void __init pre_init(unsigned long arch_data)
 {
 	// store it!
-	pdt_system_base = arch_data;
+	low_free_area = arch_data;
+#if 0
 	// get vendor ID and the largest cpuid basic function number 
 	asm volatile(
 		"xorl %%eax, %%eax \n\t"
@@ -81,13 +83,16 @@ void __init pre_init(unsigned long arch_data)
 		:"S"(cpu_info.model_name)
 		:"eax", "ecx", "edx", "ebx"
 	);
+#endif
 }
 
 void __init init()
 {
-	init_percpu_section();
-	//init_paging();
-	kernel::memory::e820map.setup();
+	using kernel::memory::e820map;
+	
+	//init_percpu_section();
+	e820map.setup();
+	early_memalloc::init();
 	gdt.init();
 	//init_idt();
 	//init_apic();
@@ -104,13 +109,13 @@ static void __init init_percpu_section()
 	unsigned length = __percpu_section_end - __percpu_section_start; // percpu section length
 	unsigned nr_prcsr = arch::cpu_info.nr_processors;
 	
-	KASSERT(length < 12_KiB, "percpu section exceeds 12KiB limit!\n");
+	KASSERT(length < 20_KiB, "percpu section exceeds 20KiB limit!\n");
 	
-	unsigned long address = 32_KiB + 4_KiB * nr_prcsr;
+	unsigned long address = 32_KiB + 8_KiB * nr_prcsr;
 	
 	for (auto i = 0; i < nr_prcsr; ++i) {
 		memcpy(reinterpret_cast<void*>(address), __percpu_section_start, length);
-		address += 16_KiB;
+		address += 24_KiB;
 	}
 	
 }

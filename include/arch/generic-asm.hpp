@@ -13,7 +13,7 @@
 #include <asm/flags.h>
 #include <asm/misc.h>
 
-namespace system {
+namespace arch {
 	inline void relax_cpu()
 	{
 		pause();

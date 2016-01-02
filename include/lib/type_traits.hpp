@@ -1,5 +1,5 @@
 /*
- *	include/util/type_traits.hpp
+ *	include/lib/type_traits.hpp
  *
  *	...
  */
@@ -7,7 +7,7 @@
 
 #include <stddef.h>
 
-namespace utility {
+namespace lib {
 
 template <typename _Tp, _Tp __v>
 struct integral_constant {

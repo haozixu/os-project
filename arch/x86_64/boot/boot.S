@@ -98,17 +98,23 @@ _start:
     movl $6, %ecx
     rep movsl
 
+    # for example, we have 4 logical processors
+    #   |cpu0|cpu1|cpu2|cpu3|   cpu0   |   cpu1   |   cpu2   |   cpu3   |
+    #   | 8k | 8k | 8k | 8k | 20k | 4k | 20k | 4k | 20k | 4k | 20k | 4k |
+    #   |  interrupt stacks |          percpu area & kernel stacks      |
+    # 0x8000         32k + n * 8k      ^esp0                      32k + n * 32k
+
     movl $1, %eax
     cpuid                   # get logical processor count
     shrl $16, %ebx
     andl $0xff, %ebx        # ebx = logical processor count
 
-    movl $0x1000, %eax
-    mulw %bx                # eax = nr_cpu * 4k
-    addl $0xc000, %eax      # preserve interrupt stack area
+    movl $0x2000, %eax
+    mulw %bx                # eax = nr_cpu * 8k, preserve interrupt stacks
+    addl $0xe000, %eax      # 0xe000 = 0x8000 + 0x6000
     movl %eax, %esp         # set bsp's stack pointer
 
-    movl $0x5000, %eax
+    movl $0x8000, %eax
     mulw %bx
     addl $0x8000, %eax
     pushl $0

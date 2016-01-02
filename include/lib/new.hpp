@@ -1,5 +1,5 @@
 /*
- *	include/util/new.hpp
+ *	include/lib/new.hpp
  *
  *	replacement new
  */

@@ -1,5 +1,5 @@
 /*
- *	include/util/misc.hpp
+ *	include/lib/misc.hpp
  *
  *	...
  */

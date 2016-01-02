@@ -1,5 +1,5 @@
 /*
- *	include/util/atomic.hpp
+ *	include/lib/atomic.hpp
  *
  *	atomic operations
  */
@@ -8,7 +8,7 @@
 #include <stdint.h>
 #include <stddef.h>
 
-namespace utility {
+namespace lib {
 
 typedef enum memory_order {
     memory_order_relaxed,
@@ -661,7 +661,7 @@ template <typename PtrType> struct atomic_base<PtrType*> {
 }
 
 
-namespace utility {
+namespace lib {
 
 struct atomic_bool {
   private:

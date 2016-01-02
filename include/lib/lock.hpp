@@ -5,7 +5,7 @@
  */
 #pragma once
 
-namespace utility {
+namespace lib {
 
 struct __lockable {
 	typedef __lockable self;

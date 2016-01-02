@@ -1,5 +1,5 @@
 /*
- *	include/util/list.hpp
+ *	include/lib/list.hpp
  *
  *	linked-list
  */
@@ -7,7 +7,7 @@
 
 #include <stddef.h>
 
-namespace utility {
+namespace lib {
 
 struct list {
 	list* next;

@@ -22,8 +22,10 @@ all: *.*
 rebuild:
 	make clean_all
 	make all
-	
-image: $(OUTPUT_TARGET)
+
+image: cdimage.iso
+
+cdimage.iso: $(OUTPUT_TARGET)
 	genisoimage -R -no-emul-boot -boot-info-table -boot-load-size 4 \
 	-b g2ldr -o cdimage.iso $(OUTPUT) 
 

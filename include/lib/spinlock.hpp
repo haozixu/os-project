@@ -1,18 +1,18 @@
 /*
- *	include/util/spinlock.hpp
+ *	include/lib/spinlock.hpp
  *
  *	spinlocks
  */
 #pragma once
 
-#include <util/lock.hpp>
-#include <util/atomic.hpp>
+#include <lib/lock.hpp>
+#include <lib/atomic.hpp>
 #include <arch/generic-asm.hpp>
 #include <bitwidth.h>
 
-namespace utility {
+namespace lib {
 
-class fifo_spinlock final : public utility::__lockable {
+class fifo_spinlock final : public lib::__lockable {
   private:
   	atomic<int> val;
   	
@@ -40,7 +40,7 @@ class fifo_spinlock final : public utility::__lockable {
 	{
 		lock_value inc = val.fetch_add(1 << BITS_PER_WORD); // ++next
 		while (inc.owner != inc.next) {
-			system::relax_cpu();
+			arch::relax_cpu();
 			inc.owner = static_cast<short>(val); // owner
 		}
 	}
