@@ -1,7 +1,7 @@
 /*
  *	include/arch/init.hpp
  *
- *	......
+ *	architectural initialization
  */
 #pragma once
 

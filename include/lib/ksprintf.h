@@ -11,8 +11,8 @@
 extern "C" {
 #endif
 
-int ksprintf(char *buffer, const char *format, ...);
-int kvsprintf(char *buffer, const char *format, va_list args);
+extern int ksprintf(char* buffer, const char* format, ...);
+extern int kvsprintf(char* buffer, const char* format, va_list args);
 
 #ifdef __cplusplus
 }

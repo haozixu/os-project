@@ -12,13 +12,13 @@
 extern "C" {
 #endif
 
-void * memcpy(void *dst, const void *src, size_t size);
-void * memmove(void *dst, const void *src, size_t size);
-void * memset(void *s, int c, size_t n);
+extern void* memcpy(void* dst, const void* src, size_t size);
+extern void* memmove(void* dst, const void* src, size_t size);
+extern void* memset(void* s, int c, size_t n);
 
-char * strcpy(char *dst, const char *src);
-size_t strlen(const char *s);
-int strcmp(const char *s1, const char *s2);
+extern char* strcpy(char* dst, const char* src);
+extern size_t strlen(const char* s);
+extern int strcmp(const char* s1, const char* s2);
 
 #ifdef __cplusplus
 }

@@ -3,7 +3,6 @@
  *
  *	debug logging
  */
-#include <arch/arch.h>
 #include <kernel/config.h>
 #include <lib/ksprintf.h>
 #include <stdarg.h>
@@ -12,8 +11,11 @@
 	
 namespace kernel {
 namespace debug {
+
+using ARCH::serial_port;
+using ARCH::serial;
 		
-serial_port com1(serial_port::COM1);
+serial_port<serial::COM1> com1;
 		
 void log(const char* str)
 {
@@ -48,7 +50,7 @@ bool panic(const char* file, const unsigned line, const char* fmt, ...)
 	com1.write(buf);
 	va_end(args);
 	
-	arch::restart();
+	arch::direct_restart();
 	return false;
 }
 

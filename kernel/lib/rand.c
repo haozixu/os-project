@@ -3,7 +3,7 @@
  *
  *	kernel RNG using Mesenne Twister (mt19937-32)
  */
-#include <lib/rand.h>
+#include <lib/kstdlib.h>
 
 static int initialized, index, MT[624];
 

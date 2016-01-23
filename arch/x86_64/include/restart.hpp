@@ -5,6 +5,6 @@
  */
 #pragma once
 
-namespace arch {
-	void restart();
+namespace ARCH {
+	void direct_restart();
 }

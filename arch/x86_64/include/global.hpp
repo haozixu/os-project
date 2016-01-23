@@ -9,7 +9,7 @@
 #include <gdt.hpp>
 #include <lib/spinlock.hpp>
 
-namespace arch {
+namespace ARCH {
 	extern lib::spinlock arch_data_lock;
 	extern cpu_info_struct cpu_info;
 	extern gdt_struct gdt;

@@ -7,6 +7,7 @@
 
 #include <asm/msr.h>
 
+namespace ARCH {
 /*
  * this need a lot of optimization.
  *
@@ -21,20 +22,25 @@ struct msr {
 	uint32_t index;
 
 	msr(uint32_t i) : index(i) {}
-
-	void operator=(uint64_t val)
+	
+	void write(uint64_t val)
 	{
 		wrmsr(index, val);
 	}
 
-	uint64_t val()
+	void operator=(uint64_t val)
+	{
+		write(index, val);
+	}
+
+	uint64_t read()
 	{
 		return rdmsr(index);
 	}
 
 	uint64_t() // implicit cast
 	{
-		return val();
+		return read();
 	}
 
 	void operator|=(uint64_t val)
@@ -61,3 +67,4 @@ struct {
 	}
 } msrs;
 
+}

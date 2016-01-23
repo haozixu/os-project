@@ -5,6 +5,8 @@
  */
 #pragma once
 
-#include <arch/arch.h>
+#include <cpu.hpp> // from arch/$(ARCH)/include/
 
-#include <cpu.hpp> // from arch/$(ARCH)/include
+namespace arch {
+	using ARCH::cpu_info_struct;
+}

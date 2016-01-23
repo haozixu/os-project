@@ -14,9 +14,7 @@
 
 static __always_inline void flush_tlb_single(void *addr)
 {
-	asm volatile("invlpg (%0)"::"r"(addr):"memory");
+	asm volatile ("invlpg (%0)"::"r"(addr):"memory");
 }
-
-#undef inline
 
 #endif

@@ -5,6 +5,6 @@ boot:cdrom
 ata0:enabled=1,ioaddr1=0x1f0,ioaddr2=0x3f0,irq=14
 ata0-master:type=cdrom,path="cdimage.iso",status=inserted
 mouse:enabled=0
-com1:enabled=1,mode=file,dev=serial.txt
+com1:enabled=1,mode=file,dev=build/debug/serial.txt
 cpuid:simd=sse4_2,1g_pages=1
-#avx=1,aes=1,apic=xapic,xsave=1,movbe=1,sep=1,1g_pages=1,pcid=1,smep=1,xsaveopt=1
+#avx=1,aes=1,apic=xapic,xsave=1,movbe=1,sep=1,pcid=1,smep=1,xsaveopt=1

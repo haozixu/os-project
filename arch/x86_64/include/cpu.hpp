@@ -7,7 +7,7 @@
 
 #include <stdint.h>
 
-namespace arch {
+namespace ARCH {
 	struct cpu_info_struct {
 		unsigned nr_processors; // threads
 		unsigned nr_cores;

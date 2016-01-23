@@ -110,15 +110,15 @@ _start:
     andl $0xff, %ebx        # ebx = logical processor count
 
     movl $0x2000, %eax
-    mulw %bx                # eax = nr_cpu * 8k, preserve interrupt stacks
+    mull %ebx               # eax = nr_cpu * 8k, preserve interrupt stacks
     addl $0xe000, %eax      # 0xe000 = 0x8000 + 0x6000
     movl %eax, %esp         # set bsp's stack pointer
 
     movl $0x8000, %eax
-    mulw %bx
+    mull %ebx
     addl $0x8000, %eax
     pushl $0
-    pushl %eax              # save system_pdt base
+    pushl %eax              # save low free area base
 
     # setup temporary kernel pdt
     movl $BOOT_PAGE_PDT_BASE, %eax

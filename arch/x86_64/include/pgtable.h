@@ -1,5 +1,5 @@
 /*
- *	arch/x86_64/include/paging-const.h
+ *	arch/x86_64/include/pgtable.h
  *
  *	arch paging related stuff
  */
@@ -25,10 +25,18 @@
 #define PDT_USER_BASE (PHYS_PDT_USER_BASE + PAGE_OFFSET)
 //#define PT_BASE (PHYS_PT_BASE + PAGE_OFFSET)
 
+#define PAGE_SIZE 0x1000
+#define LARGE_PAGE_SIZE 0x200000
+#define HUGE_PAGE_SIZE 0x40000000
+
 #define PML4E_SHIFT 39
 #define PDPTE_SHIFT 30
 #define PDE_SHIFT 21
 #define PTE_SHIFT 12
+
+#define PAGE_SHIFT PTE_SHIFT
+#define LARGE_PAGE_SHIFT PDE_SHIFT
+#define HUGE_PAGE_SHIFT PDPTE_SHIFT
 
 #define PTRS_PER_PML4T 512
 #define PTRS_PER_PDPT 512

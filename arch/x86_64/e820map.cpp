@@ -6,12 +6,16 @@
 #include <e820map.hpp>
 #include <kernel/init.h>
 #include <kernel/logging.hpp>
-#include <lib/sort.hpp>
 #include <lib/misc.hpp>
 
 namespace kernel {
 namespace memory {
-	
+	mmap_info_struct mmap_info;
+}
+}
+
+namespace ARCH {
+	using kernel::memory::mmap_info;
 	using kernel::debug::log_format;
 	
 	// well, we have problems using Linux's e820_sanitize
@@ -171,7 +175,5 @@ namespace memory {
 		}
 	}
 	
-	mmap_info_struct mmap_info;
 	e820map_struct e820map;
-}
 }

@@ -7,21 +7,19 @@
 #define _ASM_MSR_H
 
 #include <stdint.h>
-#include <always_inline.h>
+#include <compiler.h>
 
-static inline uint64_t rdmsr(unsigned index)
+static __always_inline uint64_t rdmsr(unsigned index)
 {
 	uint64_t val;
-	asm volatile("rdmsr":"=A"(val):"c"(index));
+	asm volatile ("rdmsr":"=A"(val):"c"(index));
 	return val;
 }
 
-static inline void wrmsr(unsigned index, uint64_t val)
+static __always_inline void wrmsr(unsigned index, uint64_t val)
 {
-	asm volatile("wrmsr"::"A"(val),"c"(index));
+	asm volatile ("wrmsr"::"A"(val),"c"(index));
 }
-
-#undef inline
 
 #endif
 

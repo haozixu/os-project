@@ -10,20 +10,25 @@
 #include <asm/misc.h>
 #include <firmware/bios.h>
 
-class serial_port {
+namespace ARCH {
+
+struct serial {
+  	static constexpr uint16_t COM1 = 0x3f8;
+	static constexpr uint16_t COM2 = 0x2f8;
+};
+
+template<uint16_t port_addr>
+struct serial_port {
   public:
-  	static const uint16_t COM1 = 0x3f8;
-	static const uint16_t COM2 = 0x2f8;
-  	/* init: @port: I/O port number
-	 * COM1: 0x3f8
+	/* COM1: 0x3f8
 	 * COM2: 0x2f8
 	 * COM3 & COM4's port number are not sure.(maybe 0x3e8 & 0x2e8)
 	 * Use static member function serial_port::get_com_port_address(int n) 
 	 * to get the exact port address.
 	 */ 
-  	void init(uint16_t port)
+  	void init()
 	{
-		port_addr = port;
+		uint16_t port = port_addr;
 		outb(port + 1, 0x00);    // Disable all interrupts
 		outb(port + 3, 0x80);    // Enable DLAB (set baud rate divisor)
 		outb(port + 0, 0x03);    // Set divisor to 3 (low byte) 38400 baud
@@ -35,9 +40,8 @@ class serial_port {
 	}
 	
 	serial_port() {}
-	serial_port(uint16_t port) { init(port); }
 	
-	uint16_t port() const
+	constexpr uint16_t port() const
 	{
 		return port_addr;
 	}
@@ -90,6 +94,6 @@ class serial_port {
 			return 0;
 		return bios_data_area->com_port_addr[n];
 	}
-  private:
-  	uint16_t port_addr;
 };
+
+}

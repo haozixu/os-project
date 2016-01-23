@@ -6,23 +6,21 @@
 #ifndef _ASM_BARRIER_H
 #define _ASM_BARRIER_H
 
-#include <always_inline.h>
+#include <compiler.h>
 
-static inline void lfence(void)
+static __always_inline void lfence(void)
 {
-	asm volatile("lfence":::"memory");
+	asm volatile ("lfence":::"memory");
 }
 
-static inline void sfence(void)
+static __always_inline void sfence(void)
 {
-	asm volatile("sfence":::"memory");
+	asm volatile ("sfence":::"memory");
 }
 
-static inline void mfence(void)
+static __always_inline void mfence(void)
 {
-	asm volatile("mfence":::"memory");
+	asm volatile ("mfence":::"memory");
 }
-
-#undef inline
 
 #endif

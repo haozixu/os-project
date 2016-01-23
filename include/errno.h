@@ -8,6 +8,7 @@
 #pragma once
 
 extern int errno;
+// damn, single-threaded
 
 // well, some note looked strange...... don't ask me where did I get it.
 

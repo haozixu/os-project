@@ -9,13 +9,16 @@
 
 namespace kernel {
 namespace debug {
-		
-extern serial_port com1;
+
+using ARCH::serial_port;
+using ARCH::serial;
+
+extern serial_port<serial::COM1> com1;
 		
 void init() {}
 void partial_init()
 {
-	com1.init(serial_port::COM1);
+	com1.init();
 }
 
 }

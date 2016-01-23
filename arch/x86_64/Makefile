@@ -3,7 +3,7 @@
 CC = gcc
 ASMFLAGS = -I../../include/boot
 CXX = g++ -std=c++11
-CXXFLAGS = -m64 -O2 -mcmodel=large -ffreestanding -fno-strict-aliasing -Iinclude -I../../include
+CXXFLAGS = -m64 -O2 -mcmodel=large -ffreestanding -fno-strict-aliasing -Iinclude -I../../include -DARCH=x86_64
 CXXFLAGS += -fno-exceptions -fno-rtti
 
 ARCH_CXX_SRC = $(wildcard *.cpp)

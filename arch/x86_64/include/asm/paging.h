@@ -102,7 +102,7 @@ enum page_flags {
 static __always_inline int has_1Gb_pages(void)
 {
 	int ret;
-	asm volatile(
+	asm volatile (
 		"cpuid \n\t"
 		"movl %%edx, %%eax \n\t"
 		"andl $0x4000000, %%eax \n\t" /* bit 26 */
@@ -116,7 +116,7 @@ static __always_inline int has_1Gb_pages(void)
 static __always_inline int pge_availbale(void)
 {
 	int ret;
-	asm volatile(
+	asm volatile (
 		"cpuid \n\t"
 		"movl %%edx, %%eax \n\t"
 		"andl $0x2000, %%eax \n\t" /* bit 13 */

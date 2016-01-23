@@ -5,10 +5,11 @@
  */
 #pragma once
 
-#include <asm/system.h>
 #include <kernel/config.h>
 
-namespace arch {
+#include <asm/system.h>
+
+namespace ARCH {
 	__always_inline void lgdt(uint16_t size, unsigned long addr)
 	{
 		__lgdt(size, addr);
@@ -71,8 +72,9 @@ namespace arch {
 		{
 			// do nothing because the work is already done
 		}
+		
+	    static constexpr unsigned long base = 0xffffff0000001000UL;
 	  private:
-	    const unsigned long base = 0xffffff0000001000;
 	    unsigned index = 3; // note: index start with 0
 	};
 }

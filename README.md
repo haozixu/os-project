@@ -8,6 +8,7 @@
 + you are using GNU/Linux
 + C and C++ compiler: gcc g++
 + genisoimage: make kernel/OS iso image(a replacement of mkisofs)
++ python: to do some configuration work
 + qemu/bochs: test kernel/OS on virtual machine
 
 > note: the grub bootloader is also needed, its binary can be found in build/prebuilt-binaries/

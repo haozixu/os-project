@@ -7,7 +7,7 @@
 
 #include <lib/lock.hpp>
 #include <lib/atomic.hpp>
-#include <arch/generic-asm.hpp>
+#include <arch/asm/misc.hpp>
 #include <bitwidth.h>
 
 namespace lib {

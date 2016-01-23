@@ -82,12 +82,12 @@ static __always_inline void __lgdt(uint16_t size, unsigned long addr)
 	struct dt_ptr desc_ptr;
 	desc_ptr.size = size;
 	desc_ptr.addr = addr;
-	asm volatile("lgdt %0"::"m"(desc_ptr));
+	asm volatile ("lgdt %0"::"m"(desc_ptr));
 }
 
 static __always_inline void __lgdt_p(const struct dt_ptr *desc_ptr)
 {
-	asm volatile("lgdt (%0)"::"r"(desc_ptr));
+	asm volatile ("lgdt (%0)"::"r"(desc_ptr));
 }
 
 static __always_inline void __lidt(uint16_t size, unsigned long addr)
@@ -95,12 +95,12 @@ static __always_inline void __lidt(uint16_t size, unsigned long addr)
 	struct dt_ptr desc_ptr;
 	desc_ptr.size = size;
 	desc_ptr.addr = addr;
-	asm volatile("lidt %0"::"m"(desc_ptr));
+	asm volatile ("lidt %0"::"m"(desc_ptr));
 }
 
 static __always_inline void __lidt_p(const struct dt_ptr *desc_ptr)
 {
-	asm volatile("lidt (%0)"::"r"(desc_ptr));
+	asm volatile ("lidt (%0)"::"r"(desc_ptr));
 }
 
 static __always_inline void __lldt(uint16_t size, unsigned long addr)
@@ -108,17 +108,17 @@ static __always_inline void __lldt(uint16_t size, unsigned long addr)
 	struct dt_ptr desc_ptr;
 	desc_ptr.size = size;
 	desc_ptr.addr = addr;
-	asm volatile("lldt %0"::"m"(desc_ptr));
+	asm volatile ("lldt %0"::"m"(desc_ptr));
 }
 
 static __always_inline void __lldt_p(const struct dt_ptr *desc_ptr)
 {
-	asm volatile("lldt (%0)"::"r"(desc_ptr));
+	asm volatile ("lldt (%0)"::"r"(desc_ptr));
 }
 
 static __always_inline void __ltr(uint16_t selector)
 {
-	asm volatile("ltrw %0"::"r"(selector));
+	asm volatile ("ltrw %0"::"r"(selector));
 }
 
 

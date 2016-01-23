@@ -7,7 +7,7 @@
 
 #include <stdint.h>
 #include <compiler.h>
-#include <paging-const.h>
+#include <pgtable.h>
 
 struct __bios_data_area {
 	// note: see www.bioscentral.com/misc/bda.htm

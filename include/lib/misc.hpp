@@ -8,43 +8,46 @@
 #include <compiler.h>
 #include <stddef.h>
 
-#if CONFIG_USE_MACRO == YES // may be found in kernel/config.h
+/*
+ *	get rid of min & max and put them in algorithm.hpp
+ */
+#ifdef CONFIG_USE_MACRO // may be found in kernel/config.h
 
-#define max(a, b) ((a) > (b) ? (a) : (b))
-#define min(a, b) ((a) < (b) ? (a) : (b))
 #define array_length(array) (sizeof(array) / sizeof(array[0]))
+#define align_up(n, align) ({ n = (n + align - 1) & static_cast<decltype(n)>(-align); })
+#define align_down(n, align) ({ n = n & static_cast<decltype(n)>(-align); })
 
-#else // CONFIG_USE_MACRO == NO
-
-template<typename T>
-static constexpr const T& max(const T& a, const T& b)
-{
-	return a > b ? a : b;
-}
-
-template<typename T>
-static constexpr const T& min(const T& a, const T& b)
-{
-	return a < b ? a : b;
-}
+#else
 
 template<typename T, size_t N>
-static constexpr size_t array_length(T (&)[N])
+static inline constexpr size_t array_length(T (&)[N])
 {
 	return N;
 }
 
-unsigned long long operator"" _KiB(unsigned long long x)
+template<typename Ui, typename I> // Ui stands for unsigned integer
+static inline constexpr Ui align_up(Ui n, I align)
+{
+	return (n + align - 1) & static_cast<Ui>(-align);
+}
+
+template<typename Ui, typename I> // Ui stands for unsigned integer
+static inline constexpr Ui align_down(Ui n, I align)
+{
+	return n & static_cast<Ui>(-align);
+}
+
+constexpr unsigned long long operator"" KiB(unsigned long long x)
 {
 	return x * 1024; // 0x400
 }
 
-unsigned long long operator"" _MiB(unsigned long long x)
+constexpr unsigned long long operator"" MiB(unsigned long long x)
 {
 	return x * 1048576; // 0x100000
 }
 
-unsigned long long operator"" _GiB(unsigned long long x)
+constexpr unsigned long long operator"" GiB(unsigned long long x)
 {
 	return x * 0x40000000; // 1073741824
 }

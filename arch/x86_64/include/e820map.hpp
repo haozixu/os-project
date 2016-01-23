@@ -16,44 +16,44 @@
 #define E820_ACPI		3
 #define E820_NVS		4
 
-namespace kernel {
-	namespace memory {
-		struct e820entry {
-			mmap_entry* e;
-			
-			e820entry() = delete;
-			e820entry(mmap_entry* p) : e(p) {} 
-			uint64_t addr() { return e->addr; }
-			uint64_t start() { return e->addr; }
-			uint32_t type() { return e->type; }
-			uint64_t length() { return e->len; }
-			uint64_t end() { return e->addr + e->len; }
-		};
+namespace ARCH {
+	using kernel::memory::mmap_entry;
+	
+	struct e820entry {
+		mmap_entry* e;
 		
-		struct e820map_struct {
-			unsigned nr_entries;
-		#ifdef LINUX_STYLE_E820
-			mmap_entry map[MAX_E820_ENTRIES];
-		#else
-			mmap_entry* map;
-		#endif	
-			int setup();
-			void print(const char* who = "bootloader") const;
-		//	int copy_from_and_sanitize(mmap_entry* old_map, unsigned& nr_entries);
-			e820entry operator[](unsigned idx)
-			{
-				return e820entry(map + idx);
-			}
-			
-			static inline const char* type_to_string(unsigned type);
-		};
+		e820entry() = delete;
+		e820entry(mmap_entry* p) : e(p) {} 
+		uint64_t addr() { return e->addr; }
+		uint64_t start() { return e->addr; }
+		uint32_t type() { return e->type; }
+		uint64_t length() { return e->len; }
+		uint64_t end() { return e->addr + e->len; }
+	};
+	
+	struct e820map_struct {
+		unsigned nr_entries;
+	#ifdef LINUX_STYLE_E820
+		mmap_entry map[MAX_E820_ENTRIES];
+	#else
+		mmap_entry* map;
+	#endif	
+		int setup();
+		void print(const char* who = "bootloader") const;
+	//	int copy_from_and_sanitize(mmap_entry* old_map, unsigned& nr_entries);
+		e820entry operator[](unsigned idx)
+		{
+			return e820entry(map + idx);
+		}
 		
-		extern e820map_struct e820map;
+		static inline const char* type_to_string(unsigned type);
+	};
 		
-		// this idea is borrowed from Linux
-		struct change_member {
-			e820entry *p_entry; // pointer to original entry
-			unsigned long long addr; // address for this change point 
-		};
-	}
+	extern e820map_struct e820map;
+	
+	// this idea is borrowed from Linux
+	struct change_member {
+		e820entry *p_entry; // pointer to original entry
+		unsigned long long addr; // address for this change point 
+	};
 }

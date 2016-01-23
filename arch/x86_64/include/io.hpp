@@ -8,6 +8,7 @@
 #include <stdint.h>
 #include <asm/io.h>
 
+namespace ARCH {
 /*
  * this need a lot of optimization.
  *
@@ -25,24 +26,45 @@ struct port {
 	uint16_t port_addr;
 	
 	port(uint16_t port) : port_addr(port) {}
+	
+	T in();
+	void out(T val);
 
 	operator T(); // in	
-	void operator=(const T val); // out
-	void operator|=(const T val); // in & out
-	void operator&=(const T val); // in & out	
+	void operator=(T val); // out
+	void operator|=(T val); // in & out
+	void operator&=(T val); // in & out	
 };
+
+template<typename T>
+inline T port<T>::in() {}
+
+template<typename T>
+inline void port<T>::out(T val) {}
 
 template<typename T>
 inline port<T>::operator T() {}
 
 template<typename T>
-inline void port<T>::operator=(const T val) {}
+inline void port<T>::operator=(T val) {}
 
 template<typename T>
-inline void port<T>::operator|=(const T val) {}
+inline void port<T>::operator|=(T val) {}
 
 template<typename T>
-inline void port<T>::operator&=(const T val) {}
+inline void port<T>::operator&=(T val) {}
+
+template<>
+inline uint8_t port<uint8_t>::in()
+{
+	return inb(port_addr);	
+}
+
+template<>
+inline void port<uint8_t>::out(uint8_t val)
+{
+	outb(port_addr, val);
+}
 
 template<>
 inline port<uint8_t>::operator uint8_t()
@@ -51,13 +73,13 @@ inline port<uint8_t>::operator uint8_t()
 }
 
 template<>
-inline void port<uint8_t>::operator=(const uint8_t val)
+inline void port<uint8_t>::operator=(uint8_t val)
 {
 	outb(port_addr, val);
 }
 
 template<>
-inline void port<uint8_t>::operator|=(const uint8_t val)
+inline void port<uint8_t>::operator|=(uint8_t val)
 {
 	uint8_t tmp = inb(port_addr);
 	tmp |= val;
@@ -65,11 +87,23 @@ inline void port<uint8_t>::operator|=(const uint8_t val)
 }
 
 template<>
-inline void port<uint8_t>::operator&=(const uint8_t val)
+inline void port<uint8_t>::operator&=(uint8_t val)
 {
 	uint8_t tmp = inb(port_addr);
 	tmp &= val;
 	outb(port_addr, tmp);
+}
+
+template<>
+inline uint16_t port<uint16_t>::in()
+{
+	return inw(port_addr);	
+}
+
+template<>
+inline void port<uint16_t>::out(uint16_t val)
+{
+	outw(port_addr, val);
 }
 
 template<>
@@ -79,13 +113,13 @@ inline port<uint16_t>::operator uint16_t()
 }
 
 template<>
-inline void port<uint16_t>::operator=(const uint16_t val)
+inline void port<uint16_t>::operator=(uint16_t val)
 {
 	outw(port_addr, val);
 }
 
 template<>
-inline void port<uint16_t>::operator|=(const uint16_t val)
+inline void port<uint16_t>::operator|=(uint16_t val)
 {
 	uint16_t tmp = inw(port_addr);
 	tmp |= val;
@@ -93,11 +127,23 @@ inline void port<uint16_t>::operator|=(const uint16_t val)
 }
 
 template<>
-inline void port<uint16_t>::operator&=(const uint16_t val)
+inline void port<uint16_t>::operator&=(uint16_t val)
 {
 	uint16_t tmp = inw(port_addr);
 	tmp &= val;
 	outw(port_addr, tmp);
+}
+
+template<>
+inline uint32_t port<uint32_t>::in()
+{
+	return inl(port_addr);	
+}
+
+template<>
+inline void port<uint32_t>::out(uint32_t val)
+{
+	outl(port_addr, val);
 }
 
 template<>
@@ -107,13 +153,13 @@ inline port<uint32_t>::operator uint32_t()
 }
 
 template<>
-inline void port<uint32_t>::operator=(const uint32_t val)
+inline void port<uint32_t>::operator=(uint32_t val)
 {
 	outl(port_addr, val);
 }
 
 template<>
-inline void port<uint32_t>::operator|=(const uint32_t val)
+inline void port<uint32_t>::operator|=(uint32_t val)
 {
 	uint32_t tmp = inl(port_addr);
 	tmp |= val;
@@ -121,7 +167,7 @@ inline void port<uint32_t>::operator|=(const uint32_t val)
 }
 
 template<>
-inline void port<uint32_t>::operator&=(const uint32_t val)
+inline void port<uint32_t>::operator&=(uint32_t val)
 {
 	uint32_t tmp = inl(port_addr);
 	tmp &= val;
@@ -140,3 +186,4 @@ ports<uint8_t> ports_byte;
 ports<uint16_t> ports_word;
 ports<uint32_t> ports_dword;
 
+}

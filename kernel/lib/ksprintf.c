@@ -4,10 +4,10 @@
  *	kernel library
  */
 #include <lib/ksprintf.h>
-#include <lib/kitoa.h>
+#include <lib/kstdlib.h>
 #include <stdarg.h>
 
-int kvsprintf(char *buf, const char *fmt, va_list args)
+int kvsprintf(char* buf, const char* fmt, va_list args)
 {
 	char c, *p, *p0, *q, nbuf[32];
 	
@@ -104,7 +104,7 @@ int kvsprintf(char *buf, const char *fmt, va_list args)
 	return p - buf;
 }
 
-int ksprintf(char *buffer, const char *format, ...)
+int ksprintf(char* buffer, const char* format, ...)
 {
 	int done;
 	va_list args;
@@ -115,3 +115,4 @@ int ksprintf(char *buffer, const char *format, ...)
 	
 	return done;
 }
+

@@ -8,9 +8,9 @@
 
 #include <asm/misc.h>
 
-namespace arch {
+namespace ARCH {
 
-void restart()
+void direct_restart()
 {
 	uint8_t val = ports_byte[0xcf9] & ~6;
 	ports_byte[0xcf9] = val | 2;

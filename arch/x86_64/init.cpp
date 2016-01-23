@@ -15,11 +15,13 @@
 #include <lib/string.h> // for memcpy
 
 #include <e820map.hpp>
-#include <early_memalloc.hpp>
+#include <lowmem.hpp>
 
 static void __init init_percpu_section();
 
 namespace arch {
+	
+using namespace ARCH;
 
 void __init pre_init(unsigned long arch_data)
 {
@@ -27,7 +29,7 @@ void __init pre_init(unsigned long arch_data)
 	low_free_area = arch_data;
 #if 0
 	// get vendor ID and the largest cpuid basic function number 
-	asm volatile(
+	asm volatile (
 		"xorl %%eax, %%eax \n\t"
 		"cpuid \n\t"
 		"movl %%ebx, 0(%%rsi) \n\t"
@@ -38,7 +40,7 @@ void __init pre_init(unsigned long arch_data)
 		:"ecx", "edx", "ebx"
 	);
 	// get logical processor count
-	asm volatile(
+	asm volatile (
 		"movl $1, %%eax \n\t"
 		"cpuid \n\t"
 		"shrl $16, %%ebx \n\t"
@@ -52,7 +54,7 @@ void __init pre_init(unsigned long arch_data)
 //		 "this version of kernel does not support cpu with more than 8 threads.\n");
 	
 	// get the largest cpuid extended function number
-	asm volatile(
+	asm volatile (
 		"movl $0x80000000, %%eax \n\t"
 		"cpuid \n\t"
 		:"=a"(cpu_info.max_cpuid_ext_func_number)
@@ -60,7 +62,7 @@ void __init pre_init(unsigned long arch_data)
 		:"ecx", "edx", "ebx"
 	);
 	// get cpu brand
-	asm volatile(
+	asm volatile (
 		"movl $0x80000002, %%eax \n\t"
 		"cpuid \n\t"
 		"movl %%eax,  0(%%rsi) \n\t"
@@ -88,11 +90,10 @@ void __init pre_init(unsigned long arch_data)
 
 void __init init()
 {
-	using kernel::memory::e820map;
 	
 	//init_percpu_section();
 	e820map.setup();
-	early_memalloc::init();
+	lowmem::init();
 	gdt.init();
 	//init_idt();
 	//init_apic();
@@ -109,13 +110,13 @@ static void __init init_percpu_section()
 	unsigned length = __percpu_section_end - __percpu_section_start; // percpu section length
 	unsigned nr_prcsr = arch::cpu_info.nr_processors;
 	
-	KASSERT(length < 20_KiB, "percpu section exceeds 20KiB limit!\n");
+	KASSERT(length < 20KiB, "percpu section exceeds 20KiB limit!\n");
 	
-	unsigned long address = 32_KiB + 8_KiB * nr_prcsr;
+	unsigned long address = 32KiB + 8KiB * nr_prcsr;
 	
 	for (auto i = 0; i < nr_prcsr; ++i) {
 		memcpy(reinterpret_cast<void*>(address), __percpu_section_start, length);
-		address += 24_KiB;
+		address += 24KiB;
 	}
 	
 }
