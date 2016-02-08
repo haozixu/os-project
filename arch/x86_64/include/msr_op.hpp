@@ -1,11 +1,11 @@
 /*
- *	arch/x86_64/include/msr.hpp
+ *	arch/x86_64/include/msr_op.hpp
  *
- *	MSR related
+ *	MSR related operations
  */
 #pragma once
 
-#include <asm/msr.h>
+#include <asm/msr.hpp>
 
 namespace ARCH {
 /*

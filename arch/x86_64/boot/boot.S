@@ -200,7 +200,7 @@ start64:
     je 4f
     pushq %rax
     pushq %rbx
-    callq (%rax)            # do constructor work (call functions in .init_array)
+    callq *(%rax)			# do constructor work (call functions in .init_array)
     popq %rbx
     popq %rax
     addq $8, %rax

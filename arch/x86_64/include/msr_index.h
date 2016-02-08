@@ -1,7 +1,7 @@
 /*
- * arch/x86_64/include/msr-index.h
+ * 	arch/x86_64/include/msr_index.h
  *
- * Model Specific Registers(MSRs) index
+ * 	Model Specific Registers(MSRs) index
  */
 #pragma once
 

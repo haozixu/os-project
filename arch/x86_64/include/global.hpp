@@ -5,13 +5,14 @@
  */
 #pragma once
 
+/*
+ *	WARNING: This file will be deprecated soon.
+ */
+
 #include <cpu.hpp>
 #include <gdt.hpp>
 #include <lib/spinlock.hpp>
 
 namespace ARCH {
-	extern lib::spinlock arch_data_lock;
-	extern cpu_info_struct cpu_info;
-	extern gdt_struct gdt;
-	extern unsigned long low_free_area;
+	extern lib::spinlock data_lock;
 }

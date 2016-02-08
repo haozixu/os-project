@@ -1,13 +1,14 @@
 /*
- * arch/x86_64/include/asm/flags.h
+ * arch/x86_64/include/asm/flags.hpp
  *
  * flags related operations
  */
-#ifndef _ASM_FLAGS_H
-#define _ASM_FLAGS_H
+#pragma once
 
 #include <stdint.h>
 #include <compiler.h>
+
+namespace ARCH {
 
 static __always_inline void cli(void)
 {
@@ -62,7 +63,7 @@ static __always_inline uint64_t get_rflags(void)
 {
 	uint64_t rflags;
 	pushfq();
-	asm volatile ("popq %%rax":"=s"(rflags));
+	asm volatile ("popq %%rax":"=a"(rflags));
 	return rflags;
 }
 
@@ -78,4 +79,4 @@ static __always_inline void set_rflags(uint64_t rflags)
 	popfq();
 }
 
-#endif
+}

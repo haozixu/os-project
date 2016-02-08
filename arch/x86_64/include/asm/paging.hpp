@@ -1,15 +1,16 @@
 /*
- * 	arch/x86_64/include/asm/paging.h
+ * 	arch/x86_64/include/asm/paging.hpp
  *
  * 	IA-32e paging stuff
  */
-#ifndef _ASM_PAGING_H
-#define _ASM_PAGING_H
+#pragma once
 
 #include <stdint.h>
 #include <compiler.h>
 
-// paging types
+namespace ARCH {
+
+// pgtable types
 typedef struct pml4e {
 	union {
 		uint64_t val;
@@ -34,7 +35,7 @@ typedef struct pdpte {
 				struct {
 					unsigned long zero2: 4, pdt_base: 36;
 				}__packed;
-			}
+			};
 			unsigned reserved: 15, xd: 1; 
 		}__packed;
 	};
@@ -84,9 +85,9 @@ typedef unsigned long address_t;
 #define _PG_4K_PAT (1 << 7)  // 4K page Page Attribute Table
 #define _PG_G      (1 << 8)  // Global
 #define _PG_2M_PAT (1 << 12) // 2M page Page Attribute Table
-#define _PG_XD     (1 << 63) // eXecute Disable
+#define _PG_XD     (1UL << 63) // eXecute Disable
 
-enum page_flags {
+enum {
 	PG_P 	= _PG_P,
 	PG_RW 	= _PG_RW,
 	PG_US 	= _PG_US,
@@ -97,9 +98,9 @@ enum page_flags {
 	PG_PS 	= _PG_PS,
 	PG_G 	= _PG_G,
 	PG_XD 	= _PG_XD
-}
+};
 
-static __always_inline int has_1Gb_pages(void)
+static __always_inline bool has_1gb_pages(void)
 {
 	int ret;
 	asm volatile (
@@ -110,10 +111,10 @@ static __always_inline int has_1Gb_pages(void)
 		:"a"(0x80000001)
 		:"ecx", "edx", "ebx"
 		);
-	return ret;
+	return static_cast<bool>(ret);
 }
 
-static __always_inline int pge_availbale(void)
+static __always_inline bool pge_availbale(void)
 {
 	int ret;
 	asm volatile (
@@ -124,7 +125,7 @@ static __always_inline int pge_availbale(void)
 		:"a"(0x80000001)
 		:"ecx", "edx", "ebx"
 		);
-	return ret;
+	return static_cast<bool>(ret);
 }
 
-#endif
+}

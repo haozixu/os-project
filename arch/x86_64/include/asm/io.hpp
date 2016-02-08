@@ -1,14 +1,14 @@
 /*
- * arch/x86_64/include/asm/io.h
+ * arch/x86_64/include/asm/io.hpp
  *
  * x86 I/O operations
  */
-#ifndef _ASM_IO_H
-#define _ASM_IO_H
+#pragma once
 
 #include <stdint.h>
 #include <compiler.h>
 
+namespace ARCH {
 // note: function signature "uint16_t port" or "unsigned port"?
 
 static __always_inline int8_t inb(uint16_t port)
@@ -80,5 +80,5 @@ static __always_inline void outsl(uint16_t port, void* addr, unsigned count)
 	asm volatile ("outsb"::"S"(addr),"d"(port),"c"(count));
 }
 
-#endif
+}
 

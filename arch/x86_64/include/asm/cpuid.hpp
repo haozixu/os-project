@@ -1,13 +1,14 @@
 /*
- *	arch/x86_64/include/asm/cpuid.h 
+ *	arch/x86_64/include/asm/cpuid.hpp
  *
- * 	cpuid related 
+ * 	cpuid related functions
  */
-#ifndef _ASM_CPUID_H
-#define _ASM_CPUID_H
+#pragma once
 
 #include <compiler.h>
 #include <stdint.h>
+
+namespace ARCH {
 
 struct cpuid_regs {
 	uint32_t eax, ecx, edx, ebx;
@@ -22,4 +23,4 @@ static __always_inline void __cpuid(uint32_t function, struct cpuid_regs *regs)
 	);
 }
 
-#endif
+}

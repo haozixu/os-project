@@ -1,23 +1,23 @@
 /*
  *	arch/x86_64/include/gdt.hpp
  *
- *	...
+ *	Global Descriptor Table
  */
 #pragma once
 
 #include <kernel/config.h>
 
-#include <asm/system.h>
+#include <asm/system.hpp>
 
 namespace ARCH {
-	__always_inline void lgdt(uint16_t size, unsigned long addr)
+	static __always_inline void lgdt(uint16_t size, unsigned long addr)
 	{
 		__lgdt(size, addr);
 	}
 	
-	__always_inline void lgdt(const dt_ptr& desc_ptr)
+	static __always_inline void lgdt(const dt_ptr& desc_ptr)
 	{
-		__lgdt_p(&desc_ptr);
+		__lgdt(&desc_ptr);
 	}
 	
 	struct gdt_struct {	
@@ -77,4 +77,6 @@ namespace ARCH {
 	  private:
 	    unsigned index = 3; // note: index start with 0
 	};
+
+	extern gdt_struct gdt;
 }

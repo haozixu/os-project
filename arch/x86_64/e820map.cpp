@@ -21,7 +21,7 @@ namespace ARCH {
 	// well, we have problems using Linux's e820_sanitize
 	// so I expect BIOSes' won't produce some strange maps
 #ifdef LINUX_STYLE_E820
-	int __init e820map_struct::copy_from_and_sanitize(mmap_entry* old_map, unsigned& nr_entries)
+	int __init e820::copy_from_and_sanitize(mmap_entry* old_map, uint32_t& nr_entries)
 	{
 		static change_member change_point_list[E820_MAX * 2] __initdata;
 		static change_member *change_point[E820_MAX * 2] __initdata;
@@ -110,7 +110,7 @@ namespace ARCH {
 	}
 #endif
 	
-	int __init e820map_struct::setup()
+	int __init e820::setup()
 	{
 		this->nr_entries = mmap_info.nr_entries;
 		
@@ -135,7 +135,7 @@ namespace ARCH {
 		
 	}
 
-	void e820map_struct::print(const char* who) const
+	void e820::print(const char* who) const
 	{	
 		unsigned long avl_size = 0, resv_size = 0;
 		
@@ -153,27 +153,8 @@ namespace ARCH {
 		}
 		
 		log_format("available memory: %u MiB reserved memory: %u KiB\n",
-			 avl_size / 1048576, resv_size / 1024);
+			 avl_size / 1MiB, resv_size / 1KiB);
 	}
 	
-	inline const char* e820map_struct::type_to_string(unsigned type)
-	{
-		switch (type) {
-		case E820_AVAILABLE:
-			return "available";
-			break;
-		case E820_ACPI:
-			return "ACPI data";
-			break;
-		case E820_NVS:
-			return "ACPI Non-Volatile Storage";
-			break;
-		case E820_RESERVED:
-		default:
-			return "reserved";
-			break;
-		}
-	}
-	
-	e820map_struct e820map;
+	e820 e820map;
 }

@@ -9,18 +9,19 @@
 #include <lib/bitmap.h>
 #include <global.hpp>
 #include <e820map.hpp>
-#include <pgtable.h>
+#include <pgtable.hpp>
 
-namespace arch {
+namespace ARCH {
 namespace lowmem {
 
-constexpr auto bits_of_bitmap = align_up(lowmem_limit / PAGE_SIZE, BITS_PER_LONG);
+unsigned long free_area;
+
+constexpr auto bits_of_bitmap = align_up(LIMIT / PAGE_SIZE, BITS_PER_LONG);
 
 unsigned long pgalloc_start, end, alloc_current;
 unsigned long bitmap[bits_of_bitmap / BITS_PER_LONG];
 
 using ARCH::e820map;
-using ARCH::low_free_area;
 
 void init()
 {	
@@ -30,21 +31,21 @@ void init()
 	do {
 		if (e820map[i].type() == E820_AVAILABLE) {
 			max_low_start = e820map[i].start();
-			end = e820map[i].end() + PAGE_OFFSET;
+			end = __va(e820map[i].end());
 		}
 		++i;
-	} while (e820map[i].addr() < 0x100000);
+	} while (e820map[i].addr() < END_ADDRESS);
 	
-	if (low_free_area < max_low_start)
-		low_free_area = max_low_start;
+	if (free_area < max_low_start)
+		free_area = max_low_start;
 		
-	alloc_current = low_free_area;
-	pgalloc_start = low_free_area + align_up(end - low_free_area, PAGE_SIZE * 16) / 16;
+	alloc_current = free_area;
+	pgalloc_start = free_area + align_up(end - free_area, PAGE_SIZE * 32) / 32;
 	
 	bitmap_clear_all(bitmap, bits_of_bitmap);
 	
 	kernel::debug::log_format("lowmem: start: %p, end: %p, page allocation start: %p\n",
-		low_free_area, end, pgalloc_start);
+		free_area, end, pgalloc_start);
 }
 
 void* alloc(unsigned size)
@@ -61,14 +62,14 @@ void* alloc(unsigned size)
 
 void free(unsigned size)
 {
-	if (alloc_current - size < low_free_area) {
+	if (alloc_current - size < free_area) {
 		kernel::debug::log_format("lowmem: free() exceed limit!");
 		return;
 	}
 	alloc_current -= size;
 }
 
-void* alloc_page()
+void* __alloc_page()
 {
 	size_t first = bitmap_find_first_zero_bit(bitmap);
 	if (first >= bits_of_bitmap)
@@ -77,7 +78,7 @@ void* alloc_page()
 	return reinterpret_cast<void*>(pgalloc_start + first * PAGE_SIZE);	
 }
 
-void* alloc_pages(unsigned nr_pages)
+void* __alloc_pages(unsigned nr_pages)
 {
 	size_t first, limit, total, i, offset = 0;
 	unsigned long *bmp;
@@ -86,7 +87,6 @@ void* alloc_pages(unsigned nr_pages)
 	loop:
 		bmp = bitmap + offset;
 		first = bitmap_find_first_zero_bit(bmp);
-		kernel::debug::log_format("first %d\n", first);
 		if (first >= bits_of_bitmap)
 			return nullptr;
 		

@@ -31,8 +31,14 @@ namespace ARCH {
 		uint64_t end() { return e->addr + e->len; }
 	};
 	
-	struct e820map_struct {
-		unsigned nr_entries;
+	struct e820 {
+		static constexpr uint32_t MAX_ENTRIES = E820_MAX;
+		static constexpr uint32_t AVAILABLE = E820_AVAILABLE;
+		static constexpr uint32_t RESERVED = E820_RESERVED;
+		static constexpr uint32_t ACPI = E820_ACPI;
+		static constexpr uint32_t ACPI_NVS = E820_NVS;
+		
+		uint32_t nr_entries;
 	#ifdef LINUX_STYLE_E820
 		mmap_entry map[MAX_E820_ENTRIES];
 	#else
@@ -40,16 +46,55 @@ namespace ARCH {
 	#endif	
 		int setup();
 		void print(const char* who = "bootloader") const;
-	//	int copy_from_and_sanitize(mmap_entry* old_map, unsigned& nr_entries);
+	//	int copy_from_and_sanitize(mmap_entry* old_map, uint32_t& nr_entries);
 		e820entry operator[](unsigned idx)
 		{
 			return e820entry(map + idx);
 		}
 		
-		static inline const char* type_to_string(unsigned type);
+		unsigned long end_address(uint32_t type, unsigned long limit = ~0UL)
+		{
+			unsigned long last_addr = 0;
+			
+			for (auto i = 0; i < nr_entries; ++i) {
+				if (map[i].type != type)
+					continue;
+				if (map[i].addr >= limit)
+					continue;
+					
+				unsigned long end = map[i].addr + map[i].len;
+				if (end > limit) {
+					last_addr = limit;
+					break;
+				}
+				if (end > last_addr)
+					last_addr = end;
+			}
+			
+			return last_addr;
+		}
+		
+		static inline const char* type_to_string(uint32_t type)
+		{
+			switch (type) {
+			case e820::AVAILABLE:
+				return "available";
+				break;
+			case e820::ACPI:
+				return "ACPI data";
+				break;
+			case e820::ACPI_NVS:
+				return "ACPI Non-Volatile Storage";
+				break;
+			case e820::RESERVED:
+			default:
+				return "reserved";
+				break;
+			}
+		}
 	};
 		
-	extern e820map_struct e820map;
+	extern e820 e820map;
 	
 	// this idea is borrowed from Linux
 	struct change_member {

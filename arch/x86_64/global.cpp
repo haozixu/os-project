@@ -5,11 +5,14 @@
  */
 #include <global.hpp>
 
+/*
+ *	WARNING: This file will be deprecated soon.
+ */
+
 namespace ARCH {
 
-lib::spinlock arch_data_lock;
+lib::spinlock data_lock;
 gdt_struct gdt;
 cpu_info_struct cpu_info;
-unsigned long low_free_area;
 
 }

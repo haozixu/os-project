@@ -50,7 +50,7 @@ bool panic(const char* file, const unsigned line, const char* fmt, ...)
 	com1.write(buf);
 	va_end(args);
 	
-	arch::direct_restart();
+	ARCH::direct_restart();
 	return false;
 }
 

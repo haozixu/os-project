@@ -1,5 +1,5 @@
 /*
- *	include/arch/arch.h
+ *	arch/x86_64/include/arch.h
  *	
  *	architectural definitions
  */
@@ -10,14 +10,12 @@
 #undef __x86_64__
 #undef __x86__
 
-#if ARCH == x86_64
-#	define __x86_64__ "x86_64"
-#	define __x86__	   "x86"	// should we define this too?
-#endif
+#define __x86_64__ "x86_64"
+#define __x86__	   "x86"	// should we define this too?
 
-#if defined(__x86_64__)
-#	define KERNEL_BASE 0xffffff0000100000
-#	define PHYS_KERNEL_BASE 0x100000
+#ifdef __x86_64__
+#	define KERNEL_BASE 0xffffff0000100000UL
+#	define PHYS_KERNEL_BASE 0x100000UL
 #	define __KERNEL_WORD_SIZE 8
 	typedef unsigned long long __kernel_word_t;
 	typedef long long __signed_kernel_word_t;

@@ -14,19 +14,18 @@
 #include <lib/kassert.h>
 #include <lib/string.h> // for memcpy
 
+#include <mminit.hpp>
 #include <e820map.hpp>
 #include <lowmem.hpp>
 
 static void __init init_percpu_section();
 
-namespace arch {
-	
-using namespace ARCH;
+namespace ARCH {
 
 void __init pre_init(unsigned long arch_data)
 {
 	// store it!
-	low_free_area = arch_data;
+	lowmem::free_area = arch_data;
 #if 0
 	// get vendor ID and the largest cpuid basic function number 
 	asm volatile (
@@ -94,7 +93,9 @@ void __init init()
 	//init_percpu_section();
 	e820map.setup();
 	lowmem::init();
+	//paging::init();
 	gdt.init();
+	init_memory_mapping();
 	//init_idt();
 	//init_apic();
 	//init_processors();
@@ -108,7 +109,7 @@ extern "C" char *__percpu_section_start, *__percpu_section_end;
 static void __init init_percpu_section()
 {	
 	unsigned length = __percpu_section_end - __percpu_section_start; // percpu section length
-	unsigned nr_prcsr = arch::cpu_info.nr_processors;
+	unsigned nr_prcsr = ARCH::cpu_info.nr_processors;
 	
 	KASSERT(length < 20KiB, "percpu section exceeds 20KiB limit!\n");
 	

@@ -7,7 +7,7 @@
 
 #include <lib/lock.hpp>
 #include <lib/atomic.hpp>
-#include <arch/asm/misc.hpp>
+#include <asm/misc.hpp>
 #include <bitwidth.h>
 
 namespace lib {
@@ -40,7 +40,7 @@ class fifo_spinlock final : public lib::__lockable {
 	{
 		lock_value inc = val.fetch_add(1 << BITS_PER_WORD); // ++next
 		while (inc.owner != inc.next) {
-			arch::relax_cpu();
+			ARCH::relax_cpu();
 			inc.owner = static_cast<short>(val); // owner
 		}
 	}

@@ -30,6 +30,8 @@ image: $(OUTPUT_TARGET)
 
 config: *.*
 	build/do_config.py
+	ln -f -s ../arch/$(ARCH)/include include/arch
+	rm -f arch/$(ARCH)/include/include
 
 run: cdimage.iso
 	build/debug/run_qemu.sh

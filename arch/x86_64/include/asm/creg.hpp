@@ -3,11 +3,13 @@
  *
  * Control Registers operation
  */
-#ifndef _ASM_CREG_H
-#define	_ASM_CREG_H
+#pragma once
 
+#include <arch/arch.h>
 #include <stdint.h>
 #include <compiler.h>
+
+namespace ARCH {
 
 // read
 
@@ -202,4 +204,4 @@ static __always_inline void write_cr8(uint64_t val)
 	asm volatile ("movq %0, %%cr8"::"r"(val));
 }
 
-#endif
+}

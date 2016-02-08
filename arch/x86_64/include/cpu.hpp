@@ -16,4 +16,6 @@ namespace ARCH {
 		char vendor_id[12];
 		char model_name[48];
 	};
+
+	extern cpu_info_struct cpu_info;
 }

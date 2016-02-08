@@ -3,10 +3,10 @@
  *
  *	system restart & hardware reset
  */
-#include <io.hpp>
+#include <ioport.hpp>
 #include <stdint.h>
 
-#include <asm/misc.h>
+#include <asm/misc.hpp>
 
 namespace ARCH {
 
@@ -16,7 +16,7 @@ void direct_restart()
 	ports_byte[0xcf9] = val | 2;
 	io_pause();
 	ports_byte[0xcf9] = val | 6;
-	hlt();
+	halt_cpu();
 	
 	__builtin_unreachable();
 }

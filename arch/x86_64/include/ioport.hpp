@@ -1,12 +1,12 @@
 /*
- *	arch/x86_64/include/io.hpp
+ *	arch/x86_64/include/ioport.hpp
  *
- *	asm I/O operations encapsulations
+ *	port I/O operations
  */
 #pragma once
 
 #include <stdint.h>
-#include <asm/io.h>
+#include <asm/io.hpp>
 
 namespace ARCH {
 /*

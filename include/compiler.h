@@ -39,3 +39,5 @@
 #define __mmio __attribute__((noderef, address_space(2)))
 
 #define __percpu __section(".percpu")
+
+#define _AC(x, y) x##y

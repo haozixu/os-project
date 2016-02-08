@@ -1,13 +1,14 @@
 /*
- * arch/x86_64/include/asm/system.h
+ * arch/x86_64/include/asm/system.hpp
  *
  * x86 system data structures etc
  */
-#ifndef _ASM_SYSTEM_H
-#define _ASM_SYSTEM_H
+#pragma once
 
 #include <stdint.h>
 #include <compiler.h>
+
+namespace ARCH {
 
 // x86 segment/system descriptor
 typedef struct descriptor {
@@ -85,7 +86,7 @@ static __always_inline void __lgdt(uint16_t size, unsigned long addr)
 	asm volatile ("lgdt %0"::"m"(desc_ptr));
 }
 
-static __always_inline void __lgdt_p(const struct dt_ptr *desc_ptr)
+static __always_inline void __lgdt(const struct dt_ptr *desc_ptr)
 {
 	asm volatile ("lgdt (%0)"::"r"(desc_ptr));
 }
@@ -98,7 +99,7 @@ static __always_inline void __lidt(uint16_t size, unsigned long addr)
 	asm volatile ("lidt %0"::"m"(desc_ptr));
 }
 
-static __always_inline void __lidt_p(const struct dt_ptr *desc_ptr)
+static __always_inline void __lidt(const struct dt_ptr *desc_ptr)
 {
 	asm volatile ("lidt (%0)"::"r"(desc_ptr));
 }
@@ -111,7 +112,7 @@ static __always_inline void __lldt(uint16_t size, unsigned long addr)
 	asm volatile ("lldt %0"::"m"(desc_ptr));
 }
 
-static __always_inline void __lldt_p(const struct dt_ptr *desc_ptr)
+static __always_inline void __lldt(const struct dt_ptr *desc_ptr)
 {
 	asm volatile ("lldt (%0)"::"r"(desc_ptr));
 }
@@ -121,5 +122,4 @@ static __always_inline void __ltr(uint16_t selector)
 	asm volatile ("ltrw %0"::"r"(selector));
 }
 
-
-#endif
+}

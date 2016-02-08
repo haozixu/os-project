@@ -19,7 +19,7 @@ extern "C" void __kernel_start(unsigned long mbi_addr, unsigned long arch_data)
 	debug::log_format("multiboot information found at %p, size %u bytes.\n", 
 		               mbi_addr, *(uint32_t*)(mbi_addr));
 	// architectural pre initialization
-	arch::pre_init(arch_data);
+	ARCH::pre_init(arch_data);
 	// parse multiboot information
 	multiboot2::parse(mbi_addr);
 	kernel::main();
@@ -28,7 +28,7 @@ extern "C" void __kernel_start(unsigned long mbi_addr, unsigned long arch_data)
 
 void kernel::main()
 {
-	arch::init();
+	ARCH::init();
 	debug::PANIC("restart.\n");
 }
 

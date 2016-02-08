@@ -6,9 +6,9 @@
 #pragma once
  
 #include <stdint.h>
-#include <asm/io.h>
-#include <asm/misc.h>
-#include <firmware/bios.h>
+#include <asm/io.hpp>
+#include <asm/misc.hpp>
+#include <firmware/bios.hpp>
 
 namespace ARCH {
 

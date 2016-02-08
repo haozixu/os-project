@@ -1,17 +1,20 @@
 /*
- *	arch/x86_64/include/firmware/bios.h 
+ *	arch/x86_64/include/firmware/bios.hpp 
  *
- *	...
+ *	BIOS information
  */
 #pragma once
 
 #include <stdint.h>
 #include <compiler.h>
-#include <pgtable.h>
+#include <pgtable.hpp>
+
+namespace ARCH {
 
 struct __bios_data_area {
 	// note: see www.bioscentral.com/misc/bda.htm
 	// note: reserved means the that field is varies in different BIOSes
+	
 	uint16_t com_port_addr[4]; // COM1 ~ COM4 serial port address (see INT 0x14)
 	uint16_t lpt_port_addr[3]; // LPT1 ~ LPT3 parallel port address (see INT 0x17)
 	union {
@@ -40,5 +43,6 @@ struct __bios_data_area {
 	uint8_t kdb_led_state;
 }__packed; // 256 bytes
 
-const __bios_data_area* const bios_data_area = reinterpret_cast<decltype(bios_data_area)>(0x400 + PAGE_OFFSET);
+constexpr auto bios_data_area = reinterpret_cast<__bios_data_area*>(0x400 + PAGE_OFFSET);
 
+}
