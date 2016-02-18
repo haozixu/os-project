@@ -8,8 +8,9 @@ OUTPUT_TARGET = $(OUTPUT)/kernel.bin $(OUTPUT)/g2ldr
 # GRUB_PREFIX = grub2
 # GRUB_CONFIG = build/grub2/grub.cfg
 
-CC = gcc -std=c99
-CXX = g++ -std=c++11
+PLATFORM =
+CC = $(PLATFORM)gcc -std=c99
+CXX = $(PLATFORM)g++ -std=c++11
 
 .PHONY: all rebuild config run debug image kernel boot bootloader clean clean_all
 

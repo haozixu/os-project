@@ -12,10 +12,10 @@
 
 namespace ARCH {
 
-struct serial {
-  	static constexpr uint16_t COM1 = 0x3f8;
-	static constexpr uint16_t COM2 = 0x2f8;
-};
+namespace serial {
+  	constexpr uint16_t COM1 = 0x3f8;
+	constexpr uint16_t COM2 = 0x2f8;
+}
 
 template<uint16_t port_addr>
 struct serial_port {
@@ -56,7 +56,7 @@ struct serial_port {
 	char read() const
 	{
 		while (!recieved()) {
-			io_pause();
+			io_delay();
 		}
 		return inb(port_addr);
 	}
@@ -69,7 +69,7 @@ struct serial_port {
 	void write(const char data)
 	{
 		while (!transimit_is_empty()) {
-			io_pause();
+			io_delay();
 		}
 		outb(port_addr, data);
 	}
@@ -92,7 +92,7 @@ struct serial_port {
 	{
 		if (n > 4)
 			return 0;
-		return bios_data_area->com_port_addr[n];
+		return bda->com_port_addr[n];
 	}
 };
 

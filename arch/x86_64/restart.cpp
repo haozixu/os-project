@@ -14,7 +14,7 @@ void direct_restart()
 {
 	uint8_t val = ports_byte[0xcf9] & ~6;
 	ports_byte[0xcf9] = val | 2;
-	io_pause();
+	io_delay();
 	ports_byte[0xcf9] = val | 6;
 	halt_cpu();
 	

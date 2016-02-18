@@ -133,14 +133,16 @@ _start:
     movl %edx, 20(%eax)
     movl %edx, 28(%eax)
 
-    # setup kernel pdpt
+    # setup pdpt
     orb $3, %al
 
+    # user pdpt
     movl $0x3000, %esi      
     movl %eax,  (%esi)
     movl %edx, 4(%esi)
 
-    movl $0x4000, %edi
+    # use reserved pdpt as temporary kernel pdpt
+    movl $0x5000, %edi
     movl %eax,  (%edi)
     movl %edx, 4(%edi)
 
@@ -148,10 +150,10 @@ _start:
     movl $PML4T_BASE, %eax
     movl $0x3007,     (%eax)    # pml4t[0] user
     movl %edx,       4(%eax)    
-    movl $0x4003, 4080(%eax)    # pml4t[510] kernel (510 * sizeof(pml4e) = 4080)
+    movl $0x5003, 4080(%eax)    # pml4t[510] kernel(temporary) (510 * sizeof(pml4e) = 4080)
     movl %edx,    4084(%eax)   
-    movl $0x5003, 4088(%eax)    # pml4t[511] reserved (511 * 8 = 4088)
-    movl %edx,    4092(%eax)    
+#   movl $0x4003, 4088(%eax)    # pml4t[511] reserved (511 * 8 = 4088)
+#   movl %edx,    4092(%eax)    
 
     movl %eax, %cr3         # CR3 = PML4T_BASE
 

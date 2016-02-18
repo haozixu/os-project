@@ -1,8 +1,10 @@
 # kernel makefile
 
-CXX = g++ -std=c++11
+PLATFORM =
+CXX = $(PLATFORM)g++ -std=c++11
+CC = $(PLATFORM)gcc -std=gnu99
+
 CXXFLAGS = -ffreestanding -fno-strict-aliasing -I../include
-CC = gcc -std=gnu99
 CFLAGS = -Os -ffreestanding -fno-strict-aliasing -I../include
 
 # configurations

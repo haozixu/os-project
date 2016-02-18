@@ -182,8 +182,8 @@ struct ports {
 	}
 };
 
-ports<uint8_t> ports_byte;
-ports<uint16_t> ports_word;
-ports<uint32_t> ports_dword;
+extern ports<uint8_t> ports_byte;
+extern ports<uint16_t> ports_word;
+extern ports<uint32_t> ports_dword;
 
 }

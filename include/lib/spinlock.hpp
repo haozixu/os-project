@@ -14,48 +14,34 @@ namespace lib {
 
 class fifo_spinlock final : public lib::__lockable {
   private:
-  	atomic<int> val;
-  	
-  	union lock_value {
-  		int v;
-  		struct {
-  			short owner, next;
-		};
-		
-		lock_value(int i) { v = i; }
-	};
+  	atomic<unsigned int> owner, next;
 	  
   public:
-  	void reset() { val = 0;}
-  	
-  	fifo_spinlock() { reset(); }
+	fifo_spinlock() : owner(0), next(0) {}
 	
 	bool is_locked() const noexcept
 	{
-		lock_value&& tmp = val.load();
-		return tmp.owner != tmp.next;
+		return owner.load() != next.load();
 	}
 	
   	void lock() noexcept override
 	{
-		lock_value inc = val.fetch_add(1 << BITS_PER_WORD); // ++next
-		while (inc.owner != inc.next) {
+		unsigned int val = next++;
+		while (val != owner) {
 			ARCH::relax_cpu();
-			inc.owner = static_cast<short>(val); // owner
 		}
 	}
 	
 	void unlock() noexcept override
 	{
-		++val; // ++owner
+		++owner;
 	}
 	
 	bool try_lock() noexcept override
 	{
-		if (this->is_locked())
-			return false;
-		val += (1 << BITS_PER_WORD);
-		return true;
+		unsigned int new_next = next + 1;
+		unsigned int owner_val = owner.load();
+		return next.compare_exchange_strong(owner_val, new_next);
 	}
 };
 

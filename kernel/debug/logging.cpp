@@ -3,7 +3,7 @@
  *
  *	debug logging
  */
-#include <kernel/config.h>
+#include <kernel/logging.hpp>
 #include <lib/ksprintf.h>
 #include <stdarg.h>
 #include <serial.hpp>
@@ -12,8 +12,7 @@
 namespace kernel {
 namespace debug {
 
-using ARCH::serial_port;
-using ARCH::serial;
+using namespace ARCH;
 		
 serial_port<serial::COM1> com1;
 		
@@ -23,8 +22,16 @@ void log(const char* str)
 	com1.write(str);
 #endif
 }
+
+void logl(const char* str)
+{
+#if CONFIG_DEBUG != NO
+	com1.write(str);
+	com1.write('\n');
+#endif
+}
 		
-void log_format(const char* fmt, ...)
+void logf(const char* fmt, ...)
 {
 #if CONFIG_DEBUG != NO 
 	char buf[248];
@@ -34,6 +41,21 @@ void log_format(const char* fmt, ...)
 	kvsprintf(buf, fmt, args);
 	com1.write("[LOG] ");
 	com1.write(buf);
+	va_end(args);
+#endif
+}
+
+void logfl(const char* fmt, ...)
+{
+#if CONFIG_DEBUG != NO 
+	char buf[248];
+	va_list args;
+	
+	va_start(args, fmt);
+	kvsprintf(buf, fmt, args);
+	com1.write("[LOG] ");
+	com1.write(buf);
+	com1.write('\n');
 	va_end(args);
 #endif
 }

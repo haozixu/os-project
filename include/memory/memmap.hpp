@@ -16,12 +16,12 @@ namespace kernel {
 	namespace memory {
 		using mmap_entry = multiboot_memory_map_t;
 		
-		struct mmap_info_struct {
+		struct __mmap_info {
 			unsigned nr_entries;
 			mmap_entry* original_map;
 		};
 		
-		extern mmap_info_struct mmap_info;
+		extern struct __mmap_info mmap_info;
 		// the instance mmap_info should be able to found in arch related code
 	}
 }

@@ -10,13 +10,13 @@
 
 namespace kernel {
 namespace memory {
-	mmap_info_struct mmap_info;
+	struct __mmap_info mmap_info;
 }
 }
 
 namespace ARCH {
 	using kernel::memory::mmap_info;
-	using kernel::debug::log_format;
+	using kernel::debug::logfl;
 	
 	// well, we have problems using Linux's e820_sanitize
 	// so I expect BIOSes' won't produce some strange maps
@@ -139,9 +139,9 @@ namespace ARCH {
 	{	
 		unsigned long avl_size = 0, resv_size = 0;
 		
-		log_format("%s provided E820 memory map with %u entries:\n", who, nr_entries);
+		logfl("%s provided E820 memory map with %u entries:", who, nr_entries);
 		for (auto i = 0; i < nr_entries; ++i) {
-			log_format("memory [%016lx - %016lx) %s\n",
+			logfl("memory [%016lx - %016lx) %s",
 				map[i].addr,
 				map[i].addr + map[i].len,
 				type_to_string(map[i].type));
@@ -152,7 +152,7 @@ namespace ARCH {
 				resv_size += map[i].len;
 		}
 		
-		log_format("available memory: %u MiB reserved memory: %u KiB\n",
+		logfl("available memory: %u MiB reserved memory: %u KiB",
 			 avl_size / 1MiB, resv_size / 1KiB);
 	}
 	

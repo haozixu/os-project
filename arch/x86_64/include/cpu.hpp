@@ -8,7 +8,7 @@
 #include <stdint.h>
 
 namespace ARCH {
-	struct cpu_info_struct {
+	struct __cpu_info {
 		unsigned nr_processors; // threads
 		unsigned nr_cores;
 		uint32_t max_cpuid_func_number;
@@ -17,5 +17,5 @@ namespace ARCH {
 		char model_name[48];
 	};
 
-	extern cpu_info_struct cpu_info;
+	extern struct __cpu_info cpu_info;
 }

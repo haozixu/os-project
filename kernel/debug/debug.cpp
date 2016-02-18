@@ -10,8 +10,7 @@
 namespace kernel {
 namespace debug {
 
-using ARCH::serial_port;
-using ARCH::serial;
+using namespace ARCH;
 
 extern serial_port<serial::COM1> com1;
 		

@@ -99,6 +99,6 @@ namespace ARCH {
 	// this idea is borrowed from Linux
 	struct change_member {
 		e820entry *p_entry; // pointer to original entry
-		unsigned long long addr; // address for this change point 
+		unsigned long addr; // address for this change point 
 	};
 }

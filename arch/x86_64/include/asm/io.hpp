@@ -80,5 +80,16 @@ static __always_inline void outsl(uint16_t port, void* addr, unsigned count)
 	asm volatile ("outsb"::"S"(addr),"d"(port),"c"(count));
 }
 
+/*
+ *	@function: io_delay
+ *	@description: make a suitable cpu delay for io operations
+ *	@input: no
+ */
+static __always_inline void io_delay(void)
+{
+	asm volatile ("pause");
+}
+
+
 }
 

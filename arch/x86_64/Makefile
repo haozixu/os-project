@@ -1,8 +1,10 @@
 # arch/x86_64
 
-CC = gcc
+PLATFORM =
+CC = $(PLATFORM)gcc
+CXX = $(PLATFORM)g++ -std=c++11
+
 ASMFLAGS = -I../../include/boot
-CXX = g++ -std=c++11
 CXXFLAGS = -m64 -O2 -mcmodel=large -ffreestanding -fno-strict-aliasing -Iinclude -I../../include -DARCH=x86_64 -w
 CXXFLAGS += -fno-exceptions -fno-rtti
 

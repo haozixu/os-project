@@ -10,6 +10,7 @@
 #include <global.hpp>
 #include <e820map.hpp>
 #include <pgtable.hpp>
+#include <compiler.h>
 
 namespace ARCH {
 namespace lowmem {
@@ -44,14 +45,14 @@ void init()
 	
 	bitmap_clear_all(bitmap, bits_of_bitmap);
 	
-	kernel::debug::log_format("lowmem: start: %p, end: %p, page allocation start: %p\n",
+	kernel::debug::logfl("lowmem: start: %p, end: %p,\n\t\tpage allocation start: %p",
 		free_area, end, pgalloc_start);
 }
 
 void* alloc(unsigned size)
 {	
 	if (alloc_current + size > pgalloc_start) {
-		kernel::debug::log_format("lowmem: alloc() exceed limit!");
+		kernel::debug::logfl("lowmem: alloc() exceed limit!");
 		return nullptr;
 	}
 	auto addr = alloc_current;
@@ -63,7 +64,7 @@ void* alloc(unsigned size)
 void free(unsigned size)
 {
 	if (alloc_current - size < free_area) {
-		kernel::debug::log_format("lowmem: free() exceed limit!");
+		kernel::debug::logfl("lowmem: free() exceed limit!");
 		return;
 	}
 	alloc_current -= size;
@@ -82,6 +83,9 @@ void* __alloc_pages(unsigned nr_pages)
 {
 	size_t first, limit, total, i, offset = 0;
 	unsigned long *bmp;
+	
+	if (unlikely(nr_pages == 1))
+		return __alloc_page();
 	
 	while (true) {
 	loop:

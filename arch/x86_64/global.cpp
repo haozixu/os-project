@@ -12,7 +12,11 @@
 namespace ARCH {
 
 lib::spinlock data_lock;
-gdt_struct gdt;
-cpu_info_struct cpu_info;
+struct local_apic apic;
+struct __gdt gdt;
+struct __cpu_info cpu_info;
+ports<uint8_t> ports_byte;
+ports<uint16_t> ports_word;
+ports<uint32_t> ports_dword;
 
 }

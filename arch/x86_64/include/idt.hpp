@@ -1,18 +1,14 @@
 /*
- *	arch/x86_64/include/gdt.hpp
+ *	arch/x86_64/include/idt.hpp
  *
- *	Global Descriptor Table
+ *	IDT (Interrput Descriptor Table) related operatios
  */
 #pragma once
-
-#include <kernel/config.h>
 
 #include <asm/system.hpp>
 
 namespace ARCH {
-	struct __gdt {	
-		using segment_desc = descriptor_t;
-		using system_desc = ldttss_desc_t;
+	struct __idt {
 		
 		/*
 		 *	set the entry of the given index.
@@ -58,16 +54,12 @@ namespace ARCH {
 			return static_cast<Desc&>(*reinterpret_cast<Desc*>(BASE + idx * sizeof(Desc)));
 		}
 		
-		void init()
-		{
-			// do nothing because the work is already done
-		}
-		
-	    static constexpr unsigned long BASE = 0xffffff0000001000UL;
+		static constexpr unsigned long BASE = 0xffffff0000001800UL;
 		static constexpr unsigned SIZE = 2048;
 	  private:
-	    unsigned index = 3; // note: index start with 0
+	  	unsigned index = 0;
+
 	};
 
-	extern struct __gdt gdt;
+	extern struct __idt idt;
 }

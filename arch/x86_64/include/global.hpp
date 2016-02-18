@@ -9,8 +9,10 @@
  *	WARNING: This file will be deprecated soon.
  */
 
+#include <apic.hpp>
 #include <cpu.hpp>
 #include <gdt.hpp>
+#include <ioport.hpp>
 #include <lib/spinlock.hpp>
 
 namespace ARCH {

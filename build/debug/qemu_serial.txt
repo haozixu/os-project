@@ -1,0 +1,14 @@
+[LOG] kernel starting.
+[LOG] multiboot information found at 0xffffff0000000500, size 1200 bytes.
+[LOG] boot loader name: GRUB 2.02~beta2-22
+[LOG] framebuffer physical address: 0xfc000000
+[LOG] bootloader provided E820 memory map with 7 entries:
+[LOG] memory [0000000000000000 - 000000000009fc00) available
+[LOG] memory [000000000009fc00 - 00000000000a0000) reserved
+[LOG] memory [00000000000f0000 - 0000000000100000) reserved
+[LOG] memory [0000000000100000 - 00000000bffe0000) available
+[LOG] memory [00000000bffe0000 - 00000000c0000000) reserved
+[LOG] memory [00000000fffc0000 - 0000000100000000) reserved
+[LOG] memory [0000000100000000 - 0000000140000000) available
+[LOG] available memory: 4095 MiB reserved memory: 449 KiB
+[LOG] lowmem: start: 0xffffff0000028000, end: 0xffffff000009fc00, page allocation start: 0xffffff000002c000

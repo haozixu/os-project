@@ -14,11 +14,11 @@ struct cpuid_regs {
 	uint32_t eax, ecx, edx, ebx;
 };
 
-static __always_inline void __cpuid(uint32_t function, struct cpuid_regs *regs)
+static __always_inline void cpuid(uint32_t function, struct cpuid_regs& regs)
 {
 	asm volatile (
 		"cpuid \n\t"
-		:"=a"(regs->eax),"=c"(regs->ecx),"=d"(regs->edx),"=b"(regs->ebx)
+		:"=a"(regs.eax),"=c"(regs.ecx),"=d"(regs.edx),"=b"(regs.ebx)
 		:"a"(function)
 	);
 }

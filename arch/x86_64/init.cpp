@@ -17,6 +17,8 @@
 #include <mminit.hpp>
 #include <e820map.hpp>
 #include <lowmem.hpp>
+#include <acpi.hpp>
+#include <pci.hpp>
 
 static void __init init_percpu_section();
 
@@ -89,17 +91,18 @@ void __init pre_init(unsigned long arch_data)
 
 void __init init()
 {
-	
-	//init_percpu_section();
 	e820map.setup();
 	lowmem::init();
 	//paging::init();
 	gdt.init();
 	init_memory_mapping();
 	//init_idt();
-	//init_apic();
+	apic.init();
+	acpi::init();
+	
 	//init_processors();
 	////copy_ap_startup_code();
+	//init_percpu_section();
 }
 
 }

@@ -236,11 +236,11 @@ struct atomic_base {
         return i;
     }
 
-    int_type operator++(int)noexcept { return fetch_add(1); }
+    int_type operator++(int) noexcept { return fetch_add(1); }
 
     int_type operator++(int) volatile noexcept { return fetch_add(1); }
 
-    int_type operator--(int)noexcept { return fetch_sub(1); }
+    int_type operator--(int) noexcept { return fetch_sub(1); }
 
     int_type operator--(int) volatile noexcept { return fetch_sub(1); }
 

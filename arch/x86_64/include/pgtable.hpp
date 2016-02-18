@@ -41,6 +41,8 @@ namespace ARCH {
 	constexpr auto PDE_MASK = ~((1UL << PDE_SHIFT) - 1);
 	constexpr auto PDPTE_MASK = ~((1UL << PDPTE_SHIFT) - 1);
 	constexpr auto PGDTE_MASK = ~((1UL << PGDTE_SHIFT) - 1);
+	constexpr auto PML4E_MASK = ~((1UL << PML4E_SHIFT) - 1);
+	constexpr auto SIGN_MASK = ~((1UL << SIGN_SHIFT) - 1);
 
 	constexpr auto PTRS_PER_PML4T = 512;
 	constexpr auto PTRS_PER_PGDT = 512;

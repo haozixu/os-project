@@ -28,14 +28,16 @@ static inline constexpr size_t array_length(T (&)[N])
 template<typename Ui, typename I> // Ui stands for unsigned integer
 static inline constexpr Ui align_up(Ui n, I align)
 {
-	return (n + align - 1) & static_cast<Ui>(-align);
+	return (n + align - 1) & ~(static_cast<Ui>(align) - 1);
 }
 
 template<typename Ui, typename I> // Ui stands for unsigned integer
 static inline constexpr Ui align_down(Ui n, I align)
 {
-	return n & static_cast<Ui>(-align);
+	return n & ~(static_cast<Ui>(align) - 1);
 }
+
+#endif // CONFIG_USE_MACRO
 
 constexpr unsigned long long operator"" KiB(unsigned long long x)
 {
@@ -52,4 +54,8 @@ constexpr unsigned long long operator"" GiB(unsigned long long x)
 	return x * 0x40000000; // 1073741824
 }
 
-#endif // CONFIG_USE_MACRO
+template<typename T>
+static inline T STR_VAL(const char* str)
+{
+	return *reinterpret_cast<const T*>(str);	
+}

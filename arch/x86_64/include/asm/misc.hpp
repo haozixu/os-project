@@ -32,19 +32,6 @@ static __always_inline void relax_cpu(void)
 }
 
 /*
- *	@function: io_pause
- *	@description: execute a suitable cpu pause for io operations
- *	@input: no
- */
-static __always_inline void io_pause(void)
-{
-	pause();
-	pause();
-	pause();
-	pause();
-}
-
-/*
  *	@function: halt_cpu
  *	@description: halt the cpu
  *	@input: no
