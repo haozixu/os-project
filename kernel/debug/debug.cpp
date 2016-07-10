@@ -5,7 +5,7 @@
  */
 #include <kernel/config.h>
 #include <kernel/debug.hpp>
-#include <serial.hpp>
+#include <arch/io/serial.hpp>
 
 namespace kernel {
 namespace debug {

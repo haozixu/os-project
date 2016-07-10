@@ -8,9 +8,9 @@
 #pragma once
 
 extern int errno;
-// damn, single-threaded
+// damn, single-threaded.
 
-// well, some note looked strange...... don't ask me where did I get it.
+// well, some note looked strange...... don't ask me where I got it.
 
 #define EPERM 1 /* Operation not permitted. */
 #define ENOENT 2 /* No such file or directory. */

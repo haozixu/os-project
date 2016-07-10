@@ -1,16 +1,16 @@
-/*
- * arch/x86_64/include/asm/system.hpp
+/**
+ *	@file arch/x86_64/include/asm/system.hpp
  *
- * x86 system data structures etc
+ *	@brief x86-64 system data structures etc
  */
 #pragma once
 
-#include <stdint.h>
 #include <compiler.h>
+#include <stdint.h>
 
 namespace ARCH {
 
-// x86 segment/system descriptor
+/// x86 segment/system descriptor
 typedef struct descriptor {
 	union {
 		uint64_t val;
@@ -86,7 +86,7 @@ static __always_inline void lgdt(uint16_t size, unsigned long addr)
 	asm volatile ("lgdt %0"::"m"(desc_ptr));
 }
 
-static __always_inline void lgdt(const struct table_ptr *desc_ptr)
+static __always_inline void lgdt(const struct table_ptr* desc_ptr)
 {
 	asm volatile ("lgdt (%0)"::"r"(desc_ptr));
 }
@@ -99,7 +99,7 @@ static __always_inline void lidt(uint16_t size, unsigned long addr)
 	asm volatile ("lidt %0"::"m"(desc_ptr));
 }
 
-static __always_inline void lidt(const struct table_ptr *desc_ptr)
+static __always_inline void lidt(const struct table_ptr* desc_ptr)
 {
 	asm volatile ("lidt (%0)"::"r"(desc_ptr));
 }
@@ -112,7 +112,7 @@ static __always_inline void lldt(uint16_t size, unsigned long addr)
 	asm volatile ("lldt %0"::"m"(desc_ptr));
 }
 
-static __always_inline void lldt(const struct table_ptr *desc_ptr)
+static __always_inline void lldt(const struct table_ptr* desc_ptr)
 {
 	asm volatile ("lldt (%0)"::"r"(desc_ptr));
 }

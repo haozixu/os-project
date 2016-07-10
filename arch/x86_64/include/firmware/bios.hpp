@@ -5,18 +5,20 @@
  */
 #pragma once
 
-#include <stdint.h>
+#include <memory/address.hpp>
+
 #include <compiler.h>
-#include <pgtable.hpp>
+#include <stdint.h>
 
 namespace ARCH {
 
 struct bios_data_area {
 	// note: see www.bioscentral.com/misc/bda.htm
 	// note: reserved means the that field is varies in different BIOSes
+	bios_data_area() = delete;
 	
-	static constexpr unsigned START = 0xe0000;
-	static constexpr unsigned END = 0x100000;
+	static constexpr unsigned start = 0xe0000;
+	static constexpr unsigned end = 0x100000;
 	
 	uint16_t com_port_addr[4]; // COM1 ~ COM4 serial port address (see INT 0x14)
 	uint16_t lpt_port_addr[3]; // LPT1 ~ LPT3 parallel port address (see INT 0x17)
@@ -46,6 +48,6 @@ struct bios_data_area {
 	uint8_t kdb_led_state;
 }__packed; // 256 bytes
 
-constexpr auto bda = reinterpret_cast<bios_data_area*>(0x400 + PAGE_OFFSET);
+constexpr auto bda = reinterpret_cast<const bios_data_area*>(0x400 + PAGE_OFFSET);
 
 }

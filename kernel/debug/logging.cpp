@@ -6,8 +6,8 @@
 #include <kernel/logging.hpp>
 #include <lib/ksprintf.h>
 #include <stdarg.h>
-#include <serial.hpp>
-#include <arch/restart.hpp>
+#include <arch/io/serial.hpp>
+#include <arch/kernel/restart.hpp>
 	
 namespace kernel {
 namespace debug {
@@ -39,7 +39,6 @@ void logf(const char* fmt, ...)
 	
 	va_start(args, fmt);
 	kvsprintf(buf, fmt, args);
-	com1.write("[LOG] ");
 	com1.write(buf);
 	va_end(args);
 #endif
@@ -60,7 +59,7 @@ void logfl(const char* fmt, ...)
 #endif
 }
 
-bool panic(const char* file, const unsigned line, const char* fmt, ...)
+bool panic(const char* file, unsigned line, const char* fmt, ...)
 {
 	char buf[248];
 	va_list args;
@@ -72,7 +71,7 @@ bool panic(const char* file, const unsigned line, const char* fmt, ...)
 	com1.write(buf);
 	va_end(args);
 	
-	ARCH::direct_restart();
+	direct_restart();
 	return false;
 }
 

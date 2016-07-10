@@ -17,7 +17,7 @@ for s in lines:
         output = open(name, "w")
         suffix = name[name.rfind('.'):]
         if suffix == ".h":
-            output.write("/*\n *\t" + name + "\n *\n *\tThis file is auto generated. Do not modify manually!\n */\n")
+            output.write("/*\n *\t" + name + "\n *\n *\tThis file is generated automatically. Do not modify manually!\n */\n")
             output.write("#pragma once\n")
         elif suffix == ".mk":
             output.write("# " + name + '\n')

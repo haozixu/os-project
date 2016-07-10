@@ -1,7 +1,7 @@
-/*
- *	compiler.h
+/**
+ *	@file include/compiler.h
  *
- *	compiler configuration
+ *	@brief compiler configuration
  */
 #pragma once
 

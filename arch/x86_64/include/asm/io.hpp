@@ -1,12 +1,12 @@
-/*
- * arch/x86_64/include/asm/io.hpp
+/**
+ *	@file arch/x86_64/include/asm/io.hpp
  *
- * x86 I/O operations
+ *	@brief x86-64 I/O operations
  */
 #pragma once
 
-#include <stdint.h>
 #include <compiler.h>
+#include <stdint.h>
 
 namespace ARCH {
 // note: function signature "uint16_t port" or "unsigned port"?
@@ -65,24 +65,24 @@ static __always_inline void insl(uint16_t port, void* addr, unsigned count)
 	asm volatile ("insl"::"D"(addr),"d"(port),"c"(count));
 }
 
-static __always_inline void outsb(uint16_t port, void* addr, unsigned count)
+static __always_inline void outsb(uint16_t port, const void* addr, unsigned count)
 {
 	asm volatile ("outsb"::"S"(addr),"d"(port),"c"(count));
 }
 
-static __always_inline void outsw(uint16_t port, void* addr, unsigned count)
+static __always_inline void outsw(uint16_t port, const void* addr, unsigned count)
 {
 	asm volatile ("outsb"::"S"(addr),"d"(port),"c"(count));
 }
 
-static __always_inline void outsl(uint16_t port, void* addr, unsigned count)
+static __always_inline void outsl(uint16_t port, const void* addr, unsigned count)
 {
 	asm volatile ("outsb"::"S"(addr),"d"(port),"c"(count));
 }
 
-/*
+/**
  *	@function: io_delay
- *	@description: make a suitable cpu delay for io operations
+ *	@brief: make a suitable cpu delay for io operations
  *	@input: no
  */
 static __always_inline void io_delay(void)

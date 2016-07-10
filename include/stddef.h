@@ -1,7 +1,7 @@
-/*
- *	include/stddef.h
+/**
+ *	@file include/stddef.h
  *
- *	...
+ *	@brief ...
  */
 #pragma once
 

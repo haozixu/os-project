@@ -1,40 +1,39 @@
-# arch/x86_64
+# arch/x86_64/Makefile
 
 PLATFORM =
-CC = $(PLATFORM)gcc
+ASM = $(PLATFORM)gcc
 CXX = $(PLATFORM)g++ -std=c++11
 
-ASMFLAGS = -I../../include/boot
 CXXFLAGS = -m64 -O2 -mcmodel=large -ffreestanding -fno-strict-aliasing -Iinclude -I../../include -DARCH=x86_64 -w
-CXXFLAGS += -fno-exceptions -fno-rtti
+CXXFLAGS += -fno-exceptions -fno-rtti -fno-threadsafe-statics
+
+ASMFLAGS = -I../../include
 
 ARCH_CXX_SRC = $(wildcard *.cpp)
-ARCH_ASM_SRC = $(wildcard lib/*.S)
+ARCH_CXX_SRC += $(wildcard kernel/*.cpp)
+ARCH_CXX_SRC += $(wildcard memory/*.cpp)
+ARCH_ASM_SRC = $(wildcard *.S)
+ARCH_ASM_SRC += $(wildcard lib/*.S)
 
-ARCH_OBJS =  $(patsubst %.cpp,%.o,$(ARCH_CXX_SRC))
+ARCH_OBJS = $(patsubst %.cpp,%.o,$(ARCH_CXX_SRC))
 ARCH_OBJS += $(patsubst %.S,%.o,$(ARCH_ASM_SRC))
-BOOT_OBJS = boot.o
 
-.PHONY: all boot clean
+.PHONY: all clean
 
-%o: %.cpp
+%.o: %.S
+	$(ASM) $(ASMFLAGS) -c -o $@ $<
+
+%.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
-%o: %.S
-	$(CC) $(ASMFLAGS) -c -o $@ $<
-
-all: arch.a
-	cp $^ ../../build/
-
-boot.o: boot/boot.S
-	$(CC) $(ASMFLAGS) -c $<
-
-boot: $(BOOT_OBJS)
+all: arch.a boot.o
 	cp $^ ../../build/
 	
 arch.a: $(ARCH_OBJS)
 	ar rcs $@ $^
 
+boot.o: boot/boot.S
+	$(ASM) $(ASMFLAGS) -c -o $@ $<
+
 clean: 
-	rm -f arch.a $(BOOT_OBJS) $(ARCH_OBJS)
-	
+	rm -f arch.a boot.o $(ARCH_OBJS) 

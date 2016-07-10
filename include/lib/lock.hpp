@@ -17,9 +17,9 @@ struct __lockable {
 	self& operator=(const self&) noexcept = delete;
 	self& operator=(self&&) noexcept = default;
 	
-	virtual void lock() noexcept = 0;
-	virtual void unlock() noexcept = 0;
-	virtual bool try_lock() noexcept = 0;
+//	virtual void lock() noexcept = 0;
+//	virtual void unlock() noexcept = 0;
+//	virtual bool try_lock() noexcept = 0;
 };
 
 template<typename Lock>

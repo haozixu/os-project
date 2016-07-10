@@ -1,7 +1,11 @@
 #（伪）代码规范
 
+##新事项
+有可能的话，遵循ISO C++的风格
+参见https://github.com/isocpp/CppCoreGuidelines
+
 ## 1.标志符命名
-采用（比较恶心的）下划线命名法
+采用下划线命名法
 > e.g. int get_property()
  
 而不是camelCase或者是PascalCase

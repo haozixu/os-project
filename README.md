@@ -1,15 +1,13 @@
-# MNHLOFT-Kernel (aka 'the experimental OS project')
+# A personal experimental OS project (just for fun :-)
 
-### **Open source, purify the world.**
-
-### to compile the kernel/OS, follow these steps:
+### to compile the OS, follow these steps:
 
 ## check prerequisites:
 + you are using GNU/Linux
 + C and C++ compiler: gcc g++
 + genisoimage: make kernel/OS iso image(a replacement of mkisofs)
 + python: to do some configuration work
-+ qemu/bochs: test kernel/OS on virtual machine
++ qemu/bochs: test OS on virtual machines
 
 > note: the grub bootloader is also needed, its binary can be found in build/prebuilt-binaries/
 

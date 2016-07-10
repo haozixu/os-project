@@ -12,12 +12,11 @@ PLATFORM =
 CC = $(PLATFORM)gcc -std=c99
 CXX = $(PLATFORM)g++ -std=c++11
 
-.PHONY: all rebuild config run debug image kernel boot bootloader clean clean_all
+.PHONY: all rebuild config run debug image kernel bootloader doc clean clean_doc clean_all
 
-all: *.*
+all:
 	make config
 	make bootloader
-	make boot
 	make kernel
 	make image
 	
@@ -29,8 +28,8 @@ image: $(OUTPUT_TARGET)
 	genisoimage -R -no-emul-boot -boot-info-table -boot-load-size 4 \
 	-input-charset utf-8 -b g2ldr -o cdimage.iso $(OUTPUT) 
 
-config: *.*
-	build/do_config.py
+config: build/CONFIG.lst
+	python build/do_config.py
 	ln -f -s ../arch/$(ARCH)/include include/arch
 	rm -f arch/$(ARCH)/include/include
 
@@ -40,13 +39,10 @@ run: cdimage.iso
 debug: cdimage.iso
 	bochs -q -f build/debug/bochs_config.bxrc
 
-kernel: $(OUTPUT)/kernel.bin
-
-$(OUTPUT)/kernel.bin: *.*
+kernel:
+	cd arch/$(ARCH); make all
+	cd kernel; make all
 	cd build; make all
-
-boot:
-	cd arch/$(ARCH); make boot
 
 bootloader: $(OUTPUT)/g2ldr 
 
@@ -58,11 +54,19 @@ $(OUTPUT)/g2ldr: build/prebuilt-binaries/g2ldr
 #	grub-mkimage -d /mnt/usr/lib/grub/i386-pc -p /$(GRUB_PREFIX) \
 #	-o $(OUTPUT)/g2ldr -O i386-pc-eltorito biosdisk iso9660 multiboot2 normal	
 
+
+doc:
+	doxygen Doxyfile
+
 clean:
 	rm -f cdimage.iso $(OUTPUT_TARGET)
+	
+clean_doc:
+	rm -rf document/html document/latex document/doxygen_sqlite3.db
 		
 clean_all:
 	make clean
 	cd build; make clean
 	cd kernel; make clean
-	cd arch/$(ARCH); make clean 
+	cd arch/$(ARCH); make clean
+	make clean_doc 

@@ -25,16 +25,16 @@ static inline constexpr size_t array_length(T (&)[N])
 	return N;
 }
 
-template<typename Ui, typename I> // Ui stands for unsigned integer
-static inline constexpr Ui align_up(Ui n, I align)
+template<typename Uint, typename Int> // Uint stands for unsigned integer
+static inline constexpr Uint align_up(Uint n, Int align)
 {
-	return (n + align - 1) & ~(static_cast<Ui>(align) - 1);
+	return (n + align - 1) & ~(static_cast<Uint>(align) - 1);
 }
 
-template<typename Ui, typename I> // Ui stands for unsigned integer
-static inline constexpr Ui align_down(Ui n, I align)
+template<typename Uint, typename Int> // Uint stands for unsigned integer
+static inline constexpr Uint align_down(Uint n, Int align)
 {
-	return n & ~(static_cast<Ui>(align) - 1);
+	return n & ~(static_cast<Uint>(align) - 1);
 }
 
 #endif // CONFIG_USE_MACRO

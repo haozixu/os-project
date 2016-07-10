@@ -1,7 +1,7 @@
-/*
- *	arch/x86_64/include/asm/misc.hpp
+/**
+ *	@file arch/x86_64/include/asm/misc.hpp
  *
- *	miscellaneous asm operations
+ *	@brief miscellaneous assembly operations
  */
 #pragma once
 
@@ -9,34 +9,34 @@
 
 namespace ARCH {
 
-static __always_inline void pause(void)
+static __always_inline void pause()
 {
 	asm volatile ("pause");
 }
 
-static __always_inline void hlt(void)
+static __always_inline void hlt()
 {
 	asm volatile ("hlt");
 }
 
-// namespace ARCH interface
+/// namespace ARCH interface
 
-/*
+/**
  *	@function: relax_cpu
- *	@description: ...
+ *	@brief: ...
  *	@input: no
  */
-static __always_inline void relax_cpu(void)
+static __always_inline void relax_cpu()
 {
 	pause();
 }
 
-/*
+/**
  *	@function: halt_cpu
- *	@description: halt the cpu
+ *	@brief: halt the cpu
  *	@input: no
  */
-static __always_inline void halt_cpu(void)
+static __always_inline void halt_cpu()
 {
 	hlt();
 }

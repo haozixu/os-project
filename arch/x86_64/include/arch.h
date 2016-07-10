@@ -23,5 +23,5 @@
 #	define __KERNEL_WORD_SIZE 4
 	typedef unsigned long __kernel_word_t;
 	typedef long __signed_kernel_word_t;	
-#endif // __x86_64_
+#endif // __x86_64__
 

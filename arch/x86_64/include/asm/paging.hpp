@@ -1,14 +1,14 @@
-/*
- * 	arch/x86_64/include/asm/paging.hpp
+/**
+ *	@file arch/x86_64/include/asm/paging.hpp
  *
- * 	IA-32e paging stuff
+ *	@brief IA-32e paging stuff
  */
 #pragma once
 
-#include <stdint.h>
-#include <compiler.h>
+#include <memory/pgtable.hpp>
 
-#include <pgtable.hpp>
+#include <compiler.h>
+#include <stdint.h>
 
 namespace ARCH {
 
@@ -115,7 +115,7 @@ enum __page_flags : uint64_t {
 	PG_XD	= (1UL << 63) 	// eXecute Disable
 };
 
-static __always_inline int has_1G_pages(void)
+static __always_inline int has_1G_pages()
 {
 	int ret;
 	asm volatile (
@@ -130,7 +130,7 @@ static __always_inline int has_1G_pages(void)
 	return ret;
 }
 
-static __always_inline int PGE_available(void)
+static __always_inline int PGE_available()
 {
 	int ret;
 	asm volatile (

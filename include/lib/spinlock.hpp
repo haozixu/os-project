@@ -1,14 +1,13 @@
-/*
- *	include/lib/spinlock.hpp
+/**
+ *	@file include/lib/spinlock.hpp
  *
- *	spinlocks
+ *	@brief fifo spinlock
  */
 #pragma once
 
 #include <lib/lock.hpp>
 #include <lib/atomic.hpp>
-#include <asm/misc.hpp>
-#include <bitwidth.h>
+#include <arch/asm/misc.hpp>
 
 namespace lib {
 
@@ -24,7 +23,7 @@ class fifo_spinlock final : public lib::__lockable {
 		return owner.load() != next.load();
 	}
 	
-  	void lock() noexcept override
+  	void lock() noexcept
 	{
 		unsigned int val = next++;
 		while (val != owner) {
@@ -32,12 +31,12 @@ class fifo_spinlock final : public lib::__lockable {
 		}
 	}
 	
-	void unlock() noexcept override
+	void unlock() noexcept
 	{
 		++owner;
 	}
 	
-	bool try_lock() noexcept override
+	bool try_lock() noexcept
 	{
 		unsigned int new_next = next + 1;
 		unsigned int owner_val = owner.load();

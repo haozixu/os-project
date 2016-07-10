@@ -1,7 +1,8 @@
-/*
- * 	include/kernel/init.h
+/**
+ * @file`include/kernel/init.h
  *
- * 	should this file become a part of compiler.h?
+ * @brief initializer attribute
+ *`@note should this file become a part of compiler.h?
  */
 #pragma once
 

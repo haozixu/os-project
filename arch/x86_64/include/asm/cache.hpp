@@ -1,7 +1,7 @@
-/*
- * 	arch/x86_64/include/asm/cache.hpp
+/**
+ *	@file arch/x86_64/include/asm/cache.hpp
  *
- * 	cache, TLB related operations
+ *	@brief cache, TLB related operations
  */
 #pragma once
 
@@ -10,26 +10,27 @@
 namespace ARCH {
 
 #define CACHELINE_SIZE 64
+/// use constexpr instead ?
 
 #define __cacheline_aligned __aligned(CACHELINE_SIZE)
 
-// namespace ARCH interface
-/*
+/// namespace ARCH interface
+/**
  *	@function(overload): flush_tlb
- *	@description: invalidate page TLB
+ *	@brief: invalidate page TLB
  *	@input: addr=address of the page
  */
-static __always_inline void flush_tlb(void *addr)
+static __always_inline void flush_tlb(void* addr)
 {
 	asm volatile ("invlpg (%0)"::"r"(addr):"memory");
 }
 
-/*
+/**
  *	@function(overload): flush_tlb
- *	@description: invalidate all TLB
+ *	@brief: invalidate all TLB
  *	@input: no
  */
-static __always_inline void flush_tlb(void)
+static __always_inline void flush_tlb()
 {
 	asm volatile (
 			"movq %%cr3, %%rax \n\t"

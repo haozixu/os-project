@@ -1,7 +1,7 @@
-/*
- * 	arch/x86_64/include/asm/barrier.hpp
+/**
+ *	@file arch/x86_64/include/asm/barrier.hpp
  *
- * 	memory barrier
+ *	@brief memory barrier
  */
 #pragma once
 
@@ -9,49 +9,49 @@
 
 namespace ARCH {
 
-// load fence
-static __always_inline void lfence(void)
+/// load fence
+static __always_inline void lfence()
 {
 	asm volatile ("lfence":::"memory");
 }
 
-// store fence
-static __always_inline void sfence(void)
+/// store fence
+static __always_inline void sfence()
 {
 	asm volatile ("sfence":::"memory");
 }
 
-// memory fence
-static __always_inline void mfence(void)
+/// memory fence
+static __always_inline void mfence()
 {
 	asm volatile ("mfence":::"memory");
 }
 
-// namespace ARCH interface
+/// namespace ARCH interface
 
-/*
+/**
  *	@function: read_barrier
- *	@description: synchronize all read operations
+ *	@brief: synchronize all read operations
  */
-static __always_inline void read_barrier(void)
+static __always_inline void read_barrier()
 {
 	lfence();
 }
 
-/*
+/**
  *	@function: write_barrier
- *	@description: synchronize all write operations
+ *	@brief: synchronize all write operations
  */
-static __always_inline void write_barrier(void)
+static __always_inline void write_barrier()
 {
 	sfence();
 }
 
-/*
+/**
  *	@function: memory_barrier
- *	@description: synchronize all memory operations
+ *	@brief: synchronize all memory operations
  */
-static __always_inline void memory_barrier(void)
+static __always_inline void memory_barrier()
 {
 	mfence();
 }

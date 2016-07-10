@@ -1,12 +1,12 @@
-/*
- * arch/x86_64/include/asm/msr.hpp
+/**
+ *	@file arch/x86_64/include/asm/msr.hpp
  *
- * Model Specific Registers(MSR) operation
+ *	@brief x86-64 Model Specific Registers(MSR) operations
  */
 #pragma once
 
-#include <stdint.h>
 #include <compiler.h>
+#include <stdint.h>
 
 namespace ARCH {
 

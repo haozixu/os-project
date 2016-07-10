@@ -9,7 +9,7 @@
 #include <string.h>
 //#include <stdbool.h>
 
-#include <arch/bitwidth.h>
+#include <arch/cpu/bitwidth.hpp>
 
 // note: when giving range begin & end, it means [begin, end)
 

@@ -1,7 +1,7 @@
 /*
  *	include/.config.h
  *
- *	This file is auto generated. Do not modify manually!
+ *	This file is generated automatically. Do not modify manually!
  */
 #pragma once
 // arch

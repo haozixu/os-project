@@ -1,7 +1,7 @@
-/*
- *	arch/x86_64/include/asm/cpuid.hpp
+/**
+ *	@file arch/x86_64/include/asm/cpuid.hpp
  *
- * 	cpuid related functions
+ * 	@brief CPUID related operations
  */
 #pragma once
 
@@ -14,6 +14,9 @@ struct cpuid_regs {
 	uint32_t eax, ecx, edx, ebx;
 };
 
+/**
+ *	@brief encapsulated CPUID instruction call
+ */
 static __always_inline void cpuid(uint32_t function, struct cpuid_regs& regs)
 {
 	asm volatile (

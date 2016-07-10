@@ -1,7 +1,7 @@
 # arch/x86_64/boot/boot.S
 
 #define ASM_FILE
-#include <multiboot2.h>
+#include <boot/multiboot2.h>
 
 .section ".boot", "ax"
 
